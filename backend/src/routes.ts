@@ -1,7 +1,16 @@
 import express from "express";
 const router = express.Router();
 
-// Start of Routes
-// End of Routes
+// Start of Routes Cliente
+// End of Routes Cliente
+
+// Inicio de rotas Profissionais
+// Fim de rotas Profissionais
+
+// Inicio de rotas Serviços
+// Fim de rotas Serviços
+
+// Inicio de rotas ProfisionalServiço
+// Inicio de rotas ProfissionalServiço
 
 export default router
