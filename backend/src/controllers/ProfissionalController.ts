@@ -1,15 +1,16 @@
+import mongoose from "mongoose";
+import { Types, Mongoose } from "mongoose";
 import { Request, Response } from "express";
 import Logger from "../database/logger";
-import { IProfissional } from "../models/Profissional";
+import { IProfissional, Profissional } from "../models/Profissional";
 import ProfissionalRepository from "../repositories/ProfissionalRepository";
 import bcrypty from "bcryptjs";
-import { loggers } from "winston";
 
 class ProfissionalController {
   static async allProfissionais(req: Request, res: Response) {
     try {
       const profissionais: Array<IProfissional> =
-        await ProfissionalRepository.getAllProfissionais();
+        await ProfissionalRepository.getAllProfissionais(Profissional);
 
       if (profissionais.length <= 0) {
         Logger.info("Nenhum profissional até o momento");
@@ -40,8 +41,11 @@ class ProfissionalController {
           .json({ success: false, msg: "Insira um id válido" });
       }
 
-      const { id } = req.params;
-      const profissional = await ProfissionalRepository.getOneProfissional(id);
+      const id = new mongoose.Types.ObjectId(req.params.id);
+      const profissional = await ProfissionalRepository.getOneProfissional(
+        id,
+        Profissional
+      );
 
       if (!profissional) {
         Logger.error("Profissional não encontrado");
@@ -106,8 +110,11 @@ class ProfissionalController {
           .json({ success: false, msg: "Insira um id válido" });
       }
 
-      const { id } = req.params;
-      const profissional = await ProfissionalRepository.getOneProfissional(id);
+      const id = new mongoose.Types.ObjectId(req.params.id);
+      const profissional = await ProfissionalRepository.getOneProfissional(
+        id,
+        Profissional
+      );
 
       if (!profissional) {
         Logger.error("Profissional não encontrado");
@@ -117,7 +124,11 @@ class ProfissionalController {
         });
       } else {
         const updatedProfissional =
-          await ProfissionalRepository.updateProfissional(id, profissionalObj);
+          await ProfissionalRepository.updateProfissional(
+            id,
+            profissionalObj,
+            Profissional
+          );
 
         Logger.info("Profissional atualizado");
         return res.status(200).json({
@@ -141,8 +152,11 @@ class ProfissionalController {
           .json({ success: false, msg: "Insira um id válido" });
       }
 
-      const { id } = req.params;
-      const profissional = await ProfissionalRepository.getOneProfissional(id);
+      const id = new mongoose.Types.ObjectId(req.params.id);
+      const profissional = await ProfissionalRepository.getOneProfissional(
+        id,
+        Profissional
+      );
 
       if (!profissional) {
         Logger.error("Profissional não encontrado");
@@ -151,7 +165,7 @@ class ProfissionalController {
           msg: "Profissional não encontrado",
         });
       } else {
-        await ProfissionalRepository.deleteProfissional(id);
+        await ProfissionalRepository.deleteProfissional(id, Profissional);
 
         Logger.info("Profissional deletado");
         return res.status(200).json({

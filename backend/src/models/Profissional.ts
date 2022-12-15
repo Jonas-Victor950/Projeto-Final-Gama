@@ -1,6 +1,7 @@
-import { Schema, model, ObjectId, isValidObjectId } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 interface IProfissional {
+
   nome: string;
   email: string;
   senha: string;
@@ -24,4 +25,4 @@ const profissionalSchema = new Schema<IProfissional>(
 
 const Profissional = model<IProfissional>("Profissional", profissionalSchema);
 
-export { Profissional, IProfissional };
+export { Profissional, IProfissional, profissionalSchema };

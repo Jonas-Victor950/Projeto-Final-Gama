@@ -1,13 +1,15 @@
 import { ObjectId } from "mongoose";
+import Logger from "../database/logger";
+import mongoose from "mongoose";
 import { IProfissional, Profissional } from "../models/Profissional";
 
 class ProfissionalRepository {
-  getAllProfissionais(): Promise<Array<any>> {
+  getAllProfissionais(Profissional: any): Promise<Array<any>> {
     return Profissional.find();
   }
 
-  getOneProfissional(profissionalId: string): Promise<any> {
-    return Profissional.findOne({ _id: profissionalId });
+  getOneProfissional(profissionalId: mongoose.Types.ObjectId, Profissional: any): Promise<any> {
+    return Profissional.findOne({ _id:  profissionalId });
   }
 
   createProfissional(dados: IProfissional): Promise<any> {
@@ -21,8 +23,9 @@ class ProfissionalRepository {
   }
 
   updateProfissional(
-    profissionalId: string,
-    dados: IProfissional
+    profissionalId: mongoose.Types.ObjectId,
+    dados: IProfissional,
+    Profissional: any
   ): Promise<Array<any>> {
     return Profissional.updateOne(
       { _id: profissionalId },
@@ -36,7 +39,7 @@ class ProfissionalRepository {
     );
   }
 
-  deleteProfissional(profissionalId: string): Promise<any> {
+  deleteProfissional(profissionalId: mongoose.Types.ObjectId, Profissional: any): Promise<any> {
     return Profissional.deleteOne({ profissionalId });
   }
 }
