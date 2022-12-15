@@ -1,20 +1,23 @@
-import { Schema, model, Types} from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 interface IServico {
-    servico: string;
-    preco: string;
-    duracao: string
+  servico: string;
+  preco: string;
+  duracao: string;
 }
 
-const servicoSchema = new Schema<IServico>({
-    servico: {type: String, required: true},
-    preco: {type: String, required: true},
-    duracao: {type: String, required: true}
-}, {
+const servicoSchema = new Schema<IServico>(
+  {
+    servico: { type: String, required: true },
+    preco: { type: String, required: true },
+    duracao: { type: String, required: true },
+  },
+  {
     timestamps: true,
-    collection: "Servico"
-})
+    collection: "Servico",
+  }
+);
 
-const servico = model<IServico>('Servico', servicoSchema)
+const servico = model<IServico>("Servico", servicoSchema);
 
-export default servico
+export default servico;
