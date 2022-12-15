@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Types, Mongoose } from "mongoose";
+import MESSAGE from "../constants/messages";
 import { Request, Response } from "express";
 import Logger from "../database/logger";
 import { IProfissional, Profissional } from "../models/Profissional";
@@ -13,32 +13,32 @@ class ProfissionalController {
         await ProfissionalRepository.getAllProfissionais(Profissional);
 
       if (profissionais.length <= 0) {
-        Logger.info("Nenhum profissional até o momento");
+        Logger.info(MESSAGE.ERROR.PROFISSIONAIS.NONE_PROFSSIONAL_UNTIL_NOW);
         return res.status(200).json({
           success: false,
-          msg: "Nenhum profissional até o momento",
+          msg: MESSAGE.ERROR.PROFISSIONAIS.NONE_PROFSSIONAL_UNTIL_NOW,
         });
       } else {
-        Logger.info("Profissionais encontrados");
+        Logger.info(MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONALS_FOUND);
         return res.status(200).json({
           success: true,
-          msg: "Profissionais encontrados",
+          msg: MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONALS_FOUND,
           data: profissionais,
         });
       }
     } catch (error: any) {
-      Logger.error(`Pane no sistema: ${error.message}`);
-      return res.status(500).json({ success: false, msg: "✖️ Ops, deu ruim!" });
+      Logger.error(`${error.message}`);
+      return res.status(500).json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   }
 
   static async getOneProfissional(req: Request, res: Response) {
     try {
       if (!req.params.id || isNaN(parseInt(req.params.id))) {
-        Logger.error("Insira um id válido");
+        Logger.error(MESSAGE.ERROR.NOT_VALID_ID);
         return res
           .status(500)
-          .json({ success: false, msg: "Insira um id válido" });
+          .json({ success: false, msg: MESSAGE.ERROR.NOT_VALID_ID });
       }
 
       const id = new mongoose.Types.ObjectId(req.params.id);
@@ -48,18 +48,18 @@ class ProfissionalController {
       );
 
       if (!profissional) {
-        Logger.error("Profissional não encontrado");
+        Logger.error(MESSAGE.ERROR.PROFISSIONAIS.PROFISSIONAL_NOT_FOUND);
         return res.status(500).json({
           success: false,
-          msg: "Profissional não encontrado",
+          msg: MESSAGE.ERROR.PROFISSIONAIS.PROFISSIONAL_NOT_FOUND,
         });
       } else {
-        Logger.info("Mandando o profissional que foi pedido!");
+        Logger.info(MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_SENDING);
         return res.json({ success: true, data: profissional });
       }
     } catch (error) {
       Logger.error(error);
-      return res.status(500).json({ success: false, msg: "✖️ Ops, deu ruim!" });
+      return res.status(500).json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   }
 
@@ -79,15 +79,15 @@ class ProfissionalController {
         profissionalObj
       );
 
-      Logger.info("Profissional Criado");
+      Logger.info(MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_CREATED);
       return res.status(200).json({
         success: true,
-        msg: "Profissional Criado",
+        msg: MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_CREATED,
         data: profissional,
       });
     } catch (error) {
       Logger.error(error);
-      return res.status(500).json({ success: false, msg: "✖️ Ops, deu ruim!" });
+      return res.status(500).json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   }
 
@@ -104,10 +104,10 @@ class ProfissionalController {
 
     try {
       if (!req.params.id || isNaN(parseInt(req.params.id))) {
-        Logger.error("Insira um id válido");
+        Logger.error(MESSAGE.ERROR.NOT_VALID_ID);
         return res
           .status(500)
-          .json({ success: false, msg: "Insira um id válido" });
+          .json({ success: false, msg: MESSAGE.ERROR.NOT_VALID_ID });
       }
 
       const id = new mongoose.Types.ObjectId(req.params.id);
@@ -117,10 +117,10 @@ class ProfissionalController {
       );
 
       if (!profissional) {
-        Logger.error("Profissional não encontrado");
+        Logger.error(MESSAGE.ERROR.PROFISSIONAIS.PROFISSIONAL_NOT_FOUND);
         return res.status(500).json({
           success: false,
-          msg: "Profissional não encontrado",
+          msg: MESSAGE.ERROR.PROFISSIONAIS.PROFISSIONAL_NOT_FOUND,
         });
       } else {
         const updatedProfissional =
@@ -130,26 +130,26 @@ class ProfissionalController {
             Profissional
           );
 
-        Logger.info("Profissional atualizado");
+        Logger.info(MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_UPDATED);
         return res.status(200).json({
           success: true,
-          msg: "Profissional atualizado",
+          msg: MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_UPDATED,
           data: profissionalObj,
         });
       }
     } catch (error) {
       Logger.error(error);
-      return res.status(500).json({ success: false, msg: "✖️ Ops, deu ruim!" });
+      return res.status(500).json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   }
 
   static async deleteOneProfissional(req: Request, res: Response) {
     try {
       if (!req.params.id || isNaN(parseInt(req.params.id))) {
-        Logger.error("Insira um id válido");
+        Logger.error(MESSAGE.ERROR.NOT_VALID_ID);
         return res
           .status(500)
-          .json({ success: false, msg: "Insira um id válido" });
+          .json({ success: false, msg: MESSAGE.ERROR.NOT_VALID_ID });
       }
 
       const id = new mongoose.Types.ObjectId(req.params.id);
@@ -159,23 +159,23 @@ class ProfissionalController {
       );
 
       if (!profissional) {
-        Logger.error("Profissional não encontrado");
+        Logger.error(MESSAGE.ERROR.PROFISSIONAIS.PROFISSIONAL_NOT_FOUND);
         return res.status(500).json({
           success: false,
-          msg: "Profissional não encontrado",
+          msg: MESSAGE.ERROR.PROFISSIONAIS.PROFISSIONAL_NOT_FOUND,
         });
       } else {
         await ProfissionalRepository.deleteProfissional(id, Profissional);
 
-        Logger.info("Profissional deletado");
+        Logger.info(MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_DELETED);
         return res.status(200).json({
           success: true,
-          msg: "Profissional deletado",
+          msg: MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_DELETED,
         });
       }
     } catch (error) {
       Logger.error(error);
-      return res.status(500).json({ success: false, msg: "✖️ Ops, deu ruim!" });
+      return res.status(500).json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   }
 }
