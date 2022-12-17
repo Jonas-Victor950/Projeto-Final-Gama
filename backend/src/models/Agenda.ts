@@ -1,20 +1,27 @@
-import { Schema, model, Types} from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 interface IAgenda {
-    profissionalServico: Types.ObjectId;
-    cliente: Types.ObjectId;
-    data: Date
+  profissionalServico: Types.ObjectId;
+  cliente: Types.ObjectId;
+  data: Date;
 }
 
-const agendaSchema = new Schema<IAgenda>({
-    profissionalServico: {type: Schema.Types.ObjectId, required: true, ref: "ProfissionalServico"},
-    cliente: {type: Schema.Types.ObjectId, required: true, ref: "Cliente"},
-    data: {type: Date, required: true},
-}, {
+const agendaSchema = new Schema<IAgenda>(
+  {
+    profissionalServico: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "ProfissionalServico",
+    },
+    cliente: { type: Schema.Types.ObjectId, required: true, ref: "Cliente" },
+    data: { type: Date, required: true },
+  },
+  {
     timestamps: true,
-    collection: "Agenda"
-})
+    collection: "Agenda",
+  }
+);
 
-const Agenda = model<IAgenda>('Agenda', agendaSchema)
+const Agenda = model<IAgenda>("Agenda", agendaSchema);
 
-export default Agenda
+export default Agenda;
