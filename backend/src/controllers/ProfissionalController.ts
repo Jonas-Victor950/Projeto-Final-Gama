@@ -157,7 +157,7 @@ class ProfissionalController {
         id,
         Profissional
       );
-
+      
       if (!profissional) {
         Logger.error(MESSAGE.ERROR.PROFISSIONAIS.PROFISSIONAL_NOT_FOUND);
         return res.status(500).json({
@@ -165,7 +165,7 @@ class ProfissionalController {
           msg: MESSAGE.ERROR.PROFISSIONAIS.PROFISSIONAL_NOT_FOUND,
         });
       } else {
-        await ProfissionalRepository.deleteProfissional(id, Profissional);
+        await ProfissionalRepository.deleteProfissional(id);
 
         Logger.info(MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_DELETED);
         return res.status(200).json({

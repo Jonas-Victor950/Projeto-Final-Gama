@@ -172,7 +172,7 @@ const clienteController = {
                     });
                 }
                 else {
-                    yield ClienteRepository_1.default.deletarCliente(id, Cliente_1.Cliente);
+                    yield ClienteRepository_1.default.deletarCliente(id);
                     logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_DELETED);
                     return res.status(200).json({
                         success: true,

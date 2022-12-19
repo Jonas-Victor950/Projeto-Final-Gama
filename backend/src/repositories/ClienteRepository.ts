@@ -42,11 +42,8 @@ class ClienteRepository {
     );
   }
 
-  deletarCliente(
-    ClienteId: mongoose.Types.ObjectId,
-    Cliente: any
-  ): Promise<any> {
-    return Cliente.deleteOne({ ClienteId });
+  deletarCliente(id: mongoose.Types.ObjectId) {
+    return Cliente.findByIdAndDelete(id)
   }
 }
 

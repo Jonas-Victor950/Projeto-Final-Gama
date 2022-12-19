@@ -164,7 +164,7 @@ const clienteController = {
           msg: MESSAGE.ERROR.CLIENTES.CLIENTE_NOT_FOUND,
         });
       } else {
-        await ClienteRepository.deletarCliente(id, Cliente);
+        await ClienteRepository.deletarCliente(id);
 
         Logger.info(MESSAGE.SUCCESS.CLIENTES.CLIENTE_DELETED);
         return res.status(200).json({

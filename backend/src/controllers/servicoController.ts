@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import mongoose from 'mongoose';
+import mongoose, { ObjectId } from 'mongoose';
 import MESSAGE from '../constants/messages';
 import Logger from '../database/logger';
-import { servico, IServico } from '../models/Servico';
+import { Servico, IServico } from '../models/Servico';
 import ServicoRepository from '../repositories/ServicoRepository';
 
 const servicoController = {
@@ -14,8 +14,8 @@ const servicoController = {
       duracao,
     };
     try {
-      await ServicoRepository.criarServico(novoServico);
-      return res.status(201).json(novoServico);
+      const servicos = await ServicoRepository.criarServico(novoServico);
+      return res.status(201).json(servicos);
     } catch (error) {
       Logger.error(error);
     }
@@ -52,14 +52,20 @@ const servicoController = {
   async atulizarServico(req: Request, res: Response) {
     try {
       const id = new mongoose.Types.ObjectId(req.params.id);
-      const newServico: { servico: string; preco: string; duracao: string } =
-        req.body;
+      const  { servico, preco, duracao } = req.body;
 
-      const servicos = await ServicoRepository.atualizarServico(id, newServico);
+      const servicoAtualizado: IServico = {
+        servico,
+        preco,
+        duracao,
+      }
 
-      const newServico2 = await servico.findById(id);
+      const servicos = await ServicoRepository.atualizarServico(id, servicoAtualizado);
+      
+      const newServico2 = await Servico.findById(id);
       if (!newServico2) {
         res.status(404).json(MESSAGE.ERROR.SERVICOS.SERVICO_NOT_FOUND);
+        
       } else {
         res.status(200).json(MESSAGE.SUCCESS.SERVICO.SERVICO_SENDING);
       }
@@ -71,8 +77,9 @@ const servicoController = {
   async deletaServico(req: Request, res: Response) {
     try {
       const id = new mongoose.Types.ObjectId(req.params.id);
-      const servico = await ServicoRepository.deletarServico(id);
-      return res.json(MESSAGE.SUCCESS.SERVICO.SERVICO_DELETED).sendStatus(404);
+      await ServicoRepository.deletarServico(id);
+      return res.sendStatus(204)
+    
     } catch (error) {
       Logger.error(error);
     }

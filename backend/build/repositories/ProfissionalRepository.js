@@ -26,8 +26,8 @@ class ProfissionalRepository {
             sexo: dados.sexo,
         });
     }
-    deleteProfissional(profissionalId, Profissional) {
-        return Profissional.deleteOne({ profissionalId });
+    deleteProfissional(id) {
+        return Profissional_1.Profissional.findByIdAndDelete(id);
     }
 }
 exports.default = new ProfissionalRepository();

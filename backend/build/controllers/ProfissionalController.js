@@ -162,7 +162,7 @@ class ProfissionalController {
                     });
                 }
                 else {
-                    yield ProfissionalRepository_1.default.deleteProfissional(id, Profissional_1.Profissional);
+                    yield ProfissionalRepository_1.default.deleteProfissional(id);
                     logger_1.default.info(messages_1.default.SUCCESS.PROFISSIONAIS.PROFISSIONAL_DELETED);
                     return res.status(200).json({
                         success: true,

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.servico = void 0;
+exports.Servico = void 0;
 const mongoose_1 = require("mongoose");
 const servicoSchema = new mongoose_1.Schema({
     servico: { type: String, required: true },
@@ -10,5 +10,5 @@ const servicoSchema = new mongoose_1.Schema({
     timestamps: true,
     collection: "Servico",
 });
-const servico = (0, mongoose_1.model)("Servico", servicoSchema);
-exports.servico = servico;
+const Servico = (0, mongoose_1.model)("Servico", servicoSchema);
+exports.Servico = Servico;

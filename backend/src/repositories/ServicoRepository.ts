@@ -1,36 +1,37 @@
-import mongoose, { Model } from 'mongoose';
-import { servico, IServico } from '../models/Servico';
+import mongoose, { Model, ObjectId } from 'mongoose';
+import { Servico, IServico } from '../models/Servico';
 
 class ServicoRepository {
   criarServico(informacao: IServico) {
-    return servico.create({
-      servico: informacao.servico,
-      preco: informacao.preco,
-      duracao: informacao.duracao,
-    });
+    return Servico.create(informacao);
   }
 
   listarServicos() {
-    return servico.find();
+    return Servico.find();
   }
 
-  listarServicoId(id: any) {
-    return servico.findById(id);
+  listarServicoId(id: string) {
+    return Servico.findById(id);
   }
 
-  atualizarServico(servicoId: mongoose.Types.ObjectId, dados: IServico) {
-    return servico.updateOne(
-      { _id: servicoId },
+  atualizarServico(id: mongoose.Types.ObjectId, dados: IServico) {
+    return Servico.findByIdAndUpdate(
+    
+       id,
+      
       {
-        preco: dados.preco,
-        servico: dados.servico,
-        duracao: dados.duracao,
+        $set: {
+          servico: dados.servico,
+          preco: dados.preco,
+          duracao: dados.duracao
+        }
       }
     );
+     
+  
   }
-
   deletarServico(id: mongoose.Types.ObjectId) {
-    return servico.deleteOne({ id });
+    return Servico.findByIdAndDelete(id);
   }
 }
 

@@ -28,8 +28,8 @@ class ClienteRepository {
             sexo: dados.sexo,
         });
     }
-    deletarCliente(ClienteId, Cliente) {
-        return Cliente.deleteOne({ ClienteId });
+    deletarCliente(id) {
+        return Cliente_1.Cliente.findByIdAndDelete(id);
     }
 }
 exports.default = new ClienteRepository();

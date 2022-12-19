@@ -27,8 +27,8 @@ const servicoController = {
                 duracao,
             };
             try {
-                yield ServicoRepository_1.default.criarServico(novoServico);
-                return res.status(201).json(novoServico);
+                const servicos = yield ServicoRepository_1.default.criarServico(novoServico);
+                return res.status(201).json(servicos);
             }
             catch (error) {
                 logger_1.default.error(error);
@@ -70,9 +70,14 @@ const servicoController = {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const id = new mongoose_1.default.Types.ObjectId(req.params.id);
-                const newServico = req.body;
-                const servicos = yield ServicoRepository_1.default.atualizarServico(id, newServico);
-                const newServico2 = yield Servico_1.servico.findById(id);
+                const { servico, preco, duracao } = req.body;
+                const servicoAtualizado = {
+                    servico,
+                    preco,
+                    duracao,
+                };
+                const servicos = yield ServicoRepository_1.default.atualizarServico(id, servicoAtualizado);
+                const newServico2 = yield Servico_1.Servico.findById(id);
                 if (!newServico2) {
                     res.status(404).json(messages_1.default.ERROR.SERVICOS.SERVICO_NOT_FOUND);
                 }
@@ -89,8 +94,8 @@ const servicoController = {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const id = new mongoose_1.default.Types.ObjectId(req.params.id);
-                const servico = yield ServicoRepository_1.default.deletarServico(id);
-                return res.json(messages_1.default.SUCCESS.SERVICO.SERVICO_DELETED).sendStatus(404);
+                yield ServicoRepository_1.default.deletarServico(id);
+                return res.sendStatus(204);
             }
             catch (error) {
                 logger_1.default.error(error);

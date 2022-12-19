@@ -18,6 +18,6 @@ const servicoSchema = new Schema<IServico>(
   }
 );
 
-const servico = model<IServico>("Servico", servicoSchema);
+const Servico = model<IServico>("Servico", servicoSchema);
 
-export  {servico, IServico };
+export  {Servico, IServico };

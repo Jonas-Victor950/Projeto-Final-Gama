@@ -22,10 +22,10 @@ class Conection {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield (0, mongoose_1.connect)(this.db_conection_string);
-                logger_1.default.info("😄 Conectado com sucesso ao banco de dados!");
+                logger_1.default.info('😄 Conectado com sucesso ao banco de dados!');
             }
             catch (error) {
-                logger_1.default.error("😕 Falha ao conectar ao banco de dados.");
+                logger_1.default.error('😕 Falha ao conectar ao banco de dados.');
             }
         });
     }

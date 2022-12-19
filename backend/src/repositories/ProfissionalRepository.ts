@@ -39,8 +39,8 @@ class ProfissionalRepository {
     );
   }
 
-  deleteProfissional(profissionalId: mongoose.Types.ObjectId, Profissional: any): Promise<any> {
-    return Profissional.deleteOne({ profissionalId });
+  deleteProfissional(id: mongoose.Types.ObjectId) {
+    return Profissional.findByIdAndDelete(id)
   }
 }
 
