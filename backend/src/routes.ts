@@ -1,7 +1,8 @@
 import express from "express";
 import ProfissionalController from "./controllers/ProfissionalController";
 import ServicoController from "./controllers/servicoControlle";
-import ProfissionalServico from "./controllers/ProfissionalServicoController";
+import ProfissionalServicoController from "./controllers/ProfissionalServicoController";
+import ClienteController from './controllers/clienteController';
 const router = express.Router();
 
 // Start of Routes Cliente
@@ -23,14 +24,21 @@ router.put('/servico/:id', ServicoController.atulizarServico);
 router.delete('/servico/:id', ServicoController.deletaServico)
 // Fim de rotas Serviços
 
+// Inicio de rotas Clientes
+router.post('/cliente', ClienteController.criarCliente);
+router.get('/cliente', ClienteController.listarClientes);
+router.get('/cliente/:id', ClienteController.listarClienteId);
+router.put('/cliente/:id', ClienteController.atualizarCliente);
+router.delete('/cliente/:id', ClienteController.deletarCliente);
+// Fim de rotas Clientes
+
 // Inicio de rotas ProfisionalServiço
-router.post('/profissionalservico', ProfissionalServico.create);
-router.get('/profissionalservico', ProfissionalServico.findAll);
-router.get('/profissionalservico/:id', ProfissionalServico.findOne);
-//router.put('/profissionalservico/:id', ProfissionalServico.update);
-// router.delete('/servico/:id', ServicoController.deletaServico)
+router.post('/profissionalservico', ProfissionalServicoController.criarProfissionalServico);
+router.get('/profissionalservico', ProfissionalServicoController.listarProfissionalServico);
+router.get('/profissionalservico/:id', ProfissionalServicoController.listarProfissionalServicoId);
+router.put('/profissionalservico/:id', ProfissionalServicoController.atualizarProfissionalServico);
+router.delete('/profissionalservico/:id', ProfissionalServicoController.deletaProfissionalServico)
 
-
-// Inicio de rotas ProfissionalServiço
+// Fim de rotas ProfissionalServiço
 
 export default router;
