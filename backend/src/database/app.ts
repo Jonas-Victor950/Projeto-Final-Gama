@@ -11,7 +11,6 @@ const mongoDB = new Conection(
   `mongodb+srv://${authDB.user}:${authDB.pass}@cluster0.mbitszy.mongodb.net/?retryWrites=true&w=majority`
 );
 
-
 export default mongoDB ;
 
 
