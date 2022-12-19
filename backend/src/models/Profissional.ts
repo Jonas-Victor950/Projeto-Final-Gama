@@ -1,6 +1,7 @@
 import { Schema, model, Types } from "mongoose";
 
 interface IProfissional {
+
   nome: string;
   email: string;
   senha: string;
