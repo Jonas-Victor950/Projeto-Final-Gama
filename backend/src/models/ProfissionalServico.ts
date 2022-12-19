@@ -1,8 +1,8 @@
 import { Schema, model, Types } from "mongoose";
 
 interface IProfissionalServico {
-  profissional: Types.ObjectId;
-  servico: Types.ObjectId;
+    profissional: Types.ObjectId;
+    servico: Types.ObjectId;
 }
 
 const profissionalServicoSchema = new Schema<IProfissionalServico>(
@@ -20,6 +20,6 @@ const profissionalServicoSchema = new Schema<IProfissionalServico>(
   }
 );
 
-const ProfissionalServico = model<IProfissionalServico>("ProfissionalServico", profissionalServicoSchema);
+const profissionalServico = model<IProfissionalServico>("ProfissionalServico",  profissionalServicoSchema);
 
-export default ProfissionalServico;
+export {profissionalServico, IProfissionalServico }
