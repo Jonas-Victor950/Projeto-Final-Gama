@@ -6,7 +6,7 @@ class ServicoRepository {
         return Servico_1.servico.create({
             servico: informacao.servico,
             preco: informacao.preco,
-            duracao: informacao.duracao
+            duracao: informacao.duracao,
         });
     }
     listarServicos() {
@@ -23,7 +23,7 @@ class ServicoRepository {
         });
     }
     deletarServico(id) {
-        return Servico_1.servico.deleteOne();
+        return Servico_1.servico.deleteOne({ id });
     }
 }
-exports.default = new ServicoRepository;
+exports.default = new ServicoRepository();
