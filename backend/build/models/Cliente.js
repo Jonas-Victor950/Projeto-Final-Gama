@@ -11,7 +11,7 @@ const clienteSchema = new mongoose_1.Schema({
     sexo: { type: String, required: true },
 }, {
     timestamps: true,
-    collection: 'Cliente',
+    collection: "Cliente",
 });
-const Cliente = (0, mongoose_1.model)('Cliente', clienteSchema);
+const Cliente = (0, mongoose_1.model)("Cliente", clienteSchema);
 exports.Cliente = Cliente;

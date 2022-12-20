@@ -1,4 +1,5 @@
 import mongoose, {Model} from "mongoose";
+import { Profissional } from "../models/Profissional";
 import {profissionalServico, IProfissionalServico} from "../models/ProfissionalServico";
 
 
@@ -31,7 +32,7 @@ class ProfissionalServicoRepository {
     };
 
     deletarProfissionalServico(id: mongoose.Types.ObjectId) {
-        return profissionalServico.deleteOne()
+        return profissionalServico.findByIdAndDelete(id)
     }
 
 

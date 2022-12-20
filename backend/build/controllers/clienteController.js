@@ -109,16 +109,6 @@ const clienteController = {
     },
     atualizarCliente(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { nome, email, senha, telefone, aniversario, sexo } = req.body;
-            const newSenha = bcryptjs_1.default.hashSync(senha, 10);
-            const clienteObj = {
-                nome: nome,
-                email: email,
-                senha: newSenha,
-                telefone: telefone,
-                aniversario: aniversario,
-                sexo: sexo,
-            };
             try {
                 if (!req.params.id || isNaN(parseInt(req.params.id))) {
                     logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
@@ -136,13 +126,41 @@ const clienteController = {
                     });
                 }
                 else {
-                    const updateCliente = yield ClienteRepository_1.default.atualizarCliente(id, clienteObj, Cliente_1.Cliente);
-                    logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED);
-                    return res.status(200).json({
-                        success: true,
-                        msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED,
-                        data: clienteObj,
-                    });
+                    const { nome, email, senha, telefone, aniversario, sexo } = req.body;
+                    if (!senha) {
+                        const clienteobb = {
+                            nome: nome,
+                            email: email,
+                            telefone: telefone,
+                            aniversario: aniversario,
+                            sexo: sexo,
+                        };
+                        const updatedCliente = yield ClienteRepository_1.default.atualizarCliente(id, clienteobb);
+                        logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED);
+                        return res.status(200).json({
+                            success: true,
+                            msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED,
+                            data: clienteobb,
+                        });
+                    }
+                    else {
+                        const newSenha = bcryptjs_1.default.hashSync(senha, 10);
+                        const clienteObj = {
+                            nome: nome,
+                            email: email,
+                            senha: newSenha,
+                            telefone: telefone,
+                            aniversario: aniversario,
+                            sexo: sexo,
+                        };
+                        const updateCliente = yield ClienteRepository_1.default.atualizarCliente(id, clienteObj);
+                        logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED);
+                        return res.status(200).json({
+                            success: true,
+                            msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED,
+                            data: clienteObj,
+                        });
+                    }
                 }
             }
             catch (error) {

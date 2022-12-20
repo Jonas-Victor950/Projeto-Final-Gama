@@ -18,14 +18,16 @@ class ClienteRepository {
     listarClienteId(clienteId, Cliente) {
         return Cliente.findOne({ _id: clienteId });
     }
-    atualizarCliente(clienteId, dados, Cliente) {
-        return Cliente.updateOne({ _id: clienteId }, {
-            nome: dados.nome,
-            email: dados.email,
-            senha: dados.senha,
-            telefone: dados.telefone,
-            aniversario: dados.aniversario,
-            sexo: dados.sexo,
+    atualizarCliente(id, dados) {
+        return Cliente_1.Cliente.findByIdAndUpdate(id, {
+            $set: {
+                nome: dados.nome,
+                email: dados.email,
+                senha: dados.senha,
+                telefone: dados.telefone,
+                aniversario: dados.aniversario,
+                sexo: dados.sexo,
+            },
         });
     }
     deletarCliente(id) {

@@ -41,7 +41,9 @@ class ProfissionalController {
             }
             catch (error) {
                 logger_1.default.error(`${error.message}`);
-                return res.status(500).json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
+                return res
+                    .status(500)
+                    .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
             }
         });
     }
@@ -70,7 +72,9 @@ class ProfissionalController {
             }
             catch (error) {
                 logger_1.default.error(error);
-                return res.status(500).json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
+                return res
+                    .status(500)
+                    .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
             }
         });
     }
@@ -96,21 +100,14 @@ class ProfissionalController {
             }
             catch (error) {
                 logger_1.default.error(error);
-                return res.status(500).json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
+                return res
+                    .status(500)
+                    .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
             }
         });
     }
     static updateOneProfissional(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { nome, email, senha, telefone, sexo } = req.body;
-            const newSenha = bcryptjs_1.default.hashSync(senha, 10);
-            const profissionalObj = {
-                nome: nome,
-                email: email,
-                senha: newSenha,
-                telefone: telefone,
-                sexo: sexo,
-            };
             try {
                 if (!req.params.id || isNaN(parseInt(req.params.id))) {
                     logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
@@ -128,18 +125,46 @@ class ProfissionalController {
                     });
                 }
                 else {
-                    const updatedProfissional = yield ProfissionalRepository_1.default.updateProfissional(id, profissionalObj, Profissional_1.Profissional);
-                    logger_1.default.info(messages_1.default.SUCCESS.PROFISSIONAIS.PROFISSIONAL_UPDATED);
-                    return res.status(200).json({
-                        success: true,
-                        msg: messages_1.default.SUCCESS.PROFISSIONAIS.PROFISSIONAL_UPDATED,
-                        data: profissionalObj,
-                    });
+                    const { nome, email, senha, telefone, sexo } = req.body;
+                    if (!senha) {
+                        const profissionalobb = {
+                            nome: nome,
+                            email: email,
+                            telefone: telefone,
+                            sexo: sexo,
+                        };
+                        const updated1Profissional = yield ProfissionalRepository_1.default.updateProfissional(id, profissionalobb);
+                        logger_1.default.info(messages_1.default.SUCCESS.PROFISSIONAIS.PROFISSIONAL_UPDATED);
+                        return res.status(200).json({
+                            success: true,
+                            msg: messages_1.default.SUCCESS.PROFISSIONAIS.PROFISSIONAL_UPDATED,
+                            data: profissionalobb,
+                        });
+                    }
+                    else {
+                        const newSenha = bcryptjs_1.default.hashSync(senha, 10);
+                        const profissionalObj = {
+                            nome: nome,
+                            email: email,
+                            senha: newSenha,
+                            telefone: telefone,
+                            sexo: sexo,
+                        };
+                        const updatedProfissional = yield ProfissionalRepository_1.default.updateProfissional(id, profissionalObj);
+                        logger_1.default.info(messages_1.default.SUCCESS.PROFISSIONAIS.PROFISSIONAL_UPDATED);
+                        return res.status(200).json({
+                            success: true,
+                            msg: messages_1.default.SUCCESS.PROFISSIONAIS.PROFISSIONAL_UPDATED,
+                            data: profissionalObj,
+                        });
+                    }
                 }
             }
             catch (error) {
                 logger_1.default.error(error);
-                return res.status(500).json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
+                return res
+                    .status(500)
+                    .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
             }
         });
     }
@@ -172,7 +197,9 @@ class ProfissionalController {
             }
             catch (error) {
                 logger_1.default.error(error);
-                return res.status(500).json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
+                return res
+                    .status(500)
+                    .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
             }
         });
     }

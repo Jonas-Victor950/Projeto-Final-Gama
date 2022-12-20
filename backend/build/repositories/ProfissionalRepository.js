@@ -17,13 +17,15 @@ class ProfissionalRepository {
             sexo: dados.sexo,
         });
     }
-    updateProfissional(profissionalId, dados, Profissional) {
-        return Profissional.updateOne({ _id: profissionalId }, {
-            nome: dados.nome,
-            email: dados.email,
-            senha: dados.senha,
-            telefone: dados.telefone,
-            sexo: dados.sexo,
+    updateProfissional(id, dados) {
+        return Profissional_1.Profissional.findByIdAndUpdate(id, {
+            $set: {
+                nome: dados.nome,
+                email: dados.email,
+                senha: dados.senha,
+                telefone: dados.telefone,
+                sexo: dados.sexo,
+            },
         });
     }
     deleteProfissional(id) {
