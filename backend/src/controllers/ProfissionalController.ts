@@ -28,7 +28,9 @@ class ProfissionalController {
       }
     } catch (error: any) {
       Logger.error(`${error.message}`);
-      return res.status(500).json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
+      return res
+        .status(500)
+        .json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   }
 
@@ -59,7 +61,9 @@ class ProfissionalController {
       }
     } catch (error) {
       Logger.error(error);
-      return res.status(500).json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
+      return res
+        .status(500)
+        .json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   }
 
@@ -87,21 +91,13 @@ class ProfissionalController {
       });
     } catch (error) {
       Logger.error(error);
-      return res.status(500).json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
+      return res
+        .status(500)
+        .json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   }
 
   static async updateOneProfissional(req: Request, res: Response) {
-    const { nome, email, senha, telefone, sexo } = req.body;
-    const newSenha = bcrypty.hashSync(senha, 10);
-    const profissionalObj: IProfissional = {
-      nome: nome,
-      email: email,
-      senha: newSenha,
-      telefone: telefone,
-      sexo: sexo,
-    };
-
     try {
       if (!req.params.id || isNaN(parseInt(req.params.id))) {
         Logger.error(MESSAGE.ERROR.NOT_VALID_ID);
@@ -123,23 +119,54 @@ class ProfissionalController {
           msg: MESSAGE.ERROR.PROFISSIONAIS.PROFISSIONAL_NOT_FOUND,
         });
       } else {
-        const updatedProfissional =
-          await ProfissionalRepository.updateProfissional(
-            id,
-            profissionalObj,
-            Profissional
-          );
+        const { nome, email, senha, telefone, sexo } = req.body;
+        if (!senha) {
+          const profissionalobb = {
+            nome: nome,
+            email: email,
+            telefone: telefone,
+            sexo: sexo,
+          };
+          const updated1Profissional =
+            await ProfissionalRepository.updateProfissional(
+              id,
+              profissionalobb
+            );
 
-        Logger.info(MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_UPDATED);
-        return res.status(200).json({
-          success: true,
-          msg: MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_UPDATED,
-          data: profissionalObj,
-        });
+          Logger.info(MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_UPDATED);
+          return res.status(200).json({
+            success: true,
+            msg: MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_UPDATED,
+            data: profissionalobb,
+          });
+        } else {
+          const newSenha = bcrypty.hashSync(senha, 10);
+          const profissionalObj: IProfissional = {
+            nome: nome,
+            email: email,
+            senha: newSenha,
+            telefone: telefone,
+            sexo: sexo,
+          };
+          const updatedProfissional =
+            await ProfissionalRepository.updateProfissional(
+              id,
+              profissionalObj
+            );
+
+          Logger.info(MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_UPDATED);
+          return res.status(200).json({
+            success: true,
+            msg: MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_UPDATED,
+            data: profissionalObj,
+          });
+        }
       }
     } catch (error) {
       Logger.error(error);
-      return res.status(500).json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
+      return res
+        .status(500)
+        .json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   }
 
@@ -157,7 +184,7 @@ class ProfissionalController {
         id,
         Profissional
       );
-      
+
       if (!profissional) {
         Logger.error(MESSAGE.ERROR.PROFISSIONAIS.PROFISSIONAL_NOT_FOUND);
         return res.status(500).json({
@@ -175,7 +202,9 @@ class ProfissionalController {
       }
     } catch (error) {
       Logger.error(error);
-      return res.status(500).json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
+      return res
+        .status(500)
+        .json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   }
 }

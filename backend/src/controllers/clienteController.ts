@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
-import mongoose from 'mongoose';
-import MESSAGE from '../constants/messages';
-import Logger from '../database/logger';
-import { Cliente, ICliente } from '../models/Cliente';
-import ClienteRepository from '../repositories/ClienteRepository';
-import bcrypty from 'bcryptjs';
+import { Request, Response } from "express";
+import mongoose from "mongoose";
+import MESSAGE from "../constants/messages";
+import Logger from "../database/logger";
+import { Cliente, ICliente } from "../models/Cliente";
+import ClienteRepository from "../repositories/ClienteRepository";
+import bcrypty from "bcryptjs";
 
 const clienteController = {
   async criarCliente(req: Request, res: Response) {
@@ -95,17 +95,6 @@ const clienteController = {
   },
 
   async atualizarCliente(req: Request, res: Response) {
-    const { nome, email, senha, telefone, aniversario, sexo } = req.body;
-    const newSenha = bcrypty.hashSync(senha, 10);
-    const clienteObj: ICliente = {
-      nome: nome,
-      email: email,
-      senha: newSenha,
-      telefone: telefone,
-      aniversario: aniversario,
-      sexo: sexo,
-    };
-
     try {
       if (!req.params.id || isNaN(parseInt(req.params.id))) {
         Logger.error(MESSAGE.ERROR.NOT_VALID_ID);
@@ -124,18 +113,47 @@ const clienteController = {
           msg: MESSAGE.ERROR.CLIENTES.CLIENTE_NOT_FOUND,
         });
       } else {
-        const updateCliente = await ClienteRepository.atualizarCliente(
-          id,
-          clienteObj,
-          Cliente
-        );
+        const { nome, email, senha, telefone, aniversario, sexo } = req.body;
+        if (!senha) {
+          const clienteobb = {
+            nome: nome,
+            email: email,
+            telefone: telefone,
+            aniversario: aniversario,
+            sexo: sexo,
+          };
+          const updatedCliente = await ClienteRepository.atualizarCliente(
+            id,
+            clienteobb
+          );
+          Logger.info(MESSAGE.SUCCESS.CLIENTES.CLIENTE_UPDATED);
+          return res.status(200).json({
+            success: true,
+            msg: MESSAGE.SUCCESS.CLIENTES.CLIENTE_UPDATED,
+            data: clienteobb,
+          });
+        } else {
+          const newSenha = bcrypty.hashSync(senha, 10);
+          const clienteObj: ICliente = {
+            nome: nome,
+            email: email,
+            senha: newSenha,
+            telefone: telefone,
+            aniversario: aniversario,
+            sexo: sexo,
+          };
+          const updateCliente = await ClienteRepository.atualizarCliente(
+            id,
+            clienteObj
+          );
 
-        Logger.info(MESSAGE.SUCCESS.CLIENTES.CLIENTE_UPDATED);
-        return res.status(200).json({
-          success: true,
-          msg: MESSAGE.SUCCESS.CLIENTES.CLIENTE_UPDATED,
-          data: clienteObj,
-        });
+          Logger.info(MESSAGE.SUCCESS.CLIENTES.CLIENTE_UPDATED);
+          return res.status(200).json({
+            success: true,
+            msg: MESSAGE.SUCCESS.CLIENTES.CLIENTE_UPDATED,
+            data: clienteObj,
+          });
+        }
       }
     } catch (error) {
       Logger.error(error);

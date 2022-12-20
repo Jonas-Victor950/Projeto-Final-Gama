@@ -1,5 +1,5 @@
-import mongoose, { Model } from 'mongoose';
-import { ICliente, Cliente } from '../models/Cliente';
+import mongoose from "mongoose";
+import { ICliente, Cliente } from "../models/Cliente";
 
 class ClienteRepository {
   criarCliente(informacao: ICliente) {
@@ -24,26 +24,21 @@ class ClienteRepository {
     return Cliente.findOne({ _id: clienteId });
   }
 
-  atualizarCliente(
-    clienteId: mongoose.Types.ObjectId,
-    dados: ICliente,
-    Cliente: any
-  ): Promise<Array<any>> {
-    return Cliente.updateOne(
-      { _id: clienteId },
-      {
+  atualizarCliente(id: mongoose.Types.ObjectId, dados: ICliente) {
+    return Cliente.findByIdAndUpdate(id, {
+      $set: {
         nome: dados.nome,
         email: dados.email,
         senha: dados.senha,
         telefone: dados.telefone,
         aniversario: dados.aniversario,
         sexo: dados.sexo,
-      }
-    );
+      },
+    });
   }
 
   deletarCliente(id: mongoose.Types.ObjectId) {
-    return Cliente.findByIdAndDelete(id)
+    return Cliente.findByIdAndDelete(id);
   }
 }
 

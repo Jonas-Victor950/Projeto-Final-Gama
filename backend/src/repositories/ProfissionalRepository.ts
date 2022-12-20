@@ -8,8 +8,11 @@ class ProfissionalRepository {
     return Profissional.find();
   }
 
-  getOneProfissional(profissionalId: mongoose.Types.ObjectId, Profissional: any): Promise<any> {
-    return Profissional.findOne({ _id:  profissionalId });
+  getOneProfissional(
+    profissionalId: mongoose.Types.ObjectId,
+    Profissional: any
+  ): Promise<any> {
+    return Profissional.findOne({ _id: profissionalId });
   }
 
   createProfissional(dados: IProfissional): Promise<any> {
@@ -22,25 +25,20 @@ class ProfissionalRepository {
     });
   }
 
-  updateProfissional(
-    profissionalId: mongoose.Types.ObjectId,
-    dados: IProfissional,
-    Profissional: any
-  ): Promise<Array<any>> {
-    return Profissional.updateOne(
-      { _id: profissionalId },
-      {
+  updateProfissional(id: mongoose.Types.ObjectId, dados: IProfissional) {
+    return Profissional.findByIdAndUpdate(id, {
+      $set: {
         nome: dados.nome,
         email: dados.email,
         senha: dados.senha,
         telefone: dados.telefone,
         sexo: dados.sexo,
-      }
-    );
+      },
+    });
   }
 
   deleteProfissional(id: mongoose.Types.ObjectId) {
-    return Profissional.findByIdAndDelete(id)
+    return Profissional.findByIdAndDelete(id);
   }
 }
 

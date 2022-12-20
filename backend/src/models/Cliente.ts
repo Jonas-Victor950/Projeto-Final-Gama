@@ -1,9 +1,9 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model } from "mongoose";
 
 interface ICliente {
   nome: string;
   email: string;
-  senha: string;
+  senha?: string;
   telefone: string;
   aniversario: string;
   sexo: string;
@@ -20,10 +20,10 @@ const clienteSchema = new Schema<ICliente>(
   },
   {
     timestamps: true,
-    collection: 'Cliente',
+    collection: "Cliente",
   }
 );
 
-const Cliente = model<ICliente>('Cliente', clienteSchema);
+const Cliente = model<ICliente>("Cliente", clienteSchema);
 
 export { Cliente, ICliente };
