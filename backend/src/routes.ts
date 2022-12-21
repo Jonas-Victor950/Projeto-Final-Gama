@@ -1,18 +1,29 @@
+// Express
 import express from "express";
+const router = express.Router();
+
+// Início Imports Controllers
 import ProfissionalController from "./controllers/ProfissionalController";
 import ServicoController from "./controllers/servicoController";
 import ProfissionalServicoController from "./controllers/ProfissionalServicoController";
 import ClienteController from "./controllers/clienteController";
 import SenderController from "./controllers/SenderController";
-const router = express.Router();
+// Fim Imports Controllers
 
-// Start of Routes Cliente
-// End of Routes Cliente
+// Inicio Imports Validations
+import validateCreateProfissional from "./validations/profissionais/create";
+import validateCreateCliente from "./validations/clientes/create";
+import validateCreateServico from "./validations/servicos/create";
+// Fim Imports Validations
 
 // Inicio de rotas Profissionais
 router.get("/profissionais", ProfissionalController.allProfissionais);
 router.get("/profissionais/:id", ProfissionalController.getOneProfissional);
-router.post("/profissionais", ProfissionalController.createProfissional);
+router.post(
+  "/profissionais",
+  validateCreateProfissional,
+  ProfissionalController.createProfissional
+);
 router.put("/profissionais/:id", ProfissionalController.updateOneProfissional);
 router.delete(
   "/profissionais/:id",
@@ -21,7 +32,7 @@ router.delete(
 // Fim de rotas Profissionais
 
 // Inicio de rotas Serviços
-router.post("/servico", ServicoController.criarServico);
+router.post("/servico", validateCreateServico, ServicoController.criarServico);
 router.get("/servico", ServicoController.listarServico);
 router.get("/servico/:id", ServicoController.listarServicoId);
 router.put("/servico/:id", ServicoController.atulizarServico);
@@ -29,7 +40,7 @@ router.delete("/servico/:id", ServicoController.deletaServico);
 // Fim de rotas Serviços
 
 // Inicio de rotas Clientes
-router.post("/cliente", ClienteController.criarCliente);
+router.post("/cliente", validateCreateCliente, ClienteController.criarCliente);
 router.get("/cliente", ClienteController.listarClientes);
 router.get("/cliente/:id", ClienteController.listarClienteId);
 router.put("/cliente/:id", ClienteController.atualizarCliente);
@@ -57,7 +68,6 @@ router.delete(
   "/profissionalservico/:id",
   ProfissionalServicoController.deletaProfissionalServico
 );
-
 // Fim de rotas ProfissionalServiço
 
 // Inicio de rotas zap zap
