@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cliente = void 0;
-const mongoose_1 = require("mongoose");
-const clienteSchema = new mongoose_1.Schema({
+var mongoose_1 = require("mongoose");
+var clienteSchema = new mongoose_1.Schema({
     nome: { type: String, required: true },
     email: { type: String, required: true },
     senha: { type: String, required: true },
@@ -13,5 +13,5 @@ const clienteSchema = new mongoose_1.Schema({
     timestamps: true,
     collection: "Cliente",
 });
-const Cliente = (0, mongoose_1.model)("Cliente", clienteSchema);
+var Cliente = (0, mongoose_1.model)("Cliente", clienteSchema);
 exports.Cliente = Cliente;

@@ -5,6 +5,8 @@ import Logger from "../database/logger";
 import { Cliente, ICliente } from "../models/Cliente";
 import ClienteRepository from "../repositories/ClienteRepository";
 import bcrypty from "bcryptjs";
+import Sender from "./sender";
+const sender = new Sender();
 
 const clienteController = {
   async criarCliente(req: Request, res: Response) {
@@ -18,9 +20,11 @@ const clienteController = {
       aniversario: aniversario,
       sexo: sexo,
     };
+    const message: string = `Obrigado por se cadastrar ${nome}` as string;
 
     try {
       const cliente = await ClienteRepository.criarCliente(clienteObj);
+      await sender.sendText(telefone, message);
 
       Logger.info(MESSAGE.SUCCESS.CLIENTES.CLIENTE_CREATED);
       return res.status(200).json({

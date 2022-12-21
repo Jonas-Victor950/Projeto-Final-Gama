@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_validation_1 = require("express-validation");
-const validateCreateProfissional = (0, express_validation_1.validate)({
+var express_validation_1 = require("express-validation");
+var validateCreateProfissional = (0, express_validation_1.validate)({
     body: express_validation_1.Joi.object({
         nome: express_validation_1.Joi.string().required(),
         email: express_validation_1.Joi.string().email().required(),

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = require("mongoose");
-const agendaSchema = new mongoose_1.Schema({
+var mongoose_1 = require("mongoose");
+var agendaSchema = new mongoose_1.Schema({
     profissionalServico: {
         type: mongoose_1.Schema.Types.ObjectId,
         required: true,
@@ -13,5 +13,5 @@ const agendaSchema = new mongoose_1.Schema({
     timestamps: true,
     collection: "Agenda",
 });
-const Agenda = (0, mongoose_1.model)("Agenda", agendaSchema);
+var Agenda = (0, mongoose_1.model)("Agenda", agendaSchema);
 exports.default = Agenda;

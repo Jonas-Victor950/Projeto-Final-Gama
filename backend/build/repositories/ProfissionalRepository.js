@@ -1,14 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Profissional_1 = require("../models/Profissional");
-class ProfissionalRepository {
-    getAllProfissionais(Profissional) {
+var Profissional_1 = require("../models/Profissional");
+var ProfissionalRepository = /** @class */ (function () {
+    function ProfissionalRepository() {
+    }
+    ProfissionalRepository.prototype.getAllProfissionais = function (Profissional) {
         return Profissional.find();
-    }
-    getOneProfissional(profissionalId, Profissional) {
+    };
+    ProfissionalRepository.prototype.getOneProfissional = function (profissionalId, Profissional) {
         return Profissional.findOne({ _id: profissionalId });
-    }
-    createProfissional(dados) {
+    };
+    ProfissionalRepository.prototype.createProfissional = function (dados) {
         return Profissional_1.Profissional.create({
             nome: dados.nome,
             email: dados.email,
@@ -16,8 +18,8 @@ class ProfissionalRepository {
             telefone: dados.telefone,
             sexo: dados.sexo,
         });
-    }
-    updateProfissional(id, dados) {
+    };
+    ProfissionalRepository.prototype.updateProfissional = function (id, dados) {
         return Profissional_1.Profissional.findByIdAndUpdate(id, {
             $set: {
                 nome: dados.nome,
@@ -27,9 +29,10 @@ class ProfissionalRepository {
                 sexo: dados.sexo,
             },
         });
-    }
-    deleteProfissional(id) {
+    };
+    ProfissionalRepository.prototype.deleteProfissional = function (id) {
         return Profissional_1.Profissional.findByIdAndDelete(id);
-    }
-}
+    };
+    return ProfissionalRepository;
+}());
 exports.default = new ProfissionalRepository();

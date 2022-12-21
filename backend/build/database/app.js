@@ -3,15 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Conection_1 = __importDefault(require("./Conection"));
-const mongoose_1 = __importDefault(require("mongoose"));
-//import authDB from './default';
+var Conection_1 = __importDefault(require("./Conection"));
+var mongoose_1 = __importDefault(require("mongoose"));
+var default_1 = __importDefault(require("./default"));
 mongoose_1.default.set('strictQuery', true);
-/*mongoose.connect(
-  `mongodb+srv://${authDB.user}:${authDB.pass}@cluster0.mbitszy.mongodb.net/?retryWrites=true&w=majority`
-);
-const mongoDB = new Conection(
-  `mongodb+srv://${authDB.user}:${authDB.pass}@cluster0.mbitszy.mongodb.net/?retryWrites=true&w=majority`
-);*/
-const mongoDB = new Conection_1.default("mongodb://localhost:27017/beleza_na_agenda");
+mongoose_1.default.connect("mongodb+srv://".concat(default_1.default.user, ":").concat(default_1.default.pass, "@cluster0.mbitszy.mongodb.net/?retryWrites=true&w=majority"));
+var mongoDB = new Conection_1.default("mongodb+srv://".concat(default_1.default.user, ":").concat(default_1.default.pass, "@cluster0.mbitszy.mongodb.net/?retryWrites=true&w=majority"));
 exports.default = mongoDB;

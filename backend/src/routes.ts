@@ -3,6 +3,7 @@ import ProfissionalController from "./controllers/ProfissionalController";
 import ServicoController from "./controllers/servicoController";
 import ProfissionalServicoController from "./controllers/ProfissionalServicoController";
 import ClienteController from "./controllers/clienteController";
+import SenderController from "./controllers/SenderController";
 const router = express.Router();
 
 // Start of Routes Cliente
@@ -58,5 +59,9 @@ router.delete(
 );
 
 // Fim de rotas ProfissionalServiço
+
+// Inicio de rotas zap zap
+router.post("/send", SenderController.createText); // Parte caso queiram testar sem ter que criar um cliente
+// Fim de rotas zap zap
 
 export default router;

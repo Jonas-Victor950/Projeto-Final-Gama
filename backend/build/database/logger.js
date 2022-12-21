@@ -3,15 +3,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const winston_1 = __importDefault(require("winston"));
-const levels = {
+var winston_1 = __importDefault(require("winston"));
+var levels = {
     error: 0,
     warn: 1,
     info: 2,
     http: 3,
     debug: 4,
 };
-const colors = {
+var colors = {
     error: "red",
     warn: "yellow",
     info: "green",
@@ -19,8 +19,8 @@ const colors = {
     debug: "white",
 };
 winston_1.default.addColors(colors);
-const format = winston_1.default.format.combine(winston_1.default.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), winston_1.default.format.colorize({ all: true }), winston_1.default.format.printf((info) => `${info.timestamp} - ${info.level}: ${info.message}`));
-const transports = [
+var format = winston_1.default.format.combine(winston_1.default.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), winston_1.default.format.colorize({ all: true }), winston_1.default.format.printf(function (info) { return "".concat(info.timestamp, " - ").concat(info.level, ": ").concat(info.message); }));
+var transports = [
     new winston_1.default.transports.Console(),
     new winston_1.default.transports.File({
         filename: "logs/error.log",
@@ -28,9 +28,9 @@ const transports = [
     }),
     new winston_1.default.transports.File({ filename: "logs/all.log" }),
 ];
-const Logger = winston_1.default.createLogger({
-    levels,
-    format,
-    transports,
+var Logger = winston_1.default.createLogger({
+    levels: levels,
+    format: format,
+    transports: transports,
 });
 exports.default = Logger;

@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Cliente_1 = require("../models/Cliente");
-class ClienteRepository {
-    criarCliente(informacao) {
+var Cliente_1 = require("../models/Cliente");
+var ClienteRepository = /** @class */ (function () {
+    function ClienteRepository() {
+    }
+    ClienteRepository.prototype.criarCliente = function (informacao) {
         return Cliente_1.Cliente.create({
             nome: informacao.nome,
             email: informacao.email,
@@ -11,14 +13,14 @@ class ClienteRepository {
             aniversario: informacao.aniversario,
             sexo: informacao.email,
         });
-    }
-    listarClientes(Cliente) {
+    };
+    ClienteRepository.prototype.listarClientes = function (Cliente) {
         return Cliente.find();
-    }
-    listarClienteId(clienteId, Cliente) {
+    };
+    ClienteRepository.prototype.listarClienteId = function (clienteId, Cliente) {
         return Cliente.findOne({ _id: clienteId });
-    }
-    atualizarCliente(id, dados) {
+    };
+    ClienteRepository.prototype.atualizarCliente = function (id, dados) {
         return Cliente_1.Cliente.findByIdAndUpdate(id, {
             $set: {
                 nome: dados.nome,
@@ -29,9 +31,10 @@ class ClienteRepository {
                 sexo: dados.sexo,
             },
         });
-    }
-    deletarCliente(id) {
+    };
+    ClienteRepository.prototype.deletarCliente = function (id) {
         return Cliente_1.Cliente.findByIdAndDelete(id);
-    }
-}
+    };
+    return ClienteRepository;
+}());
 exports.default = new ClienteRepository();

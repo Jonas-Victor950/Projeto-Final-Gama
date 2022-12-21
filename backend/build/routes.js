@@ -3,12 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const ProfissionalController_1 = __importDefault(require("./controllers/ProfissionalController"));
-const servicoController_1 = __importDefault(require("./controllers/servicoController"));
-const ProfissionalServicoController_1 = __importDefault(require("./controllers/ProfissionalServicoController"));
-const clienteController_1 = __importDefault(require("./controllers/clienteController"));
-const router = express_1.default.Router();
+var express_1 = __importDefault(require("express"));
+var ProfissionalController_1 = __importDefault(require("./controllers/ProfissionalController"));
+var servicoController_1 = __importDefault(require("./controllers/servicoController"));
+var ProfissionalServicoController_1 = __importDefault(require("./controllers/ProfissionalServicoController"));
+var clienteController_1 = __importDefault(require("./controllers/clienteController"));
+var SenderController_1 = __importDefault(require("./controllers/SenderController"));
+var router = express_1.default.Router();
 // Start of Routes Cliente
 // End of Routes Cliente
 // Inicio de rotas Profissionais
@@ -39,4 +40,7 @@ router.get("/profissionalservico/:id", ProfissionalServicoController_1.default.l
 router.put("/profissionalservico/:id", ProfissionalServicoController_1.default.atualizarProfissionalServico);
 router.delete("/profissionalservico/:id", ProfissionalServicoController_1.default.deletaProfissionalServico);
 // Fim de rotas ProfissionalServiço
+// Inicio de rotas zap zap
+router.post("/send", SenderController_1.default.createText); // Parte caso queiram testar sem ter que criar um cliente
+// Fim de rotas zap zap
 exports.default = router;

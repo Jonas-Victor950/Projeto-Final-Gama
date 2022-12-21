@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const MESSAGE = {
+var MESSAGE = {
     ERROR: {
         PROFISSIONAIS: {
             NONE_PROFSSIONAL_UNTIL_NOW: "✖️ Nenhum profissional até o momento",

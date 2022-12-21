@@ -8,144 +8,55 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const messages_1 = __importDefault(require("../constants/messages"));
-const logger_1 = __importDefault(require("../database/logger"));
-const Cliente_1 = require("../models/Cliente");
-const ClienteRepository_1 = __importDefault(require("../repositories/ClienteRepository"));
-const bcryptjs_1 = __importDefault(require("bcryptjs"));
-const clienteController = {
-    criarCliente(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { nome, email, senha, telefone, aniversario, sexo } = req.body;
-            const newSenha = bcryptjs_1.default.hashSync(senha, 10);
-            const clienteObj = {
-                nome: nome,
-                email: email,
-                senha: newSenha,
-                telefone: telefone,
-                aniversario: aniversario,
-                sexo: sexo,
-            };
-            try {
-                const cliente = yield ClienteRepository_1.default.criarCliente(clienteObj);
-                logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_CREATED);
-                return res.status(200).json({
-                    success: true,
-                    msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_CREATED,
-                    data: cliente,
-                });
-            }
-            catch (error) {
-                logger_1.default.error(error);
-                return res
-                    .status(500)
-                    .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
-            }
-        });
-    },
-    listarClientes(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const clientes = yield ClienteRepository_1.default.listarClientes(Cliente_1.Cliente);
-                if (clientes.length <= 0) {
-                    logger_1.default.info(messages_1.default.ERROR.CLIENTES.NONE_CLIENTE_UNTIL_NOW);
-                    return res.status(200).json({
-                        success: false,
-                        msg: messages_1.default.ERROR.CLIENTES.NONE_CLIENTE_UNTIL_NOW,
-                    });
-                }
-                else {
-                    logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_FOUND);
-                    return res.status(200).json({
-                        success: true,
-                        msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_FOUND,
-                        data: clientes,
-                    });
-                }
-            }
-            catch (error) {
-                logger_1.default.error(`${error.message}`);
-                return res
-                    .status(500)
-                    .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
-            }
-        });
-    },
-    listarClienteId(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                if (!req.params.id || isNaN(parseInt(req.params.id))) {
-                    logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
-                    return res
-                        .status(500)
-                        .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID });
-                }
-                const id = new mongoose_1.default.Types.ObjectId(req.params.id);
-                const cliente = yield ClienteRepository_1.default.listarClienteId(id, Cliente_1.Cliente);
-                if (!cliente) {
-                    logger_1.default.error(messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND);
-                    return res.status(500).json({
-                        success: false,
-                        msg: messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND,
-                    });
-                }
-                else {
-                    logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_SENDING);
-                    return res.json({ success: true, data: cliente });
-                }
-            }
-            catch (error) {
-                logger_1.default.error(error);
-                return res
-                    .status(500)
-                    .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
-            }
-        });
-    },
-    atualizarCliente(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                if (!req.params.id || isNaN(parseInt(req.params.id))) {
-                    logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
-                    return res
-                        .status(500)
-                        .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID });
-                }
-                const id = new mongoose_1.default.Types.ObjectId(req.params.id);
-                const cliente = yield ClienteRepository_1.default.listarClienteId(id, Cliente_1.Cliente);
-                if (!cliente) {
-                    logger_1.default.error(messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND);
-                    return res.status(500).json({
-                        success: false,
-                        msg: messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND,
-                    });
-                }
-                else {
-                    const { nome, email, senha, telefone, aniversario, sexo } = req.body;
-                    if (!senha) {
-                        const clienteobb = {
-                            nome: nome,
-                            email: email,
-                            telefone: telefone,
-                            aniversario: aniversario,
-                            sexo: sexo,
-                        };
-                        const updatedCliente = yield ClienteRepository_1.default.atualizarCliente(id, clienteobb);
-                        logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED);
-                        return res.status(200).json({
-                            success: true,
-                            msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED,
-                            data: clienteobb,
-                        });
-                    }
-                    else {
-                        const newSenha = bcryptjs_1.default.hashSync(senha, 10);
-                        const clienteObj = {
+var mongoose_1 = __importDefault(require("mongoose"));
+var messages_1 = __importDefault(require("../constants/messages"));
+var logger_1 = __importDefault(require("../database/logger"));
+var Cliente_1 = require("../models/Cliente");
+var ClienteRepository_1 = __importDefault(require("../repositories/ClienteRepository"));
+var bcryptjs_1 = __importDefault(require("bcryptjs"));
+var sender_1 = __importDefault(require("./sender"));
+var sender = new sender_1.default();
+var clienteController = {
+    criarCliente: function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, nome, email, senha, telefone, aniversario, sexo, newSenha, clienteObj, message, cliente, error_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = req.body, nome = _a.nome, email = _a.email, senha = _a.senha, telefone = _a.telefone, aniversario = _a.aniversario, sexo = _a.sexo;
+                        newSenha = bcryptjs_1.default.hashSync(senha, 10);
+                        clienteObj = {
                             nome: nome,
                             email: email,
                             senha: newSenha,
@@ -153,57 +64,224 @@ const clienteController = {
                             aniversario: aniversario,
                             sexo: sexo,
                         };
-                        const updateCliente = yield ClienteRepository_1.default.atualizarCliente(id, clienteObj);
-                        logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED);
-                        return res.status(200).json({
-                            success: true,
-                            msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED,
-                            data: clienteObj,
-                        });
-                    }
+                        message = "Obrigado por se cadastrar ".concat(nome);
+                        _b.label = 1;
+                    case 1:
+                        _b.trys.push([1, 4, , 5]);
+                        return [4 /*yield*/, ClienteRepository_1.default.criarCliente(clienteObj)];
+                    case 2:
+                        cliente = _b.sent();
+                        return [4 /*yield*/, sender.sendText(telefone, message)];
+                    case 3:
+                        _b.sent();
+                        logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_CREATED);
+                        return [2 /*return*/, res.status(200).json({
+                                success: true,
+                                msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_CREATED,
+                                data: cliente,
+                            })];
+                    case 4:
+                        error_1 = _b.sent();
+                        logger_1.default.error(error_1);
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH })];
+                    case 5: return [2 /*return*/];
                 }
-            }
-            catch (error) {
-                logger_1.default.error(error);
-                return res
-                    .status(500)
-                    .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
-            }
+            });
         });
     },
-    deletarCliente(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                if (!req.params.id || isNaN(parseInt(req.params.id))) {
-                    logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
-                    return res
-                        .status(500)
-                        .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID });
+    listarClientes: function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var clientes, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, ClienteRepository_1.default.listarClientes(Cliente_1.Cliente)];
+                    case 1:
+                        clientes = _a.sent();
+                        if (clientes.length <= 0) {
+                            logger_1.default.info(messages_1.default.ERROR.CLIENTES.NONE_CLIENTE_UNTIL_NOW);
+                            return [2 /*return*/, res.status(200).json({
+                                    success: false,
+                                    msg: messages_1.default.ERROR.CLIENTES.NONE_CLIENTE_UNTIL_NOW,
+                                })];
+                        }
+                        else {
+                            logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_FOUND);
+                            return [2 /*return*/, res.status(200).json({
+                                    success: true,
+                                    msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_FOUND,
+                                    data: clientes,
+                                })];
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_2 = _a.sent();
+                        logger_1.default.error("".concat(error_2.message));
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH })];
+                    case 3: return [2 /*return*/];
                 }
-                const id = new mongoose_1.default.Types.ObjectId(req.params.id);
-                const cliente = yield ClienteRepository_1.default.listarClienteId(id, Cliente_1.Cliente);
-                if (!cliente) {
-                    logger_1.default.error(messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND);
-                    return res.status(500).json({
-                        success: false,
-                        msg: messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND,
-                    });
+            });
+        });
+    },
+    listarClienteId: function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, cliente, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        if (!req.params.id || isNaN(parseInt(req.params.id))) {
+                            logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
+                            return [2 /*return*/, res
+                                    .status(500)
+                                    .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID })];
+                        }
+                        id = new mongoose_1.default.Types.ObjectId(req.params.id);
+                        return [4 /*yield*/, ClienteRepository_1.default.listarClienteId(id, Cliente_1.Cliente)];
+                    case 1:
+                        cliente = _a.sent();
+                        if (!cliente) {
+                            logger_1.default.error(messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND);
+                            return [2 /*return*/, res.status(500).json({
+                                    success: false,
+                                    msg: messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND,
+                                })];
+                        }
+                        else {
+                            logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_SENDING);
+                            return [2 /*return*/, res.json({ success: true, data: cliente })];
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_3 = _a.sent();
+                        logger_1.default.error(error_3);
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH })];
+                    case 3: return [2 /*return*/];
                 }
-                else {
-                    yield ClienteRepository_1.default.deletarCliente(id);
-                    logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_DELETED);
-                    return res.status(200).json({
-                        success: true,
-                        msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_DELETED,
-                    });
+            });
+        });
+    },
+    atualizarCliente: function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, cliente, _a, nome, email, senha, telefone, aniversario, sexo, clienteobb, updatedCliente, newSenha, clienteObj, updateCliente, error_4;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _b.trys.push([0, 7, , 8]);
+                        if (!req.params.id || isNaN(parseInt(req.params.id))) {
+                            logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
+                            return [2 /*return*/, res
+                                    .status(500)
+                                    .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID })];
+                        }
+                        id = new mongoose_1.default.Types.ObjectId(req.params.id);
+                        return [4 /*yield*/, ClienteRepository_1.default.listarClienteId(id, Cliente_1.Cliente)];
+                    case 1:
+                        cliente = _b.sent();
+                        if (!!cliente) return [3 /*break*/, 2];
+                        logger_1.default.error(messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND);
+                        return [2 /*return*/, res.status(500).json({
+                                success: false,
+                                msg: messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND,
+                            })];
+                    case 2:
+                        _a = req.body, nome = _a.nome, email = _a.email, senha = _a.senha, telefone = _a.telefone, aniversario = _a.aniversario, sexo = _a.sexo;
+                        if (!!senha) return [3 /*break*/, 4];
+                        clienteobb = {
+                            nome: nome,
+                            email: email,
+                            telefone: telefone,
+                            aniversario: aniversario,
+                            sexo: sexo,
+                        };
+                        return [4 /*yield*/, ClienteRepository_1.default.atualizarCliente(id, clienteobb)];
+                    case 3:
+                        updatedCliente = _b.sent();
+                        logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED);
+                        return [2 /*return*/, res.status(200).json({
+                                success: true,
+                                msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED,
+                                data: clienteobb,
+                            })];
+                    case 4:
+                        newSenha = bcryptjs_1.default.hashSync(senha, 10);
+                        clienteObj = {
+                            nome: nome,
+                            email: email,
+                            senha: newSenha,
+                            telefone: telefone,
+                            aniversario: aniversario,
+                            sexo: sexo,
+                        };
+                        return [4 /*yield*/, ClienteRepository_1.default.atualizarCliente(id, clienteObj)];
+                    case 5:
+                        updateCliente = _b.sent();
+                        logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED);
+                        return [2 /*return*/, res.status(200).json({
+                                success: true,
+                                msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED,
+                                data: clienteObj,
+                            })];
+                    case 6: return [3 /*break*/, 8];
+                    case 7:
+                        error_4 = _b.sent();
+                        logger_1.default.error(error_4);
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH })];
+                    case 8: return [2 /*return*/];
                 }
-            }
-            catch (error) {
-                logger_1.default.error(error);
-                return res
-                    .status(500)
-                    .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH });
-            }
+            });
+        });
+    },
+    deletarCliente: function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, cliente, error_5;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 5, , 6]);
+                        if (!req.params.id || isNaN(parseInt(req.params.id))) {
+                            logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
+                            return [2 /*return*/, res
+                                    .status(500)
+                                    .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID })];
+                        }
+                        id = new mongoose_1.default.Types.ObjectId(req.params.id);
+                        return [4 /*yield*/, ClienteRepository_1.default.listarClienteId(id, Cliente_1.Cliente)];
+                    case 1:
+                        cliente = _a.sent();
+                        if (!!cliente) return [3 /*break*/, 2];
+                        logger_1.default.error(messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND);
+                        return [2 /*return*/, res.status(500).json({
+                                success: false,
+                                msg: messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND,
+                            })];
+                    case 2: return [4 /*yield*/, ClienteRepository_1.default.deletarCliente(id)];
+                    case 3:
+                        _a.sent();
+                        logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_DELETED);
+                        return [2 /*return*/, res.status(200).json({
+                                success: true,
+                                msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_DELETED,
+                            })];
+                    case 4: return [3 /*break*/, 6];
+                    case 5:
+                        error_5 = _a.sent();
+                        logger_1.default.error(error_5);
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH })];
+                    case 6: return [2 /*return*/];
+                }
+            });
         });
     },
 };

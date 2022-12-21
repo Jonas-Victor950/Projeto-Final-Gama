@@ -1,17 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Servico_1 = require("../models/Servico");
-class ServicoRepository {
-    criarServico(informacao) {
+var Servico_1 = require("../models/Servico");
+var ServicoRepository = /** @class */ (function () {
+    function ServicoRepository() {
+    }
+    ServicoRepository.prototype.criarServico = function (informacao) {
         return Servico_1.Servico.create(informacao);
-    }
-    listarServicos() {
+    };
+    ServicoRepository.prototype.listarServicos = function () {
         return Servico_1.Servico.find();
-    }
-    listarServicoId(id) {
+    };
+    ServicoRepository.prototype.listarServicoId = function (id) {
         return Servico_1.Servico.findById(id);
-    }
-    atualizarServico(id, dados) {
+    };
+    ServicoRepository.prototype.atualizarServico = function (id, dados) {
         return Servico_1.Servico.findByIdAndUpdate(id, {
             $set: {
                 servico: dados.servico,
@@ -19,9 +21,10 @@ class ServicoRepository {
                 duracao: dados.duracao
             }
         });
-    }
-    deletarServico(id) {
+    };
+    ServicoRepository.prototype.deletarServico = function (id) {
         return Servico_1.Servico.findByIdAndDelete(id);
-    }
-}
+    };
+    return ServicoRepository;
+}());
 exports.default = new ServicoRepository();

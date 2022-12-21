@@ -39,38 +39,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// ENV variable
-require("dotenv").config();
-var handleError_1 = __importDefault(require("./middlewares/handleError"));
-var express_1 = __importDefault(require("express"));
-var cors_1 = __importDefault(require("cors"));
-var app_1 = __importDefault(require("./database/app"));
-var routes_1 = __importDefault(require("./routes"));
-var logger_1 = __importDefault(require("./database/logger"));
-function main() {
-    return __awaiter(this, void 0, void 0, function () {
-        var app, port;
-        var _this = this;
-        return __generator(this, function (_a) {
-            app = (0, express_1.default)();
-            port = 3000;
-            app.use((0, cors_1.default)());
-            app.use(express_1.default.json());
-            app.use(express_1.default.urlencoded({ extended: false }));
-            app.use(routes_1.default);
-            app.use(handleError_1.default);
-            app.listen(port, function () { return __awaiter(_this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    logger_1.default.info("\uD83D\uDE80 Projeto rodando no endere\u00E7o: http://127.0.0.1:".concat(port));
-                    app_1.default.createConection();
-                    return [2 /*return*/];
-                });
-            }); });
-            return [2 /*return*/];
+var sender_1 = __importDefault(require("./sender"));
+var logger_1 = __importDefault(require("../database/logger"));
+var messages_1 = __importDefault(require("../constants/messages"));
+var sender = new sender_1.default();
+var SenderController = /** @class */ (function () {
+    function SenderController() {
+    }
+    SenderController.createText = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, number, message, error_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = req.body, number = _a.number, message = _a.message;
+                        _b.label = 1;
+                    case 1:
+                        _b.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, sender.sendText(number, message)];
+                    case 2:
+                        _b.sent();
+                        return [2 /*return*/, res.status(200).json("Deu certo")];
+                    case 3:
+                        error_1 = _b.sent();
+                        logger_1.default.error("".concat(error_1.message));
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH })];
+                    case 4: return [2 /*return*/];
+                }
+            });
         });
-    });
-}
-main().catch(function (error) {
-    logger_1.default.error("🥵 Erro!");
-    logger_1.default.error(error);
-});
+    };
+    return SenderController;
+}());
+exports.default = SenderController;
