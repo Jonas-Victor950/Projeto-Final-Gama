@@ -3,7 +3,7 @@ import { Schema, model } from "mongoose";
 interface IAdmin {
   nome: string;
   email: string;
-  senha: string;
+  senha?: string;
 }
 
 const adminSchema = new Schema<IAdmin>(
@@ -20,4 +20,4 @@ const adminSchema = new Schema<IAdmin>(
 
 const Admin = model<IAdmin>("Admin", adminSchema);
 
-export default Admin;
+export { Admin, IAdmin };

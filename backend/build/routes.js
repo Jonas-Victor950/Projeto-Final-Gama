@@ -13,6 +13,7 @@ var ProfissionalServicoController_1 = __importDefault(require("./controllers/Pro
 var clienteController_1 = __importDefault(require("./controllers/clienteController"));
 var SenderController_1 = __importDefault(require("./controllers/SenderController"));
 var AgendaController_1 = __importDefault(require("./controllers/AgendaController"));
+var AdminController_1 = __importDefault(require("./controllers/AdminController"));
 // Fim Imports Controllers
 // Inicio Imports Validations
 var create_1 = __importDefault(require("./validations/profissionais/create"));
@@ -40,6 +41,12 @@ router.get("/cliente/:id", clienteController_1.default.listarClienteId);
 router.put("/cliente/:id", clienteController_1.default.atualizarCliente);
 router.delete("/cliente/:id", clienteController_1.default.deletarCliente);
 // Fim de rotas Clientes
+// Inicio de rotas Admin
+router.post("/admin", AdminController_1.default.criarAdmin);
+router.get("/admin", AdminController_1.default.admin);
+router.put("/admin/:id", AdminController_1.default.atualizarAdmin);
+router.delete("/admin/:id", AdminController_1.default.deletarAdmin);
+// Inicio de rotas Admin
 // Inicio de rotas ProfisionalServiço
 router.post("/profissionalservico", ProfissionalServicoController_1.default.criarProfissionalServico);
 router.get("/profissionalservico", ProfissionalServicoController_1.default.listarProfissionalServico);

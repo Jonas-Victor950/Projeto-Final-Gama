@@ -19,6 +19,10 @@ const MESSAGE = {
             PROFISSIONALSERVICO_NOT_FOUND: "✖️ ProfissionalServiço não encontrado!"
 
         },
+        ADMIN: {
+            NONE_ADMIN_UNTIL_NOW: '✖️ Nenhum admin cadastrado até o momento',
+            ADMIN_NOT_FOUND: '✖️ Admin não encontrado!',
+          },
         ERROR_CATCH: "✖️ Ops, deu ruim!",
         NOT_VALID_ID: "✖️ Eita! Informe um ID válido!"
     },
@@ -53,7 +57,15 @@ const MESSAGE = {
         AGENDA: {
             AGENDA_CREATED: '✔️ Agenda criada com sucesso!',
             AGENDA_UPDATED: '✔️ Agenda atualizada com sucesso!',
-        }
+        },
+        ADMIN: {
+            ADMIN_OK: '✔️ Admin encontrado com sucesso!',
+            ADMIN_FOUND: '✔️ Admin encontrado com sucesso!',
+            ADMIN_SENDING: 'Mandando o Admin que foi pedido!',
+            ADMIN_CREATED: '✔️ Admin criado com sucesso!',
+            ADMIN_UPDATED: '✔️ Admin atualizado com sucesso!',
+            ADMIN_DELETED: '✔️ Admin excluído com sucesso!',
+          },
     }
 }
 

@@ -9,6 +9,7 @@ import ProfissionalServicoController from "./controllers/ProfissionalServicoCont
 import ClienteController from "./controllers/clienteController";
 import SenderController from "./controllers/SenderController";
 import AgendaController from "./controllers/AgendaController";
+import AdminController from "./controllers/AdminController";
 // Fim Imports Controllers
 
 // Inicio Imports Validations
@@ -40,6 +41,13 @@ router.get("/cliente/:id", ClienteController.listarClienteId);
 router.put("/cliente/:id", ClienteController.atualizarCliente);
 router.delete("/cliente/:id", ClienteController.deletarCliente);
 // Fim de rotas Clientes
+
+// Inicio de rotas Admin
+router.post("/admin", AdminController.criarAdmin);
+router.get("/admin", AdminController.admin);
+router.put("/admin/:id", AdminController.atualizarAdmin);
+router.delete("/admin/:id", AdminController.deletarAdmin);
+// Inicio de rotas Admin
 
 // Inicio de rotas ProfisionalServiço
 router.post("/profissionalservico",ProfissionalServicoController.criarProfissionalServico);
