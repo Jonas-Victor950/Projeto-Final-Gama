@@ -3,30 +3,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// Express
 var express_1 = __importDefault(require("express"));
+var router = express_1.default.Router();
+// Início Imports Controllers
 var ProfissionalController_1 = __importDefault(require("./controllers/ProfissionalController"));
 var servicoController_1 = __importDefault(require("./controllers/servicoController"));
 var ProfissionalServicoController_1 = __importDefault(require("./controllers/ProfissionalServicoController"));
 var clienteController_1 = __importDefault(require("./controllers/clienteController"));
 var SenderController_1 = __importDefault(require("./controllers/SenderController"));
-var AgendaController_1 = __importDefault(require("./controllers/AgendaController"));
 var router = express_1.default.Router();
+// Start of Routes Cliente
+// End of Routes Cliente
 // Inicio de rotas Profissionais
 router.get("/profissionais", ProfissionalController_1.default.allProfissionais);
 router.get("/profissionais/:id", ProfissionalController_1.default.getOneProfissional);
-router.post("/profissionais", ProfissionalController_1.default.createProfissional);
+router.post("/profissionais", create_1.default, ProfissionalController_1.default.createProfissional);
 router.put("/profissionais/:id", ProfissionalController_1.default.updateOneProfissional);
 router.delete("/profissionais/:id", ProfissionalController_1.default.deleteOneProfissional);
 // Fim de rotas Profissionais
 // Inicio de rotas Serviços
-router.post("/servico", servicoController_1.default.criarServico);
+router.post("/servico", create_3.default, servicoController_1.default.criarServico);
 router.get("/servico", servicoController_1.default.listarServico);
 router.get("/servico/:id", servicoController_1.default.listarServicoId);
 router.put("/servico/:id", servicoController_1.default.atulizarServico);
 router.delete("/servico/:id", servicoController_1.default.deletaServico);
 // Fim de rotas Serviços
 // Inicio de rotas Clientes
-router.post("/cliente", clienteController_1.default.criarCliente);
+router.post("/cliente", create_2.default, clienteController_1.default.criarCliente);
 router.get("/cliente", clienteController_1.default.listarClientes);
 router.get("/cliente/:id", clienteController_1.default.listarClienteId);
 router.put("/cliente/:id", clienteController_1.default.atualizarCliente);
