@@ -12,9 +12,13 @@ var servicoController_1 = __importDefault(require("./controllers/servicoControll
 var ProfissionalServicoController_1 = __importDefault(require("./controllers/ProfissionalServicoController"));
 var clienteController_1 = __importDefault(require("./controllers/clienteController"));
 var SenderController_1 = __importDefault(require("./controllers/SenderController"));
-var router = express_1.default.Router();
-// Start of Routes Cliente
-// End of Routes Cliente
+var AgendaController_1 = __importDefault(require("./controllers/AgendaController"));
+// Fim Imports Controllers
+// Inicio Imports Validations
+var create_1 = __importDefault(require("./validations/profissionais/create"));
+var create_2 = __importDefault(require("./validations/clientes/create"));
+var create_3 = __importDefault(require("./validations/servicos/create"));
+// Fim Imports Validations
 // Inicio de rotas Profissionais
 router.get("/profissionais", ProfissionalController_1.default.allProfissionais);
 router.get("/profissionais/:id", ProfissionalController_1.default.getOneProfissional);

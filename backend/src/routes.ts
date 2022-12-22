@@ -8,19 +8,19 @@ import ServicoController from "./controllers/servicoController";
 import ProfissionalServicoController from "./controllers/ProfissionalServicoController";
 import ClienteController from "./controllers/clienteController";
 import SenderController from "./controllers/SenderController";
-const router = express.Router();
+import AgendaController from "./controllers/AgendaController";
+// Fim Imports Controllers
 
-// Start of Routes Cliente
-// End of Routes Cliente
+// Inicio Imports Validations
+import validateCreateProfissional from "./validations/profissionais/create";
+import validateCreateCliente from "./validations/clientes/create";
+import validateCreateServico from "./validations/servicos/create";
+// Fim Imports Validations
 
 // Inicio de rotas Profissionais
 router.get("/profissionais", ProfissionalController.allProfissionais);
 router.get("/profissionais/:id", ProfissionalController.getOneProfissional);
-router.post(
-  "/profissionais",
-  validateCreateProfissional,
-  ProfissionalController.createProfissional
-);
+router.post("/profissionais", validateCreateProfissional,ProfissionalController.createProfissional);
 router.put("/profissionais/:id", ProfissionalController.updateOneProfissional);
 router.delete("/profissionais/:id", ProfissionalController.deleteOneProfissional);
 // Fim de rotas Profissionais
@@ -42,7 +42,7 @@ router.delete("/cliente/:id", ClienteController.deletarCliente);
 // Fim de rotas Clientes
 
 // Inicio de rotas ProfisionalServiço
-router.post("/profissionalservico", ProfissionalServicoController.criarProfissionalServico);
+router.post("/profissionalservico",ProfissionalServicoController.criarProfissionalServico);
 router.get("/profissionalservico", ProfissionalServicoController.listarProfissionalServico);
 router.get("/profissionalservico/:id", ProfissionalServicoController.listarProfissionalServicoId);
 router.put("/profissionalservico/:id", ProfissionalServicoController.atualizarProfissionalServico);
