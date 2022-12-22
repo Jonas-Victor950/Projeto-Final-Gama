@@ -21,24 +21,31 @@ const clienteController = {
       sexo: sexo,
     };
     const message: string = `Obrigado por se cadastrar ${nome}` as string;
-    
-    try {
-      const cliente = await ClienteRepository.criarCliente(clienteObj);
 
-      await sender.sendText(telefone, message);
+    if (await Cliente.findOne({ "$or": [{ email: email }] })) {
+      return res.status(422).json(MESSAGE.ERROR.CLIENTES.CLIENTE_EMAIL_ERROR);
 
-      Logger.info(MESSAGE.SUCCESS.CLIENTES.CLIENTE_CREATED);
-      return res.status(200).json({
-        success: true,
-        msg: MESSAGE.SUCCESS.CLIENTES.CLIENTE_CREATED,
-        cliente: cliente,
-      });
-    } catch (error) {
-      Logger.error(error);
-      return res
-        .status(500)
-        .json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
+    } else {
+
+      try {
+        const cliente = await ClienteRepository.criarCliente(clienteObj);
+
+        await sender.sendText(telefone, message);
+
+        Logger.info(MESSAGE.SUCCESS.CLIENTES.CLIENTE_CREATED);
+        return res.status(200).json({
+          success: true,
+          msg: MESSAGE.SUCCESS.CLIENTES.CLIENTE_CREATED,
+          cliente: cliente,
+        });
+      } catch (error) {
+        Logger.error(error);
+        return res
+          .status(500)
+          .json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
+      }
     }
+
   },
 
   async listarClientes(req: Request, res: Response) {

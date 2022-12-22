@@ -1,4 +1,4 @@
-import mongoose, { Model, ObjectId } from 'mongoose';
+import mongoose from 'mongoose';
 import { Servico, IServico } from '../models/Servico';
 
 class ServicoRepository {
@@ -10,8 +10,8 @@ class ServicoRepository {
     return Servico.find();
   }
 
-  listarServicoId(id: string) {
-    return Servico.findById(id);
+  listarServicoId(id: mongoose.Types.ObjectId) {
+    return Servico.findOne(id);
   }
 
   atualizarServico(id: mongoose.Types.ObjectId, dados: IServico) {

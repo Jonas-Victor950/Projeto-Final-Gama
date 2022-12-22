@@ -65,14 +65,17 @@ var clienteController = {
                             sexo: sexo,
                         };
                         message = "Obrigado por se cadastrar ".concat(nome);
-                        _b.label = 1;
+                        return [4 /*yield*/, Cliente_1.Cliente.findOne({ "$or": [{ email: email }] })];
                     case 1:
-                        _b.trys.push([1, 4, , 5]);
-                        return [4 /*yield*/, ClienteRepository_1.default.criarCliente(clienteObj)];
+                        if (!_b.sent()) return [3 /*break*/, 2];
+                        return [2 /*return*/, res.status(422).json('Email ja cadastradado, Por favor escolha outro email, ou redefina sua senha!')];
                     case 2:
+                        _b.trys.push([2, 5, , 6]);
+                        return [4 /*yield*/, ClienteRepository_1.default.criarCliente(clienteObj)];
+                    case 3:
                         cliente = _b.sent();
                         return [4 /*yield*/, sender.sendText(telefone, message)];
-                    case 3:
+                    case 4:
                         _b.sent();
                         logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_CREATED);
                         return [2 /*return*/, res.status(200).json({
@@ -80,13 +83,13 @@ var clienteController = {
                                 msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_CREATED,
                                 cliente: cliente,
                             })];
-                    case 4:
+                    case 5:
                         error_1 = _b.sent();
                         logger_1.default.error(error_1);
                         return [2 /*return*/, res
                                 .status(500)
                                 .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH })];
-                    case 5: return [2 /*return*/];
+                    case 6: return [2 /*return*/];
                 }
             });
         });

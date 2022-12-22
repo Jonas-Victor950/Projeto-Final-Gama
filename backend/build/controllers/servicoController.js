@@ -103,7 +103,7 @@ var servicoController = {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        id = req.params.id;
+                        id = new mongoose_1.default.Types.ObjectId(req.params.id);
                         return [4 /*yield*/, ServicoRepository_1.default.listarServicoId(id)];
                     case 1:
                         servicoId = _a.sent();

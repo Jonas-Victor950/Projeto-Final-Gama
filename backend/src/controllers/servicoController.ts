@@ -36,8 +36,7 @@ const servicoController = {
 
   async listarServicoId(req: Request, res: Response) {
     try {
-      const { id } = req.params;
-
+      const id = new mongoose.Types.ObjectId(req.params.id);
       const servicoId = await ServicoRepository.listarServicoId(id);
       if (!servicoId) {
         return res.json(MESSAGE.ERROR.NOT_VALID_ID);

@@ -11,7 +11,7 @@ var ServicoRepository = /** @class */ (function () {
         return Servico_1.Servico.find();
     };
     ServicoRepository.prototype.listarServicoId = function (id) {
-        return Servico_1.Servico.findById(id);
+        return Servico_1.Servico.findOne(id);
     };
     ServicoRepository.prototype.atualizarServico = function (id, dados) {
         return Servico_1.Servico.findByIdAndUpdate(id, {
