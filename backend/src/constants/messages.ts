@@ -1,7 +1,7 @@
 const MESSAGE = {
     ERROR: {
         PROFISSIONAIS: {
-            NONE_PROFSSIONAL_UNTIL_NOW: "✖️ Nenhum profissional até o momento",
+            NONE_PROFSSIONAL_UNTIL_NOW: "✖️ Nenhum profissional cadastrado até o momento",
             PROFISSIONAL_NOT_FOUND: "✖️ Profissional não encontrado!"
         },
         SERVICOS: {
@@ -49,6 +49,10 @@ const MESSAGE = {
             PROFISSIONALSERVICO_SENDING: "ProfissionalServiço atualizado com sucesso!",
             PROFISSIONALSERVICO_DELETED: "✔️ ProfissionalServiço excluído com sucesso!"
 
+        }, 
+        AGENDA: {
+            AGENDA_CREATED: '✔️ Agenda criada com sucesso!',
+            AGENDA_UPDATED: '✔️ Agenda atualizada com sucesso!',
         }
     }
 }

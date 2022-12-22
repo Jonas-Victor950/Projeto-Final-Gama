@@ -39,7 +39,7 @@ class ProfissionalController {
       if (!req.params.id || isNaN(parseInt(req.params.id))) {
         Logger.error(MESSAGE.ERROR.NOT_VALID_ID);
         return res
-          .status(500)
+          .status(404)
           .json({ success: false, msg: MESSAGE.ERROR.NOT_VALID_ID });
       }
 
@@ -84,7 +84,7 @@ class ProfissionalController {
       );
 
       Logger.info(MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_CREATED);
-      return res.status(200).json({
+      return res.status(201).json({
         success: true,
         msg: MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_CREATED,
         data: profissional,

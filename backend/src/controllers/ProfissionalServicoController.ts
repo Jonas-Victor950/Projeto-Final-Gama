@@ -92,7 +92,7 @@ const ProfissionalServicoController = {
     try {
       const id = new mongoose.Types.ObjectId(req.params.id)
       const profissionalServico = await ProfissionalServicoRepository.deletarProfissionalServico(id)
-      return res.json(MESSAGE.SUCCESS.PROFISSIONALSERVICO.PROFISSIONALSERVICO_DELETED).sendStatus(404)
+      return res.json(MESSAGE.SUCCESS.PROFISSIONALSERVICO.PROFISSIONALSERVICO_DELETED).sendStatus(204)
     }
     catch (error) {
       Logger.error(error)

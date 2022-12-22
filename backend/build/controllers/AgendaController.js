@@ -39,53 +39,51 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var logger_1 = __importDefault(require("../database/logger"));
-var ProfissionalServico_1 = require("../models/ProfissionalServico");
-var ProfissionalServicoRepository_1 = __importDefault(require("../repositories/ProfissionalServicoRepository"));
 var mongoose_1 = __importDefault(require("mongoose"));
 var messages_1 = __importDefault(require("../constants/messages"));
-var ProfissionalServicoController = {
-    criarProfissionalServico: function (req, res) {
+var logger_1 = __importDefault(require("../database/logger"));
+var Agenda_1 = require("../models/Agenda");
+var AgendaRepository_1 = __importDefault(require("../repositories/AgendaRepository"));
+var AgendaController = {
+    cadastroAgenda: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, profissional, servico, novoProfissionalServico, error_1;
+            var _a, profissionalServico, cliente, data, agenda, agendaCriada, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _a = req.body, profissional = _a.profissional, servico = _a.servico;
-                        novoProfissionalServico = {
-                            profissional: profissional,
-                            servico: servico,
+                        _a = req.body, profissionalServico = _a.profissionalServico, cliente = _a.cliente, data = _a.data;
+                        agenda = {
+                            profissionalServico: profissionalServico,
+                            cliente: cliente,
+                            data: data,
                         };
                         _b.label = 1;
                     case 1:
                         _b.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, ProfissionalServicoRepository_1.default.criarProfissionalServico(novoProfissionalServico)];
+                        return [4 /*yield*/, AgendaRepository_1.default.criarAgenda(agenda)];
                     case 2:
-                        _b.sent();
-                        return [2 /*return*/, res.status(201).json(novoProfissionalServico)];
+                        agendaCriada = _b.sent();
+                        return [2 /*return*/, res.status(201).json({ agendaCriada: agendaCriada, message: messages_1.default.SUCCESS.AGENDA.AGENDA_CREATED })];
                     case 3:
                         error_1 = _b.sent();
                         logger_1.default.error(error_1);
                         return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/, res.status(201).json(novoProfissionalServico)];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
     },
-    listarProfissionalServico: function (req, res) {
+    allAgenda: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var profissionalServicos, error_2;
+            var agenda, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, ProfissionalServicoRepository_1.default.listarProfissionalServico().populate('profissional').populate('servico')];
+                        return [4 /*yield*/, AgendaRepository_1.default.listarAgenda().populate('profissionalServico').populate('cliente')];
                     case 1:
-                        profissionalServicos = _a.sent();
-                        if (!profissionalServicos) {
-                            logger_1.default.error(messages_1.default.ERROR.PROFISSIONALSERVICOS.NONE_PROFISSIONALSERVICO_UNTIL_NOW);
-                        }
-                        return [2 /*return*/, res.status(200).json(profissionalServicos)];
+                        agenda = _a.sent();
+                        return [2 /*return*/, res.status(200).json({ Agenda: agenda })];
                     case 2:
                         error_2 = _a.sent();
                         logger_1.default.error(error_2);
@@ -95,24 +93,21 @@ var ProfissionalServicoController = {
             });
         });
     },
-    listarProfissionalServicoId: function (req, res) {
+    allAgendaId: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, profissionalServicoId, error_3;
+            var id, agenda, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        id = req.params.id;
-                        return [4 /*yield*/, ProfissionalServicoRepository_1.default.listarProfissionalServicoId(id).populate('profissional').populate('servico')];
+                        id = new mongoose_1.default.Types.ObjectId(req.params.id);
+                        return [4 /*yield*/, AgendaRepository_1.default.listarAgendaId(id).populate('profissionalServico').populate('cliente')];
                     case 1:
-                        profissionalServicoId = _a.sent();
-                        if (!profissionalServicoId) {
-                            return [2 /*return*/, res.json(messages_1.default.ERROR.NOT_VALID_ID)];
+                        agenda = _a.sent();
+                        if (!agenda) {
+                            return [2 /*return*/, res.status(404).json(messages_1.default.ERROR.NOT_VALID_ID)];
                         }
-                        else {
-                            return [2 /*return*/, res.status(200).json(profissionalServicoId)];
-                        }
-                        return [3 /*break*/, 3];
+                        return [2 /*return*/, res.status(200).json(agenda)];
                     case 2:
                         error_3 = _a.sent();
                         logger_1.default.error(error_3);
@@ -122,30 +117,32 @@ var ProfissionalServicoController = {
             });
         });
     },
-    atualizarProfissionalServico: function (req, res) {
+    agendaAtualizada: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, newProfissionalServico, profissionalServicos, newProfissionalServico2, error_4;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var id, _a, profissionalServico, cliente, data, agenda, agendaAtualizada, error_4;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
+                        _b.trys.push([0, 3, , 4]);
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
-                        newProfissionalServico = req.body;
-                        return [4 /*yield*/, ProfissionalServicoRepository_1.default.atualizarProfissionalServico(id, newProfissionalServico)];
+                        _a = req.body, profissionalServico = _a.profissionalServico, cliente = _a.cliente, data = _a.data;
+                        agenda = {
+                            profissionalServico: profissionalServico,
+                            cliente: cliente,
+                            data: data
+                        };
+                        return [4 /*yield*/, AgendaRepository_1.default.atualizarAgenda(id, agenda)];
                     case 1:
-                        profissionalServicos = _a.sent();
-                        return [4 /*yield*/, ProfissionalServico_1.profissionalServico.findById(id)];
+                        _b.sent();
+                        return [4 /*yield*/, Agenda_1.Agenda.findById(id).populate('profissionalServico').populate('cliente')];
                     case 2:
-                        newProfissionalServico2 = _a.sent();
-                        if (!newProfissionalServico2) {
-                            res.status(404).json(messages_1.default.ERROR.PROFISSIONALSERVICOS.PROFISSIONALSERVICO_NOT_FOUND);
+                        agendaAtualizada = _b.sent();
+                        if (!agendaAtualizada) {
+                            return [2 /*return*/, res.status(404).json(messages_1.default.ERROR.NOT_VALID_ID)];
                         }
-                        else {
-                            res.status(200).json(messages_1.default.SUCCESS.PROFISSIONALSERVICO.PROFISSIONALSERVICO_SENDING);
-                        }
-                        return [3 /*break*/, 4];
+                        return [2 /*return*/, res.status(200).json({ agendaAtualizada: agendaAtualizada, message: messages_1.default.SUCCESS.AGENDA.AGENDA_UPDATED })];
                     case 3:
-                        error_4 = _a.sent();
+                        error_4 = _b.sent();
                         logger_1.default.error(error_4);
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
@@ -153,18 +150,22 @@ var ProfissionalServicoController = {
             });
         });
     },
-    deletaProfissionalServico: function (req, res) {
+    excluirAgenda: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, profissionalServico_1, error_5;
+            var id, agenda, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
-                        return [4 /*yield*/, ProfissionalServicoRepository_1.default.deletarProfissionalServico(id)];
+                        return [4 /*yield*/, AgendaRepository_1.default.deletarAgendar(id)];
                     case 1:
-                        profissionalServico_1 = _a.sent();
-                        return [2 /*return*/, res.json(messages_1.default.SUCCESS.PROFISSIONALSERVICO.PROFISSIONALSERVICO_DELETED).sendStatus(204)];
+                        agenda = _a.sent();
+                        if (!agenda) {
+                            res.json(messages_1.default.ERROR.NOT_VALID_ID);
+                            return [2 /*return*/];
+                        }
+                        return [2 /*return*/, res.sendStatus(204)];
                     case 2:
                         error_5 = _a.sent();
                         logger_1.default.error(error_5);
@@ -175,4 +176,4 @@ var ProfissionalServicoController = {
         });
     }
 };
-exports.default = ProfissionalServicoController;
+exports.default = AgendaController;

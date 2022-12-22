@@ -1,5 +1,5 @@
 import parsePhoneNumber, { isValidPhoneNumber } from "libphonenumber-js";
-import { create, Whatsapp, Message, SocketState } from "venom-bot";
+import { create, Whatsapp, Message, SocketState } from "venom-bot"
 
 export type QRCode = {
   base64Qr: string;
@@ -12,6 +12,7 @@ class Sender {
   private client: Whatsapp;
   private connected: boolean;
   private qr: QRCode;
+  static sendText: any;
 
   get isConnected(): boolean {
     return this.connected;
@@ -58,14 +59,14 @@ class Sender {
     const start = (client: Whatsapp) => {
       this.client = client;
 
-      client.onStateChange((state) => {
+      client.onStateChange((state: any) => {
         this.connected = state === SocketState.CONNECTED;
       });
     };
 
     create("ws-sender-dev")
-      .then((client) => start(client))
-      .catch((error) => console.log(error));
+      .then((client: any) => start(client))
+      .catch((error: any) => console.log(error));
   }
 }
 

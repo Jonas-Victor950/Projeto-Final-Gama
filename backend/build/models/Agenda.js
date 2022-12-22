@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Agenda = void 0;
 var mongoose_1 = require("mongoose");
 var agendaSchema = new mongoose_1.Schema({
     profissionalServico: {
@@ -14,4 +15,4 @@ var agendaSchema = new mongoose_1.Schema({
     collection: "Agenda",
 });
 var Agenda = (0, mongoose_1.model)("Agenda", agendaSchema);
-exports.default = Agenda;
+exports.Agenda = Agenda;

@@ -9,9 +9,8 @@ var servicoController_1 = __importDefault(require("./controllers/servicoControll
 var ProfissionalServicoController_1 = __importDefault(require("./controllers/ProfissionalServicoController"));
 var clienteController_1 = __importDefault(require("./controllers/clienteController"));
 var SenderController_1 = __importDefault(require("./controllers/SenderController"));
+var AgendaController_1 = __importDefault(require("./controllers/AgendaController"));
 var router = express_1.default.Router();
-// Start of Routes Cliente
-// End of Routes Cliente
 // Inicio de rotas Profissionais
 router.get("/profissionais", ProfissionalController_1.default.allProfissionais);
 router.get("/profissionais/:id", ProfissionalController_1.default.getOneProfissional);
@@ -40,6 +39,13 @@ router.get("/profissionalservico/:id", ProfissionalServicoController_1.default.l
 router.put("/profissionalservico/:id", ProfissionalServicoController_1.default.atualizarProfissionalServico);
 router.delete("/profissionalservico/:id", ProfissionalServicoController_1.default.deletaProfissionalServico);
 // Fim de rotas ProfissionalServiço
+// Inicio de rotas Agenda
+router.post('/agenda', AgendaController_1.default.cadastroAgenda);
+router.get('/agenda', AgendaController_1.default.allAgenda);
+router.get('/agenda/:id', AgendaController_1.default.allAgendaId);
+router.put('/agenda/:id', AgendaController_1.default.agendaAtualizada);
+router.delete('/agenda/:id', AgendaController_1.default.excluirAgenda);
+// Fim de rotas agenda
 // Inicio de rotas zap zap
 router.post("/send", SenderController_1.default.createText); // Parte caso queiram testar sem ter que criar um cliente
 // Fim de rotas zap zap

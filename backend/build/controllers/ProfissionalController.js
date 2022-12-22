@@ -95,7 +95,7 @@ var ProfissionalController = /** @class */ (function () {
                         if (!req.params.id || isNaN(parseInt(req.params.id))) {
                             logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
                             return [2 /*return*/, res
-                                    .status(500)
+                                    .status(404)
                                     .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID })];
                         }
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
@@ -147,7 +147,7 @@ var ProfissionalController = /** @class */ (function () {
                     case 2:
                         profissional = _b.sent();
                         logger_1.default.info(messages_1.default.SUCCESS.PROFISSIONAIS.PROFISSIONAL_CREATED);
-                        return [2 /*return*/, res.status(200).json({
+                        return [2 /*return*/, res.status(201).json({
                                 success: true,
                                 msg: messages_1.default.SUCCESS.PROFISSIONAIS.PROFISSIONAL_CREATED,
                                 data: profissional,

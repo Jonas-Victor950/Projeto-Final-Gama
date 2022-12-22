@@ -21,16 +21,17 @@ const clienteController = {
       sexo: sexo,
     };
     const message: string = `Obrigado por se cadastrar ${nome}` as string;
-
+    
     try {
       const cliente = await ClienteRepository.criarCliente(clienteObj);
+
       await sender.sendText(telefone, message);
 
       Logger.info(MESSAGE.SUCCESS.CLIENTES.CLIENTE_CREATED);
       return res.status(200).json({
         success: true,
         msg: MESSAGE.SUCCESS.CLIENTES.CLIENTE_CREATED,
-        data: cliente,
+        cliente: cliente,
       });
     } catch (error) {
       Logger.error(error);

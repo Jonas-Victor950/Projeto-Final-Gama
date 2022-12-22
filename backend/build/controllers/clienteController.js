@@ -78,7 +78,7 @@ var clienteController = {
                         return [2 /*return*/, res.status(200).json({
                                 success: true,
                                 msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_CREATED,
-                                data: cliente,
+                                cliente: cliente,
                             })];
                     case 4:
                         error_1 = _b.sent();
