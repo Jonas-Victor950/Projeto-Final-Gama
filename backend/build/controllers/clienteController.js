@@ -68,7 +68,7 @@ var clienteController = {
                         return [4 /*yield*/, Cliente_1.Cliente.findOne({ "$or": [{ email: email }] })];
                     case 1:
                         if (!_b.sent()) return [3 /*break*/, 2];
-                        return [2 /*return*/, res.status(422).json('Email ja cadastradado, Por favor escolha outro email, ou redefina sua senha!')];
+                        return [2 /*return*/, res.status(422).json(messages_1.default.ERROR.CLIENTES.CLIENTE_EMAIL_ERROR)];
                     case 2:
                         _b.trys.push([2, 5, , 6]);
                         return [4 /*yield*/, ClienteRepository_1.default.criarCliente(clienteObj)];

@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { ICliente, Cliente } from "../models/Cliente";
+import mongoose from 'mongoose';
+import { ICliente, Cliente } from '../models/Cliente';
 
 class ClienteRepository {
   criarCliente(informacao: ICliente) {
@@ -9,7 +9,7 @@ class ClienteRepository {
       senha: informacao.senha,
       telefone: informacao.telefone,
       aniversario: informacao.aniversario,
-      sexo: informacao.email,
+      sexo: informacao.sexo,
     });
   }
 

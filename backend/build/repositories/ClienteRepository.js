@@ -11,7 +11,7 @@ var ClienteRepository = /** @class */ (function () {
             senha: informacao.senha,
             telefone: informacao.telefone,
             aniversario: informacao.aniversario,
-            sexo: informacao.email,
+            sexo: informacao.sexo,
         });
     };
     ClienteRepository.prototype.listarClientes = function (Cliente) {

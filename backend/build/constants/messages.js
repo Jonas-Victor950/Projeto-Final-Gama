@@ -4,7 +4,8 @@ var MESSAGE = {
     ERROR: {
         PROFISSIONAIS: {
             NONE_PROFSSIONAL_UNTIL_NOW: "✖️ Nenhum profissional cadastrado até o momento",
-            PROFISSIONAL_NOT_FOUND: "✖️ Profissional não encontrado!"
+            PROFISSIONAL_NOT_FOUND: "✖️ Profissional não encontrado!",
+            PROFISSIONAL_EMAIL_ERROR: ' ✖️ Email já cadastrado, Por favor escolha outro email!'
         },
         SERVICOS: {
             NONE_SERVICO_UNTIL_NOW: "✖️ Nenhum serviço cadastrado até o momento",
@@ -13,6 +14,7 @@ var MESSAGE = {
         CLIENTES: {
             NONE_CLIENTE_UNTIL_NOW: '✖️ Nenhum cliente cadastrado até o momento',
             CLIENTE_NOT_FOUND: '✖️ Cliente não encontrado!',
+            CLIENTE_EMAIL_ERROR: ' ✖️ Email já cadastrado, Por favor escolha outro email!'
         },
         PROFISSIONALSERVICOS: {
             NONE_PROFISSIONALSERVICO_UNTIL_NOW: "✖️ Nenhum ProfissionalServiço cadastrado até o momento",
