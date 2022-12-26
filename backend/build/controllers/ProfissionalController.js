@@ -140,11 +140,14 @@ var ProfissionalController = /** @class */ (function () {
                             telefone: telefone,
                             sexo: sexo,
                         };
-                        _b.label = 1;
+                        return [4 /*yield*/, Profissional_1.Profissional.findOne({ "$or": [{ email: email }] })];
                     case 1:
-                        _b.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, ProfissionalRepository_1.default.createProfissional(profissionalObj)];
+                        if (!_b.sent()) return [3 /*break*/, 2];
+                        return [2 /*return*/, res.status(422).json(messages_1.default.ERROR.PROFISSIONAIS.PROFISSIONAL_EMAIL_ERROR)];
                     case 2:
+                        _b.trys.push([2, 4, , 5]);
+                        return [4 /*yield*/, ProfissionalRepository_1.default.createProfissional(profissionalObj)];
+                    case 3:
                         profissional = _b.sent();
                         logger_1.default.info(messages_1.default.SUCCESS.PROFISSIONAIS.PROFISSIONAL_CREATED);
                         return [2 /*return*/, res.status(201).json({
@@ -152,13 +155,13 @@ var ProfissionalController = /** @class */ (function () {
                                 msg: messages_1.default.SUCCESS.PROFISSIONAIS.PROFISSIONAL_CREATED,
                                 data: profissional,
                             })];
-                    case 3:
+                    case 4:
                         error_3 = _b.sent();
                         logger_1.default.error(error_3);
                         return [2 /*return*/, res
                                 .status(500)
                                 .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH })];
-                    case 4: return [2 /*return*/];
+                    case 5: return [2 /*return*/];
                 }
             });
         });

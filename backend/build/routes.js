@@ -19,6 +19,7 @@ var AdminController_1 = __importDefault(require("./controllers/AdminController")
 var create_1 = __importDefault(require("./validations/profissionais/create"));
 var create_2 = __importDefault(require("./validations/clientes/create"));
 var create_3 = __importDefault(require("./validations/servicos/create"));
+var create_4 = __importDefault(require("./validations/admin/create"));
 // Fim Imports Validations
 // Inicio de rotas Profissionais
 router.get("/profissionais", ProfissionalController_1.default.allProfissionais);
@@ -42,7 +43,7 @@ router.put("/cliente/:id", clienteController_1.default.atualizarCliente);
 router.delete("/cliente/:id", clienteController_1.default.deletarCliente);
 // Fim de rotas Clientes
 // Inicio de rotas Admin
-router.post("/admin", AdminController_1.default.criarAdmin);
+router.post("/admin", create_4.default, AdminController_1.default.criarAdmin);
 router.get("/admin", AdminController_1.default.admin);
 router.put("/admin/:id", AdminController_1.default.atualizarAdmin);
 router.delete("/admin/:id", AdminController_1.default.deletarAdmin);

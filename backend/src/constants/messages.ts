@@ -2,7 +2,8 @@ const MESSAGE = {
     ERROR: {
         PROFISSIONAIS: {
             NONE_PROFSSIONAL_UNTIL_NOW: "✖️ Nenhum profissional cadastrado até o momento",
-            PROFISSIONAL_NOT_FOUND: "✖️ Profissional não encontrado!"
+            PROFISSIONAL_NOT_FOUND: "✖️ Profissional não encontrado!",
+            PROFISSIONAL_EMAIL_ERROR: ' ✖️ Email já cadastrado, Por favor escolha outro email!'
         },
         SERVICOS: {
             NONE_SERVICO_UNTIL_NOW: "✖️ Nenhum serviço cadastrado até o momento",

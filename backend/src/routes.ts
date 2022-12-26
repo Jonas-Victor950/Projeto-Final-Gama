@@ -16,6 +16,7 @@ import AdminController from "./controllers/AdminController";
 import validateCreateProfissional from "./validations/profissionais/create";
 import validateCreateCliente from "./validations/clientes/create";
 import validateCreateServico from "./validations/servicos/create";
+import validateCreateAdmin from "./validations/admin/create";
 // Fim Imports Validations
 
 // Inicio de rotas Profissionais
@@ -43,7 +44,7 @@ router.delete("/cliente/:id", ClienteController.deletarCliente);
 // Fim de rotas Clientes
 
 // Inicio de rotas Admin
-router.post("/admin", AdminController.criarAdmin);
+router.post("/admin", validateCreateAdmin, AdminController.criarAdmin);
 router.get("/admin", AdminController.admin);
 router.put("/admin/:id", AdminController.atualizarAdmin);
 router.delete("/admin/:id", AdminController.deletarAdmin);
