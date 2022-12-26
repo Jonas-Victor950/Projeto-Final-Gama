@@ -13,6 +13,7 @@ var MESSAGE = {
         CLIENTES: {
             NONE_CLIENTE_UNTIL_NOW: '✖️ Nenhum cliente cadastrado até o momento',
             CLIENTE_NOT_FOUND: '✖️ Cliente não encontrado!',
+            CLIENTE_EMAIL_ERROR: ' ✖️ Email já cadastrado, Por favor escolha outro email!'
         },
         PROFISSIONALSERVICOS: {
             NONE_PROFISSIONALSERVICO_UNTIL_NOW: "✖️ Nenhum ProfissionalServiço cadastrado até o momento",

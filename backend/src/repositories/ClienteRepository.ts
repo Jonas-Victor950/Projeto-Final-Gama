@@ -9,7 +9,7 @@ class ClienteRepository {
       senha: informacao.senha,
       telefone: informacao.telefone,
       aniversario: informacao.aniversario,
-      sexo: informacao.email,
+      sexo: informacao.sexo,
     });
   }
 
