@@ -65,7 +65,7 @@ var clienteController = {
                             sexo: sexo,
                         };
                         message = "Obrigado por se cadastrar ".concat(nome);
-                        return [4 /*yield*/, Cliente_1.Cliente.findOne({ "$or": [{ email: email }] })];
+                        return [4 /*yield*/, Cliente_1.Cliente.findOne({ $or: [{ email: email }] })];
                     case 1:
                         if (!_b.sent()) return [3 /*break*/, 2];
                         return [2 /*return*/, res.status(422).json(messages_1.default.ERROR.CLIENTES.CLIENTE_EMAIL_ERROR)];

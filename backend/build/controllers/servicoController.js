@@ -47,15 +47,16 @@ var ServicoRepository_1 = __importDefault(require("../repositories/ServicoReposi
 var servicoController = {
     criarServico: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, servico, preco, duracao, novoServico, servicos, error_1;
+            var _a, servico, preco, duracao, descricao, novoServico, servicos, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _a = req.body, servico = _a.servico, preco = _a.preco, duracao = _a.duracao;
+                        _a = req.body, servico = _a.servico, preco = _a.preco, duracao = _a.duracao, descricao = _a.descricao;
                         novoServico = {
                             servico: servico,
                             preco: preco,
                             duracao: duracao,
+                            descricao: descricao,
                         };
                         _b.label = 1;
                     case 1:
@@ -73,6 +74,7 @@ var servicoController = {
             });
         });
     },
+    // to mexendo aqui
     listarServico: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             var servicos, error_2;
@@ -125,17 +127,18 @@ var servicoController = {
     },
     atulizarServico: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, _a, servico, preco, duracao, servicoAtualizado, servicos, newServico2, error_4;
+            var id, _a, servico, preco, duracao, descricao, servicoAtualizado, servicos, newServico2, error_4;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 3, , 4]);
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
-                        _a = req.body, servico = _a.servico, preco = _a.preco, duracao = _a.duracao;
+                        _a = req.body, servico = _a.servico, preco = _a.preco, duracao = _a.duracao, descricao = _a.descricao;
                         servicoAtualizado = {
                             servico: servico,
                             preco: preco,
                             duracao: duracao,
+                            descricao: descricao,
                         };
                         return [4 /*yield*/, ServicoRepository_1.default.atualizarServico(id, servicoAtualizado)];
                     case 1:
@@ -180,5 +183,26 @@ var servicoController = {
             });
         });
     },
+    servicoFilter: function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var servico, error_6;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, Servico_1.Servico.find(req.body.filters)];
+                    case 1:
+                        servico = _a.sent();
+                        return [2 /*return*/, res.json({ servico: servico })];
+                    case 2:
+                        error_6 = _a.sent();
+                        logger_1.default.error(error_6);
+                        res.json({ error: true, message: error_6 });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    }
 };
 exports.default = servicoController;

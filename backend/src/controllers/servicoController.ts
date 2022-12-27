@@ -7,11 +7,12 @@ import ServicoRepository from '../repositories/ServicoRepository';
 
 const servicoController = {
   async criarServico(req: Request, res: Response) {
-    const { servico, preco, duracao } = req.body;
+    const { servico, preco, duracao, descricao } = req.body;
     const novoServico: IServico = {
       servico,
       preco,
       duracao,
+      descricao,
     };
     try {
       const servicos = await ServicoRepository.criarServico(novoServico);
@@ -20,10 +21,11 @@ const servicoController = {
       Logger.error(error);
     }
   },
-
+// to mexendo aqui
   async listarServico(req: Request, res: Response) {
     try {
-      const servicos = await ServicoRepository.listarServicos();
+     
+      const servicos = await ServicoRepository.listarServicos()
       if (!servicos) {
         Logger.error(MESSAGE.ERROR.SERVICOS.NONE_SERVICO_UNTIL_NOW);
       }
@@ -51,12 +53,13 @@ const servicoController = {
   async atulizarServico(req: Request, res: Response) {
     try {
       const id = new mongoose.Types.ObjectId(req.params.id);
-      const  { servico, preco, duracao } = req.body;
+      const  { servico, preco, duracao, descricao } = req.body;
 
       const servicoAtualizado: IServico = {
         servico,
         preco,
         duracao,
+        descricao,
       }
 
       const servicos = await ServicoRepository.atualizarServico(id, servicoAtualizado);
@@ -83,5 +86,16 @@ const servicoController = {
       Logger.error(error);
     }
   },
+
+  async servicoFilter(req: Request, res: Response) {
+    try {
+      const servico = await Servico.find(req.body.filters)
+      return res.json({servico})
+    } catch (error) {
+      Logger.error(error);
+      res.json({error: true, message: error})
+      
+    }
+  }
 };
 export default servicoController;

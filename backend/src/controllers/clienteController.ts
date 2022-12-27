@@ -22,7 +22,7 @@ const clienteController = {
     };
     const message: string = `Obrigado por se cadastrar ${nome}` as string;
 
-    if (await Cliente.findOne({ "$or": [{ email: email }] })) {
+    if (await Cliente.findOne({ $or: [{ email: email }] })) {
       return res.status(422).json(MESSAGE.ERROR.CLIENTES.CLIENTE_EMAIL_ERROR);
 
     } else {

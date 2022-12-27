@@ -6,6 +6,7 @@ var servicoSchema = new mongoose_1.Schema({
     servico: { type: String, required: true },
     preco: { type: String, required: true },
     duracao: { type: String, required: true },
+    descricao: { type: String, default: 'Serviço de primeira qualidade!' },
 }, {
     timestamps: true,
     collection: "Servico",

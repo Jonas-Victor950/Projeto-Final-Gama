@@ -79,7 +79,7 @@ class ProfissionalController {
       sexo: sexo,
     };
 
-    if (await Profissional.findOne({ "$or": [{ email: email }] })) {
+    if (await Profissional.findOne({ $or: [{ email: email }] })) {
       return res.status(422).json(MESSAGE.ERROR.PROFISSIONAIS.PROFISSIONAL_EMAIL_ERROR);
 
     } else {

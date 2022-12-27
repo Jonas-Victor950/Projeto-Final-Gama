@@ -5,7 +5,14 @@ import handleError from "./middlewares/handleError";
 import express from "express";
 import cors from "cors";
 import mongoDB from "./database/app";
-import router from "./routes";
+
+// Routes
+import routerAdmin from "./routes/admin.routes";
+import routerServico from "./routes/servico.routes";
+import routerAgenda from "./routes/agenda.routes";
+import routerCliente from "./routes/cliente.routes";
+import routerProf from "./routes/profissional.routes";
+import routerProfServ from "./routes/profissionalServico.routes";
 import Logger from "./database/logger";
 
 async function main() {
@@ -15,7 +22,7 @@ async function main() {
   app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
-  app.use(router);
+  app.use(routerAdmin, routerServico, routerAgenda, routerCliente, routerProf, routerProfServ)
   app.use(handleError);
 
   app.listen(port, async () => {

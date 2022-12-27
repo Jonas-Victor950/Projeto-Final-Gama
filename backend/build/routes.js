@@ -34,6 +34,7 @@ router.get("/servico", servicoController_1.default.listarServico);
 router.get("/servico/:id", servicoController_1.default.listarServicoId);
 router.put("/servico/:id", servicoController_1.default.atulizarServico);
 router.delete("/servico/:id", servicoController_1.default.deletaServico);
+router.post('/servico/filter', servicoController_1.default.servicoFilter);
 // Fim de rotas Serviços
 // Inicio de rotas Clientes
 router.post("/cliente", create_2.default, clienteController_1.default.criarCliente);

@@ -45,7 +45,13 @@ var handleError_1 = __importDefault(require("./middlewares/handleError"));
 var express_1 = __importDefault(require("express"));
 var cors_1 = __importDefault(require("cors"));
 var app_1 = __importDefault(require("./database/app"));
-var routes_1 = __importDefault(require("./routes"));
+// Routes
+var admin_routes_1 = __importDefault(require("./routes/admin.routes"));
+var servico_routes_1 = __importDefault(require("./routes/servico.routes"));
+var agenda_routes_1 = __importDefault(require("./routes/agenda.routes"));
+var cliente_routes_1 = __importDefault(require("./routes/cliente.routes"));
+var profissional_routes_1 = __importDefault(require("./routes/profissional.routes"));
+var profissionalServico_routes_1 = __importDefault(require("./routes/profissionalServico.routes"));
 var logger_1 = __importDefault(require("./database/logger"));
 function main() {
     return __awaiter(this, void 0, void 0, function () {
@@ -57,7 +63,7 @@ function main() {
             app.use((0, cors_1.default)());
             app.use(express_1.default.json());
             app.use(express_1.default.urlencoded({ extended: false }));
-            app.use(routes_1.default);
+            app.use(admin_routes_1.default, servico_routes_1.default, agenda_routes_1.default, cliente_routes_1.default, profissional_routes_1.default, profissionalServico_routes_1.default);
             app.use(handleError_1.default);
             app.listen(port, function () { return __awaiter(_this, void 0, void 0, function () {
                 return __generator(this, function (_a) {

@@ -140,7 +140,7 @@ var ProfissionalController = /** @class */ (function () {
                             telefone: telefone,
                             sexo: sexo,
                         };
-                        return [4 /*yield*/, Profissional_1.Profissional.findOne({ "$or": [{ email: email }] })];
+                        return [4 /*yield*/, Profissional_1.Profissional.findOne({ $or: [{ email: email }] })];
                     case 1:
                         if (!_b.sent()) return [3 /*break*/, 2];
                         return [2 /*return*/, res.status(422).json(messages_1.default.ERROR.PROFISSIONAIS.PROFISSIONAL_EMAIL_ERROR)];

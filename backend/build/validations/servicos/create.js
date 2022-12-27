@@ -6,6 +6,7 @@ var validateCreateServico = (0, express_validation_1.validate)({
         servico: express_validation_1.Joi.string().required(),
         preco: express_validation_1.Joi.string().required(),
         duracao: express_validation_1.Joi.string().required(),
+        descricao: express_validation_1.Joi.optional(),
     }),
 });
 exports.default = validateCreateServico;
