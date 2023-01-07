@@ -18,9 +18,8 @@ class ClienteRepository {
   }
 
   listarClienteId(
-    clienteId: mongoose.Types.ObjectId,
-    Cliente: any
-  ): Promise<any> {
+    clienteId: mongoose.Types.ObjectId
+  ) {
     return Cliente.findOne({ _id: clienteId });
   }
 

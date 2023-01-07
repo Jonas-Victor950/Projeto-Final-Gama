@@ -3,7 +3,9 @@ import mongoose, { ObjectId } from 'mongoose';
 import MESSAGE from '../constants/messages';
 import Logger from '../database/logger';
 import { Agenda, IAgenda } from "../models/Agenda";
+import { Cliente } from '../models/Cliente';
 import AgendaRepository from '../repositories/AgendaRepository';
+import ClienteRepository from '../repositories/ClienteRepository';
 
 const AgendaController = {
     async cadastroAgenda(req: Request, res: Response) {
@@ -13,6 +15,9 @@ const AgendaController = {
             cliente,
             data,
         }
+        const clienteData = await ClienteRepository.listarClienteId(cliente).populate("telefone")
+        const clienteNumero = clienteData?.telefone
+        console.log(clienteNumero)
         try {
             const agendaCriada = await AgendaRepository.criarAgenda(agenda)
             return res.status(201).json({ agendaCriada, message: MESSAGE.SUCCESS.AGENDA.AGENDA_CREATED})

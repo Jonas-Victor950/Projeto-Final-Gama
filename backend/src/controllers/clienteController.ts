@@ -86,7 +86,7 @@ const clienteController = {
       }
 
       const id = new mongoose.Types.ObjectId(req.params.id);
-      const cliente = await ClienteRepository.listarClienteId(id, Cliente);
+      const cliente = await ClienteRepository.listarClienteId(id);
 
       if (!cliente) {
         Logger.error(MESSAGE.ERROR.CLIENTES.CLIENTE_NOT_FOUND);
@@ -116,7 +116,7 @@ const clienteController = {
       }
 
       const id = new mongoose.Types.ObjectId(req.params.id);
-      const cliente = await ClienteRepository.listarClienteId(id, Cliente);
+      const cliente = await ClienteRepository.listarClienteId(id);
 
       if (!cliente) {
         Logger.error(MESSAGE.ERROR.CLIENTES.CLIENTE_NOT_FOUND);
@@ -185,7 +185,7 @@ const clienteController = {
       }
 
       const id = new mongoose.Types.ObjectId(req.params.id);
-      const cliente = await ClienteRepository.listarClienteId(id, Cliente);
+      const cliente = await ClienteRepository.listarClienteId(id);
 
       if (!cliente) {
         Logger.error(MESSAGE.ERROR.CLIENTES.CLIENTE_NOT_FOUND);
