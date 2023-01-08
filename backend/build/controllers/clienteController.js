@@ -145,7 +145,7 @@ var clienteController = {
                                     .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID })];
                         }
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
-                        return [4 /*yield*/, ClienteRepository_1.default.listarClienteId(id, Cliente_1.Cliente)];
+                        return [4 /*yield*/, ClienteRepository_1.default.listarClienteId(id)];
                     case 1:
                         cliente = _a.sent();
                         if (!cliente) {
@@ -185,7 +185,7 @@ var clienteController = {
                                     .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID })];
                         }
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
-                        return [4 /*yield*/, ClienteRepository_1.default.listarClienteId(id, Cliente_1.Cliente)];
+                        return [4 /*yield*/, ClienteRepository_1.default.listarClienteId(id)];
                     case 1:
                         cliente = _b.sent();
                         if (!!cliente) return [3 /*break*/, 2];
@@ -258,7 +258,7 @@ var clienteController = {
                                     .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID })];
                         }
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
-                        return [4 /*yield*/, ClienteRepository_1.default.listarClienteId(id, Cliente_1.Cliente)];
+                        return [4 /*yield*/, ClienteRepository_1.default.listarClienteId(id)];
                     case 1:
                         cliente = _a.sent();
                         if (!!cliente) return [3 /*break*/, 2];

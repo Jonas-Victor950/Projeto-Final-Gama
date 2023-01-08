@@ -1,14 +1,9 @@
-import { Request, Response } from "express";
-import { string } from "joi";
-import mongoose, { ObjectId } from "mongoose";
-import MESSAGE from "../constants/messages";
-import Logger from "../database/logger";
-import { Agenda, IAgenda } from "../models/Agenda";
-import { Cliente } from "../models/Cliente";
-import AgendaRepository from "../repositories/AgendaRepository";
-import ClienteRepository from "../repositories/ClienteRepository";
-import Sender from "./sender";
-const sender = new Sender();
+import { Request, Response } from 'express';
+import mongoose, { ObjectId } from 'mongoose';
+import MESSAGE from '../constants/messages';
+import Logger from '../database/logger';
+import { Agenda, IAgenda } from '../models/Agenda';
+import AgendaRepository from '../repositories/AgendaRepository';
 
 const AgendaController = {
   async cadastroAgenda(req: Request, res: Response) {
@@ -18,18 +13,8 @@ const AgendaController = {
       cliente,
       data,
     };
-    const clienteData = await ClienteRepository.listarClienteId(
-      cliente
-    ).populate("telefone");
-
-    const clienteNumero = clienteData?.telefone as string;
-    const clienteNome = clienteData?.nome;
-    const message: string =
-      `${clienteNome} seu horário no Agenda da Beleza está marcado para o dia ${data}` as string;
-    console.log(clienteNumero);
     try {
       const agendaCriada = await AgendaRepository.criarAgenda(agenda);
-      const zap = await sender.sendText(clienteNumero, message);
       return res
         .status(201)
         .json({ agendaCriada, message: MESSAGE.SUCCESS.AGENDA.AGENDA_CREATED });
@@ -41,8 +26,8 @@ const AgendaController = {
   async allAgenda(req: Request, res: Response) {
     try {
       const agenda = await AgendaRepository.listarAgenda()
-        .populate("profissionalServico")
-        .populate("cliente");
+        .populate('profissionalServico')
+        .populate('cliente');
       return res.status(200).json({ Agenda: agenda });
     } catch (error) {
       Logger.error(error);
@@ -53,8 +38,8 @@ const AgendaController = {
     try {
       const id = new mongoose.Types.ObjectId(req.params.id);
       const agenda = await AgendaRepository.listarAgendaId(id)
-        .populate("profissionalServico")
-        .populate("cliente");
+        .populate('profissionalServico')
+        .populate('cliente');
       if (!agenda) {
         return res.status(404).json(MESSAGE.ERROR.NOT_VALID_ID);
       }
@@ -76,8 +61,8 @@ const AgendaController = {
 
       await AgendaRepository.atualizarAgenda(id, agenda);
       const agendaAtualizada = await Agenda.findById(id)
-        .populate("profissionalServico")
-        .populate("cliente");
+        .populate('profissionalServico')
+        .populate('cliente');
 
       if (!agendaAtualizada) {
         return res.status(404).json(MESSAGE.ERROR.NOT_VALID_ID);
@@ -101,6 +86,16 @@ const AgendaController = {
       }
 
       return res.sendStatus(204);
+    } catch (error) {
+      Logger.error(error);
+    }
+  },
+
+  async agendaProfissionais(req: Request, res: Response) {
+    try {
+      //const id = new mongoose.Types.ObjectId(req.params.id);
+      const agenda = await AgendaRepository.agendaProfissionais();
+      return res.status(200).json({ Agenda: agenda });
     } catch (error) {
       Logger.error(error);
     }

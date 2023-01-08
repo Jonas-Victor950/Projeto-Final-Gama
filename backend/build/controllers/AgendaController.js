@@ -63,7 +63,9 @@ var AgendaController = {
                         return [4 /*yield*/, AgendaRepository_1.default.criarAgenda(agenda)];
                     case 2:
                         agendaCriada = _b.sent();
-                        return [2 /*return*/, res.status(201).json({ agendaCriada: agendaCriada, message: messages_1.default.SUCCESS.AGENDA.AGENDA_CREATED })];
+                        return [2 /*return*/, res
+                                .status(201)
+                                .json({ agendaCriada: agendaCriada, message: messages_1.default.SUCCESS.AGENDA.AGENDA_CREATED })];
                     case 3:
                         error_1 = _b.sent();
                         logger_1.default.error(error_1);
@@ -80,7 +82,9 @@ var AgendaController = {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, AgendaRepository_1.default.listarAgenda().populate('profissionalServico').populate('cliente')];
+                        return [4 /*yield*/, AgendaRepository_1.default.listarAgenda()
+                                .populate('profissionalServico')
+                                .populate('cliente')];
                     case 1:
                         agenda = _a.sent();
                         return [2 /*return*/, res.status(200).json({ Agenda: agenda })];
@@ -101,7 +105,9 @@ var AgendaController = {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
-                        return [4 /*yield*/, AgendaRepository_1.default.listarAgendaId(id).populate('profissionalServico').populate('cliente')];
+                        return [4 /*yield*/, AgendaRepository_1.default.listarAgendaId(id)
+                                .populate('profissionalServico')
+                                .populate('cliente')];
                     case 1:
                         agenda = _a.sent();
                         if (!agenda) {
@@ -129,18 +135,23 @@ var AgendaController = {
                         agenda = {
                             profissionalServico: profissionalServico,
                             cliente: cliente,
-                            data: data
+                            data: data,
                         };
                         return [4 /*yield*/, AgendaRepository_1.default.atualizarAgenda(id, agenda)];
                     case 1:
                         _b.sent();
-                        return [4 /*yield*/, Agenda_1.Agenda.findById(id).populate('profissionalServico').populate('cliente')];
+                        return [4 /*yield*/, Agenda_1.Agenda.findById(id)
+                                .populate('profissionalServico')
+                                .populate('cliente')];
                     case 2:
                         agendaAtualizada = _b.sent();
                         if (!agendaAtualizada) {
                             return [2 /*return*/, res.status(404).json(messages_1.default.ERROR.NOT_VALID_ID)];
                         }
-                        return [2 /*return*/, res.status(200).json({ agendaAtualizada: agendaAtualizada, message: messages_1.default.SUCCESS.AGENDA.AGENDA_UPDATED })];
+                        return [2 /*return*/, res.status(200).json({
+                                agendaAtualizada: agendaAtualizada,
+                                message: messages_1.default.SUCCESS.AGENDA.AGENDA_UPDATED,
+                            })];
                     case 3:
                         error_4 = _b.sent();
                         logger_1.default.error(error_4);
@@ -174,6 +185,26 @@ var AgendaController = {
                 }
             });
         });
-    }
+    },
+    agendaProfissionais: function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var agenda, error_6;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, AgendaRepository_1.default.agendaProfissionais()];
+                    case 1:
+                        agenda = _a.sent();
+                        return [2 /*return*/, res.status(200).json({ Agenda: agenda })];
+                    case 2:
+                        error_6 = _a.sent();
+                        logger_1.default.error(error_6);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    },
 };
 exports.default = AgendaController;
