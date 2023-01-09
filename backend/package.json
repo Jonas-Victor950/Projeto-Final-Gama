@@ -24,6 +24,7 @@
     "libphonenumber-js": "^1.10.15",
     "mongoose": "^6.8.0",
     "morgan": "^1.10.0",
+    "nodemon": "^2.0.20",
     "venom-bot": "^4.3.7",
     "winston": "^3.8.2"
   },
