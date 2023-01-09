@@ -143,7 +143,9 @@ var ProfissionalController = /** @class */ (function () {
                         return [4 /*yield*/, Profissional_1.Profissional.findOne({ $or: [{ email: email }] })];
                     case 1:
                         if (!_b.sent()) return [3 /*break*/, 2];
-                        return [2 /*return*/, res.status(422).json(messages_1.default.ERROR.PROFISSIONAIS.PROFISSIONAL_EMAIL_ERROR)];
+                        return [2 /*return*/, res
+                                .status(422)
+                                .json(messages_1.default.ERROR.PROFISSIONAIS.PROFISSIONAL_EMAIL_ERROR)];
                     case 2:
                         _b.trys.push([2, 4, , 5]);
                         return [4 /*yield*/, ProfissionalRepository_1.default.createProfissional(profissionalObj)];

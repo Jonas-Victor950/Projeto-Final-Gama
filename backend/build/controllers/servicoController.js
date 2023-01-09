@@ -203,6 +203,6 @@ var servicoController = {
                 }
             });
         });
-    }
+    },
 };
 exports.default = servicoController;

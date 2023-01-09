@@ -41,10 +41,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // ENV variable
 require("dotenv").config();
+// Import Logger
+var logger_1 = __importDefault(require("./database/logger"));
+// Import DB
+var app_1 = __importDefault(require("./database/app"));
+// Import middlewares
 var handleError_1 = __importDefault(require("./middlewares/handleError"));
 var express_1 = __importDefault(require("express"));
 var cors_1 = __importDefault(require("cors"));
-var app_1 = __importDefault(require("./database/app"));
 // Routes
 var admin_routes_1 = __importDefault(require("./routes/admin.routes"));
 var servico_routes_1 = __importDefault(require("./routes/servico.routes"));
@@ -53,7 +57,6 @@ var cliente_routes_1 = __importDefault(require("./routes/cliente.routes"));
 var profissional_routes_1 = __importDefault(require("./routes/profissional.routes"));
 var profissionalServico_routes_1 = __importDefault(require("./routes/profissionalServico.routes"));
 var login_routes_1 = __importDefault(require("./routes/login.routes"));
-var logger_1 = __importDefault(require("./database/logger"));
 function main() {
     return __awaiter(this, void 0, void 0, function () {
         var app, port;

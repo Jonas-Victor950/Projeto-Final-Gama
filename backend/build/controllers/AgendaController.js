@@ -83,8 +83,8 @@ var AgendaController = {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         return [4 /*yield*/, AgendaRepository_1.default.listarAgenda()
-                                .populate('profissionalServico')
-                                .populate('cliente')];
+                                .populate("profissionalServico")
+                                .populate("cliente")];
                     case 1:
                         agenda = _a.sent();
                         return [2 /*return*/, res.status(200).json({ Agenda: agenda })];
@@ -106,8 +106,8 @@ var AgendaController = {
                         _a.trys.push([0, 2, , 3]);
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
                         return [4 /*yield*/, AgendaRepository_1.default.listarAgendaId(id)
-                                .populate('profissionalServico')
-                                .populate('cliente')];
+                                .populate("profissionalServico")
+                                .populate("cliente")];
                     case 1:
                         agenda = _a.sent();
                         if (!agenda) {
@@ -141,8 +141,8 @@ var AgendaController = {
                     case 1:
                         _b.sent();
                         return [4 /*yield*/, Agenda_1.Agenda.findById(id)
-                                .populate('profissionalServico')
-                                .populate('cliente')];
+                                .populate("profissionalServico")
+                                .populate("cliente")];
                     case 2:
                         agendaAtualizada = _b.sent();
                         if (!agendaAtualizada) {

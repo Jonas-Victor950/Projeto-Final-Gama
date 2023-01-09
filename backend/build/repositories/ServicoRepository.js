@@ -18,8 +18,8 @@ var ServicoRepository = /** @class */ (function () {
             $set: {
                 servico: dados.servico,
                 preco: dados.preco,
-                duracao: dados.duracao
-            }
+                duracao: dados.duracao,
+            },
         });
     };
     ServicoRepository.prototype.deletarServico = function (id) {

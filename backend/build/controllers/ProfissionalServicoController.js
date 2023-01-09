@@ -79,7 +79,9 @@ var ProfissionalServicoController = {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, ProfissionalServicoRepository_1.default.listarProfissionalServico().populate('profissional').populate('servico')];
+                        return [4 /*yield*/, ProfissionalServicoRepository_1.default.listarProfissionalServico()
+                                .populate("profissional")
+                                .populate("servico")];
                     case 1:
                         profissionalServicos = _a.sent();
                         if (!profissionalServicos) {
@@ -103,7 +105,9 @@ var ProfissionalServicoController = {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         id = req.params.id;
-                        return [4 /*yield*/, ProfissionalServicoRepository_1.default.listarProfissionalServicoId(id).populate('profissional').populate('servico')];
+                        return [4 /*yield*/, ProfissionalServicoRepository_1.default.listarProfissionalServicoId(id)
+                                .populate("profissional")
+                                .populate("servico")];
                     case 1:
                         profissionalServicoId = _a.sent();
                         if (!profissionalServicoId) {
@@ -138,10 +142,14 @@ var ProfissionalServicoController = {
                     case 2:
                         newProfissionalServico2 = _a.sent();
                         if (!newProfissionalServico2) {
-                            res.status(404).json(messages_1.default.ERROR.PROFISSIONALSERVICOS.PROFISSIONALSERVICO_NOT_FOUND);
+                            res
+                                .status(404)
+                                .json(messages_1.default.ERROR.PROFISSIONALSERVICOS.PROFISSIONALSERVICO_NOT_FOUND);
                         }
                         else {
-                            res.status(200).json(messages_1.default.SUCCESS.PROFISSIONALSERVICO.PROFISSIONALSERVICO_SENDING);
+                            res
+                                .status(200)
+                                .json(messages_1.default.SUCCESS.PROFISSIONALSERVICO.PROFISSIONALSERVICO_SENDING);
                         }
                         return [3 /*break*/, 4];
                     case 3:
@@ -164,7 +172,9 @@ var ProfissionalServicoController = {
                         return [4 /*yield*/, ProfissionalServicoRepository_1.default.deletarProfissionalServico(id)];
                     case 1:
                         profissionalServico_1 = _a.sent();
-                        return [2 /*return*/, res.json(messages_1.default.SUCCESS.PROFISSIONALSERVICO.PROFISSIONALSERVICO_DELETED).sendStatus(204)];
+                        return [2 /*return*/, res
+                                .json(messages_1.default.SUCCESS.PROFISSIONALSERVICO.PROFISSIONALSERVICO_DELETED)
+                                .sendStatus(204)];
                     case 2:
                         error_5 = _a.sent();
                         logger_1.default.error(error_5);
@@ -173,6 +183,6 @@ var ProfissionalServicoController = {
                 }
             });
         });
-    }
+    },
 };
 exports.default = ProfissionalServicoController;

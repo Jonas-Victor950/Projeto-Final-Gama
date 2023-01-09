@@ -55,11 +55,11 @@ var Conection = /** @class */ (function () {
                         return [4 /*yield*/, (0, mongoose_1.connect)(this.db_conection_string)];
                     case 1:
                         _a.sent();
-                        logger_1.default.info('😄 Conectado com sucesso ao banco de dados!');
+                        logger_1.default.info("😄 Conectado com sucesso ao banco de dados!");
                         return [3 /*break*/, 3];
                     case 2:
                         error_1 = _a.sent();
-                        logger_1.default.error('😕 Falha ao conectar ao banco de dados.');
+                        logger_1.default.error("😕 Falha ao conectar ao banco de dados.");
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
@@ -69,15 +69,3 @@ var Conection = /** @class */ (function () {
     return Conection;
 }());
 exports.default = Conection;
-// import { Sequelize } from "sequelize";
-// import authDB from "./default";
-// export const db: Sequelize = new Sequelize(
-// authDB.database,
-// authDB.user,
-// authDB.pass,
-// {
-//     host: authDB.host,
-//     dialect: 'mysql',
-//     logging: console.log
-// }
-// );

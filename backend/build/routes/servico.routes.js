@@ -12,5 +12,5 @@ routerServico.get("/servico", servicoController_1.default.listarServico);
 routerServico.get("/servico/:id", servicoController_1.default.listarServicoId);
 routerServico.put("/servico/:id", servicoController_1.default.atulizarServico);
 routerServico.delete("/servico/:id", servicoController_1.default.deletaServico);
-routerServico.post('/servico/filter', servicoController_1.default.servicoFilter);
+routerServico.post("/servico/filter", servicoController_1.default.servicoFilter);
 exports.default = routerServico;
