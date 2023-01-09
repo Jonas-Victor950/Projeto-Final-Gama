@@ -12,8 +12,7 @@ const servicoSchema = new Schema<IServico>(
     servico: { type: String, required: true },
     preco: { type: String, required: true },
     duracao: { type: String, required: true },
-    descricao: { type: String, default: 'Serviço de primeira qualidade!'},
-    
+    descricao: { type: String, default: "Serviço de primeira qualidade!" },
   },
   {
     timestamps: true,
@@ -23,4 +22,4 @@ const servicoSchema = new Schema<IServico>(
 
 const Servico = model<IServico>("Servico", servicoSchema);
 
-export  {Servico, IServico };
+export { Servico, IServico };

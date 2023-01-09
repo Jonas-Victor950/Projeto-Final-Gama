@@ -24,4 +24,4 @@ const agendaSchema = new Schema<IAgenda>(
 
 const Agenda = model<IAgenda>("Agenda", agendaSchema);
 
-export  {Agenda, IAgenda};
+export { Agenda, IAgenda };

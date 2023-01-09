@@ -1,10 +1,17 @@
 // ENV variable
 require("dotenv").config();
 
+// Import Logger
+import Logger from "./database/logger";
+
+// Import DB
+import mongoDB from "./database/app";
+
+// Import middlewares
 import handleError from "./middlewares/handleError";
+
 import express from "express";
 import cors from "cors";
-import mongoDB from "./database/app";
 
 // Routes
 import routerAdmin from "./routes/admin.routes";
@@ -14,7 +21,6 @@ import routerCliente from "./routes/cliente.routes";
 import routerProf from "./routes/profissional.routes";
 import routerProfServ from "./routes/profissionalServico.routes";
 import routerLogin from "./routes/login.routes";
-import Logger from "./database/logger";
 
 async function main() {
   const app = express();
@@ -23,7 +29,15 @@ async function main() {
   app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
-  app.use(routerAdmin, routerServico, routerAgenda, routerCliente, routerProf, routerProfServ, routerLogin )
+  app.use(
+    routerAdmin,
+    routerServico,
+    routerAgenda,
+    routerCliente,
+    routerProf,
+    routerProfServ,
+    routerLogin
+  );
   app.use(handleError);
 
   app.listen(port, async () => {

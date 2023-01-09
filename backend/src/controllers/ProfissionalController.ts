@@ -12,7 +12,6 @@ class ProfissionalController {
       const profissionais: Array<IProfissional> =
         await ProfissionalRepository.getAllProfissionais(Profissional);
 
-
       if (profissionais.length <= 0) {
         Logger.info(MESSAGE.ERROR.PROFISSIONAIS.NONE_PROFSSIONAL_UNTIL_NOW);
         return res.status(200).json({
@@ -80,26 +79,28 @@ class ProfissionalController {
     };
 
     if (await Profissional.findOne({ $or: [{ email: email }] })) {
-      return res.status(422).json(MESSAGE.ERROR.PROFISSIONAIS.PROFISSIONAL_EMAIL_ERROR);
-
-    } else {
-    try {
-      const profissional = await ProfissionalRepository.createProfissional(
-        profissionalObj
-      );
-
-      Logger.info(MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_CREATED);
-      return res.status(201).json({
-        success: true,
-        msg: MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_CREATED,
-        data: profissional,
-      });
-    } catch (error) {
-      Logger.error(error);
       return res
-        .status(500)
-        .json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
-    } }
+        .status(422)
+        .json(MESSAGE.ERROR.PROFISSIONAIS.PROFISSIONAL_EMAIL_ERROR);
+    } else {
+      try {
+        const profissional = await ProfissionalRepository.createProfissional(
+          profissionalObj
+        );
+
+        Logger.info(MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_CREATED);
+        return res.status(201).json({
+          success: true,
+          msg: MESSAGE.SUCCESS.PROFISSIONAIS.PROFISSIONAL_CREATED,
+          data: profissional,
+        });
+      } catch (error) {
+        Logger.error(error);
+        return res
+          .status(500)
+          .json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
+      }
+    }
   }
 
   static async updateOneProfissional(req: Request, res: Response) {

@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import { Servico, IServico } from '../models/Servico';
+import mongoose from "mongoose";
+import { Servico, IServico } from "../models/Servico";
 
 class ServicoRepository {
   criarServico(informacao: IServico) {
@@ -16,19 +16,16 @@ class ServicoRepository {
 
   atualizarServico(id: mongoose.Types.ObjectId, dados: IServico) {
     return Servico.findByIdAndUpdate(
-    
-       id,
-      
+      id,
+
       {
         $set: {
           servico: dados.servico,
           preco: dados.preco,
-          duracao: dados.duracao
-        }
+          duracao: dados.duracao,
+        },
       }
     );
-     
-  
   }
   deletarServico(id: mongoose.Types.ObjectId) {
     return Servico.findByIdAndDelete(id);
