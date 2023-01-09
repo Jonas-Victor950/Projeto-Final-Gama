@@ -24,9 +24,7 @@ const clienteController = {
 
     if (await Cliente.findOne({ $or: [{ email: email }] })) {
       return res.status(422).json(MESSAGE.ERROR.CLIENTES.CLIENTE_EMAIL_ERROR);
-
     } else {
-
       try {
         const cliente = await ClienteRepository.criarCliente(clienteObj);
 
@@ -45,7 +43,6 @@ const clienteController = {
           .json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
       }
     }
-
   },
 
   async listarClientes(req: Request, res: Response) {

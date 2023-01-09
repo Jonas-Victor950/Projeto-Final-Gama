@@ -1,3 +1,3 @@
 export default {
-key: "beleza-2023"
+  key: "beleza-2023",
 };
