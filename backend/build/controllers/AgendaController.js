@@ -83,8 +83,8 @@ var AgendaController = {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         return [4 /*yield*/, AgendaRepository_1.default.listarAgenda()
-                                .populate("profissionalServico")
-                                .populate("cliente")];
+                                .populate('profissionalServico')
+                                .populate('cliente')];
                     case 1:
                         agenda = _a.sent();
                         return [2 /*return*/, res.status(200).json({ Agenda: agenda })];
@@ -106,8 +106,8 @@ var AgendaController = {
                         _a.trys.push([0, 2, , 3]);
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
                         return [4 /*yield*/, AgendaRepository_1.default.listarAgendaId(id)
-                                .populate("profissionalServico")
-                                .populate("cliente")];
+                                .populate('profissionalServico')
+                                .populate('cliente')];
                     case 1:
                         agenda = _a.sent();
                         if (!agenda) {
@@ -141,8 +141,8 @@ var AgendaController = {
                     case 1:
                         _b.sent();
                         return [4 /*yield*/, Agenda_1.Agenda.findById(id)
-                                .populate("profissionalServico")
-                                .populate("cliente")];
+                                .populate('profissionalServico')
+                                .populate('cliente')];
                     case 2:
                         agendaAtualizada = _b.sent();
                         if (!agendaAtualizada) {
@@ -200,6 +200,28 @@ var AgendaController = {
                     case 2:
                         error_6 = _a.sent();
                         logger_1.default.error(error_6);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    },
+    agendaProfissionaisData: function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var d1, d2, agenda, error_7;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        d1 = new Date(req.params.d1);
+                        d2 = new Date(req.params.d2);
+                        return [4 /*yield*/, AgendaRepository_1.default.agendaProfissionaisData(d1, d2)];
+                    case 1:
+                        agenda = _a.sent();
+                        return [2 /*return*/, res.status(200).json({ Agenda: agenda })];
+                    case 2:
+                        error_7 = _a.sent();
+                        logger_1.default.error(error_7);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
