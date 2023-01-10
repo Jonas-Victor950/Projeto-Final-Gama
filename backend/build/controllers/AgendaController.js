@@ -44,10 +44,13 @@ var messages_1 = __importDefault(require("../constants/messages"));
 var logger_1 = __importDefault(require("../database/logger"));
 var Agenda_1 = require("../models/Agenda");
 var AgendaRepository_1 = __importDefault(require("../repositories/AgendaRepository"));
+var ClienteRepository_1 = __importDefault(require("../repositories/ClienteRepository"));
+var sender_1 = __importDefault(require("./sender"));
+var sender = new sender_1.default();
 var AgendaController = {
     cadastroAgenda: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, profissionalServico, cliente, data, agenda, agendaCriada, error_1;
+            var _a, profissionalServico, cliente, data, agenda, clienteData, clienteNumero, clienteNome, message, agendaCriada, zap, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -57,20 +60,30 @@ var AgendaController = {
                             cliente: cliente,
                             data: data,
                         };
-                        _b.label = 1;
+                        return [4 /*yield*/, ClienteRepository_1.default.listarClienteId(cliente).populate("telefone")];
                     case 1:
-                        _b.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, AgendaRepository_1.default.criarAgenda(agenda)];
+                        clienteData = _b.sent();
+                        clienteNumero = clienteData === null || clienteData === void 0 ? void 0 : clienteData.telefone;
+                        clienteNome = clienteData === null || clienteData === void 0 ? void 0 : clienteData.nome;
+                        message = "".concat(clienteNome, " seu hor\u00E1rio no Agenda da Beleza est\u00E1 marcado para o dia ").concat(data);
+                        console.log(clienteNumero);
+                        _b.label = 2;
                     case 2:
+                        _b.trys.push([2, 5, , 6]);
+                        return [4 /*yield*/, AgendaRepository_1.default.criarAgenda(agenda)];
+                    case 3:
                         agendaCriada = _b.sent();
+                        return [4 /*yield*/, sender.sendText(clienteNumero, message)];
+                    case 4:
+                        zap = _b.sent();
                         return [2 /*return*/, res
                                 .status(201)
                                 .json({ agendaCriada: agendaCriada, message: messages_1.default.SUCCESS.AGENDA.AGENDA_CREATED })];
-                    case 3:
+                    case 5:
                         error_1 = _b.sent();
                         logger_1.default.error(error_1);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
             });
         });
@@ -83,8 +96,8 @@ var AgendaController = {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         return [4 /*yield*/, AgendaRepository_1.default.listarAgenda()
-                                .populate('profissionalServico')
-                                .populate('cliente')];
+                                .populate("profissionalServico")
+                                .populate("cliente")];
                     case 1:
                         agenda = _a.sent();
                         return [2 /*return*/, res.status(200).json({ Agenda: agenda })];
@@ -106,8 +119,8 @@ var AgendaController = {
                         _a.trys.push([0, 2, , 3]);
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
                         return [4 /*yield*/, AgendaRepository_1.default.listarAgendaId(id)
-                                .populate('profissionalServico')
-                                .populate('cliente')];
+                                .populate("profissionalServico")
+                                .populate("cliente")];
                     case 1:
                         agenda = _a.sent();
                         if (!agenda) {
@@ -141,8 +154,8 @@ var AgendaController = {
                     case 1:
                         _b.sent();
                         return [4 /*yield*/, Agenda_1.Agenda.findById(id)
-                                .populate('profissionalServico')
-                                .populate('cliente')];
+                                .populate("profissionalServico")
+                                .populate("cliente")];
                     case 2:
                         agendaAtualizada = _b.sent();
                         if (!agendaAtualizada) {
