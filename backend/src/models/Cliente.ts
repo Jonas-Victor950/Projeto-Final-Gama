@@ -3,7 +3,7 @@ import { Schema, model } from "mongoose";
 interface ICliente {
   nome: string;
   email: string;
-  senha?: string;
+  senha: string;
   telefone: string;
   aniversario: string;
   sexo: string;

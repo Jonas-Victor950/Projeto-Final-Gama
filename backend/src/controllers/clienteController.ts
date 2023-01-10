@@ -121,49 +121,31 @@ const clienteController = {
           success: false,
           msg: MESSAGE.ERROR.CLIENTES.CLIENTE_NOT_FOUND,
         });
-      } else {
-        const { nome, email, senha, telefone, aniversario, sexo } = req.body;
-        if (!senha) {
-          const clienteobb = {
-            nome: nome,
-            email: email,
-            telefone: telefone,
-            aniversario: aniversario,
-            sexo: sexo,
-          };
-          const updatedCliente = await ClienteRepository.atualizarCliente(
-            id,
-            clienteobb
-          );
-          Logger.info(MESSAGE.SUCCESS.CLIENTES.CLIENTE_UPDATED);
-          return res.status(200).json({
-            success: true,
-            msg: MESSAGE.SUCCESS.CLIENTES.CLIENTE_UPDATED,
-            data: clienteobb,
-          });
-        } else {
-          const newSenha = bcrypty.hashSync(senha, 10);
-          const clienteObj: ICliente = {
-            nome: nome,
-            email: email,
-            senha: newSenha,
-            telefone: telefone,
-            aniversario: aniversario,
-            sexo: sexo,
-          };
-          const updateCliente = await ClienteRepository.atualizarCliente(
-            id,
-            clienteObj
-          );
-
-          Logger.info(MESSAGE.SUCCESS.CLIENTES.CLIENTE_UPDATED);
-          return res.status(200).json({
-            success: true,
-            msg: MESSAGE.SUCCESS.CLIENTES.CLIENTE_UPDATED,
-            data: clienteObj,
-          });
-        }
       }
+
+      const { nome, email, senha, telefone, aniversario, sexo } = req.body
+      const newSenha = bcrypty.hashSync(senha, 10);
+      const clienteObj: ICliente = {
+        nome,
+        email,
+        senha: newSenha,
+        telefone,
+        aniversario,
+        sexo,
+      };
+      const updateCliente = await ClienteRepository.atualizarCliente(
+        id,
+        clienteObj
+      );
+
+      Logger.info(MESSAGE.SUCCESS.CLIENTES.CLIENTE_UPDATED);
+      return res.status(200).json({
+        success: true,
+        msg: MESSAGE.SUCCESS.CLIENTES.CLIENTE_UPDATED,
+        data: clienteObj,
+      });
+
+
     } catch (error) {
       Logger.error(error);
       return res

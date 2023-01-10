@@ -173,11 +173,11 @@ var clienteController = {
     },
     atualizarCliente: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, cliente, _a, nome, email, senha, telefone, aniversario, sexo, clienteobb, updatedCliente, newSenha, clienteObj, updateCliente, error_4;
+            var id, cliente, _a, nome, email, senha, telefone, aniversario, sexo, newSenha, clienteObj, updateCliente, error_4;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _b.trys.push([0, 7, , 8]);
+                        _b.trys.push([0, 3, , 4]);
                         if (!req.params.id || isNaN(parseInt(req.params.id))) {
                             logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
                             return [2 /*return*/, res
@@ -188,32 +188,14 @@ var clienteController = {
                         return [4 /*yield*/, ClienteRepository_1.default.listarClienteId(id)];
                     case 1:
                         cliente = _b.sent();
-                        if (!!cliente) return [3 /*break*/, 2];
-                        logger_1.default.error(messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND);
-                        return [2 /*return*/, res.status(500).json({
-                                success: false,
-                                msg: messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND,
-                            })];
-                    case 2:
+                        if (!cliente) {
+                            logger_1.default.error(messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND);
+                            return [2 /*return*/, res.status(500).json({
+                                    success: false,
+                                    msg: messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND,
+                                })];
+                        }
                         _a = req.body, nome = _a.nome, email = _a.email, senha = _a.senha, telefone = _a.telefone, aniversario = _a.aniversario, sexo = _a.sexo;
-                        if (!!senha) return [3 /*break*/, 4];
-                        clienteobb = {
-                            nome: nome,
-                            email: email,
-                            telefone: telefone,
-                            aniversario: aniversario,
-                            sexo: sexo,
-                        };
-                        return [4 /*yield*/, ClienteRepository_1.default.atualizarCliente(id, clienteobb)];
-                    case 3:
-                        updatedCliente = _b.sent();
-                        logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED);
-                        return [2 /*return*/, res.status(200).json({
-                                success: true,
-                                msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED,
-                                data: clienteobb,
-                            })];
-                    case 4:
                         newSenha = bcryptjs_1.default.hashSync(senha, 10);
                         clienteObj = {
                             nome: nome,
@@ -224,7 +206,7 @@ var clienteController = {
                             sexo: sexo,
                         };
                         return [4 /*yield*/, ClienteRepository_1.default.atualizarCliente(id, clienteObj)];
-                    case 5:
+                    case 2:
                         updateCliente = _b.sent();
                         logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED);
                         return [2 /*return*/, res.status(200).json({
@@ -232,14 +214,13 @@ var clienteController = {
                                 msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED,
                                 data: clienteObj,
                             })];
-                    case 6: return [3 /*break*/, 8];
-                    case 7:
+                    case 3:
                         error_4 = _b.sent();
                         logger_1.default.error(error_4);
                         return [2 /*return*/, res
                                 .status(500)
                                 .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH })];
-                    case 8: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         });

@@ -18,7 +18,7 @@ const AuthController = {
       return res.status(400).json("email não cadastrado!");
     }
 
-    if (bcrypty.compareSync(senha, cliente.senha!)) {
+    if (!bcrypty.compareSync(senha, cliente.senha)) {
       return res
         .status(401)
         .json("E-mail ou senha inválido, verifique e tente novamente!");
@@ -27,12 +27,14 @@ const AuthController = {
     const token = jwt.sign(
       {
         id: cliente.id,
+        email: cliente.email,
+        
       },
       secret.key,
       { expiresIn: "8h" }
     );
 
-    console.log(token);
+    
 
     // const token = jwt.sign({
     //   id: cliente.id,
@@ -40,7 +42,7 @@ const AuthController = {
 
     // console.log(token);
 
-    return res.json("Logado!!!");
+    return res.json({error: false, message: 'Cliente logado com sucesso!', token});
   },
 };
 

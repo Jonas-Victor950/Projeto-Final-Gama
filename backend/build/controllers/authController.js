@@ -61,20 +61,20 @@ var AuthController = {
                         if (!cliente) {
                             return [2 /*return*/, res.status(400).json("email não cadastrado!")];
                         }
-                        if (bcryptjs_1.default.compareSync(senha, cliente.senha)) {
+                        if (!bcryptjs_1.default.compareSync(senha, cliente.senha)) {
                             return [2 /*return*/, res
                                     .status(401)
                                     .json("E-mail ou senha inválido, verifique e tente novamente!")];
                         }
                         token = jsonwebtoken_1.default.sign({
                             id: cliente.id,
+                            email: cliente.email,
                         }, secret_1.default.key, { expiresIn: "8h" });
-                        console.log(token);
                         // const token = jwt.sign({
                         //   id: cliente.id,
                         // }, process.env.JWT_PASS ?? '', {expiresIn: "8h"} );
                         // console.log(token);
-                        return [2 /*return*/, res.json("Logado!!!")];
+                        return [2 /*return*/, res.json({ error: false, message: 'Cliente logado com sucesso!', token: token })];
                 }
             });
         });
