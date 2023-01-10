@@ -114,6 +114,9 @@ var AgendaRepository = /** @class */ (function () {
             },
         ]);
     };
+    //A URL para esta função é assim
+    //http://127.0.0.1:3000/agendaprofissionaisdata/d1/'2022-12-20'/d2/'2023-01-30'
+    //d1 é data inicial, d2 é a data final
     AgendaRepository.prototype.agendaProfissionaisData = function (d1, d2) {
         return Agenda_1.Agenda.aggregate([
             {
@@ -214,6 +217,110 @@ var AgendaRepository = /** @class */ (function () {
                     'P.nome': '$P.nome',
                     'P.email': '$P.email',
                     'P.telefone': '$P.telefone',
+                    _id: Number(0),
+                },
+            },
+        ]);
+    }; //Fim da agendaProfissionaisData
+    //A URL para esta função é assim
+    //http://127.0.0.1:3000/agendaclientesdata/d1/'2022-12-20'/d2/'2023-01-30'/cliId/63a629eb16f3bbe8d605eafd
+    //d1 é data inicial, d2 é a data final, cliID é o ID do cliente que esta logado no sistema
+    AgendaRepository.prototype.agendaClienteData = function (d1, d2, cliId) {
+        return Agenda_1.Agenda.aggregate([
+            {
+                $project: {
+                    _id: Number(0),
+                    Ag: '$$ROOT',
+                },
+            },
+            {
+                $lookup: {
+                    localField: 'Ag.cliente',
+                    from: 'Cliente',
+                    foreignField: '_id',
+                    as: 'Cli',
+                },
+            },
+            {
+                $unwind: {
+                    path: '$Cli',
+                    preserveNullAndEmptyArrays: false,
+                },
+            },
+            {
+                $lookup: {
+                    localField: 'Ag.profissionalServico',
+                    from: 'ProfissionalServico',
+                    foreignField: '_id',
+                    as: 'Ps',
+                },
+            },
+            {
+                $unwind: {
+                    path: '$Ps',
+                    preserveNullAndEmptyArrays: false,
+                },
+            },
+            {
+                $lookup: {
+                    localField: 'Ps.servico',
+                    from: 'Servico',
+                    foreignField: '_id',
+                    as: 'Se',
+                },
+            },
+            {
+                $unwind: {
+                    path: '$Se',
+                    preserveNullAndEmptyArrays: false,
+                },
+            },
+            {
+                $lookup: {
+                    localField: 'Ps.profissional',
+                    from: 'Profissional',
+                    foreignField: '_id',
+                    as: 'Pr',
+                },
+            },
+            {
+                $unwind: {
+                    path: '$Pr',
+                    preserveNullAndEmptyArrays: false,
+                },
+            },
+            {
+                $match: {
+                    $and: [
+                        {
+                            'Ag.data': {
+                                $gte: d1,
+                            },
+                        },
+                        {
+                            'Ag.data': {
+                                $lte: d2,
+                            },
+                        },
+                        {
+                            'Ag.cliente': cliId,
+                        },
+                    ],
+                },
+            },
+            {
+                $project: {
+                    'Ag.cliente': '$Ag.cliente',
+                    'Ag.profissionalServico': '$Ag.profissionalServico',
+                    'Ag.data': '$Ag.data',
+                    'Cli.nome': '$Cli.nome',
+                    'Cli.email': '$Cli.email',
+                    'Cli.telefone': '$Cli.telefone',
+                    'Cli.aniversario': '$Cli.aniversario',
+                    'Cli.sexo': '$Cli.sexo',
+                    'Se.servico': '$Se.servico',
+                    'Pr.nome': '$Pr.nome',
+                    'Pr.telefone': '$Pr.telefone',
                     _id: Number(0),
                 },
             },

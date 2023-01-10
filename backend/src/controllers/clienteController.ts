@@ -1,11 +1,11 @@
-import { Request, Response } from "express";
-import mongoose from "mongoose";
-import MESSAGE from "../constants/messages";
-import Logger from "../database/logger";
-import { Cliente, ICliente } from "../models/Cliente";
-import ClienteRepository from "../repositories/ClienteRepository";
-import bcrypty from "bcryptjs";
-import Sender from "./sender";
+import { Request, Response } from 'express';
+import mongoose from 'mongoose';
+import MESSAGE from '../constants/messages';
+import Logger from '../database/logger';
+import { Cliente, ICliente } from '../models/Cliente';
+import ClienteRepository from '../repositories/ClienteRepository';
+import bcrypty from 'bcryptjs';
+import Sender from './sender';
 const sender = new Sender();
 
 const clienteController = {

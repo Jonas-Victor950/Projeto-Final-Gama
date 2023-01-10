@@ -17,4 +17,10 @@ routerAgenda.get(
   AgendaController.agendaProfissionaisData
 );
 
+//Rota para acesso a agenda do cliente
+routerAgenda.get(
+  '/agendaclientesdata/d1/:d1/d2/:d2/cliId/:cliId',
+  AgendaController.agendaClientesData
+);
+
 export default routerAgenda;
