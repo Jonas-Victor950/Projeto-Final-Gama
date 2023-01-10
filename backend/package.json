@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node -r dotenv/config build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc --project tsconfig.json"
   },
   "author": "",
   "license": "ISC",
