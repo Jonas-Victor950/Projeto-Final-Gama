@@ -228,5 +228,29 @@ var AgendaController = {
             });
         });
     },
+    //Rotas de acesso a agenda pelo cliente
+    agendaClientesData: function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var d1, d2, cliId, agenda, error_8;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        d1 = new Date(req.params.d1);
+                        d2 = new Date(req.params.d2);
+                        cliId = new mongoose_1.default.Types.ObjectId(req.params.cliId);
+                        return [4 /*yield*/, AgendaRepository_1.default.agendaClienteData(d1, d2, cliId)];
+                    case 1:
+                        agenda = _a.sent();
+                        return [2 /*return*/, res.status(200).json({ Agenda: agenda })];
+                    case 2:
+                        error_8 = _a.sent();
+                        logger_1.default.error(error_8);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    },
 };
 exports.default = AgendaController;

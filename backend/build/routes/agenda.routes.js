@@ -15,4 +15,6 @@ routerAgenda.delete('/agenda/:id', auth_1.default, AgendaController_1.default.ex
 //Rota para agenda profisionais_serviços
 routerAgenda.get('/agendadodia', AgendaController_1.default.agendaProfissionais);
 routerAgenda.get('/agendaprofissionaisdata/d1/:d1/d2/:d2', AgendaController_1.default.agendaProfissionaisData);
+//Rota para acesso a agenda do cliente
+routerAgenda.get('/agendaclientesdata/d1/:d1/d2/:d2/cliId/:cliId', AgendaController_1.default.agendaClientesData);
 exports.default = routerAgenda;

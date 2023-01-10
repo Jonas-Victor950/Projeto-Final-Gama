@@ -112,6 +112,22 @@ const AgendaController = {
     } catch (error) {
       Logger.error(error);
     }
+  }, //Fim da agendaProffisionaisData
+
+  //Rotas de acesso a agenda pelo cliente
+  async agendaClientesData(req: Request, res: Response) {
+    try {
+      //const id = new mongoose.Types.ObjectId(req.params.id);
+      const d1 = new Date(req.params.d1);
+      const d2 = new Date(req.params.d2);
+      const cliId = new mongoose.Types.ObjectId(req.params.cliId);
+
+      const agenda = await AgendaRepository.agendaClienteData(d1, d2, cliId);
+
+      return res.status(200).json({ Agenda: agenda });
+    } catch (error) {
+      Logger.error(error);
+    }
   },
 };
 
