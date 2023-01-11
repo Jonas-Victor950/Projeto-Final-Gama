@@ -7,8 +7,8 @@ var validateCreateCliente = (0, express_validation_1.validate)({
         email: express_validation_1.Joi.string().email().required(),
         senha: express_validation_1.Joi.string().required(),
         telefone: express_validation_1.Joi.string().required(),
-        aniversario: express_validation_1.Joi.string().required(),
-        sexo: express_validation_1.Joi.string().required(),
+        aniversario: express_validation_1.Joi.string(),
+        sexo: express_validation_1.Joi.string().optional(),
     }),
 });
 exports.default = validateCreateCliente;

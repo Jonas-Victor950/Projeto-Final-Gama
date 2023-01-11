@@ -7,8 +7,8 @@ var clienteSchema = new mongoose_1.Schema({
     email: { type: String, required: true },
     senha: { type: String, required: true },
     telefone: { type: String, required: true },
-    aniversario: { type: String, required: true },
-    sexo: { type: String, required: true },
+    aniversario: { type: String },
+    sexo: { type: String },
 }, {
     timestamps: true,
     collection: "Cliente",

@@ -45,12 +45,12 @@ var logger_1 = __importDefault(require("../database/logger"));
 var Cliente_1 = require("../models/Cliente");
 var ClienteRepository_1 = __importDefault(require("../repositories/ClienteRepository"));
 var bcryptjs_1 = __importDefault(require("bcryptjs"));
-// import Sender from './sender';
-// const sender = new Sender();
+var sender_1 = __importDefault(require("./sender"));
+var sender = new sender_1.default();
 var clienteController = {
     criarCliente: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, nome, email, senha, telefone, aniversario, sexo, newSenha, clienteObj, cliente, error_1;
+            var _a, nome, email, senha, telefone, aniversario, sexo, newSenha, clienteObj, message, cliente, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -64,29 +64,32 @@ var clienteController = {
                             aniversario: aniversario,
                             sexo: sexo,
                         };
+                        message = "Obrigado por se cadastrar ".concat(nome);
                         return [4 /*yield*/, Cliente_1.Cliente.findOne({ $or: [{ email: email }] })];
                     case 1:
                         if (!_b.sent()) return [3 /*break*/, 2];
                         return [2 /*return*/, res.status(422).json(messages_1.default.ERROR.CLIENTES.CLIENTE_EMAIL_ERROR)];
                     case 2:
-                        _b.trys.push([2, 4, , 5]);
+                        _b.trys.push([2, 5, , 6]);
                         return [4 /*yield*/, ClienteRepository_1.default.criarCliente(clienteObj)];
                     case 3:
                         cliente = _b.sent();
-                        // await sender.sendText(telefone, message);
+                        return [4 /*yield*/, sender.sendText(telefone, message)];
+                    case 4:
+                        _b.sent();
                         logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_CREATED);
                         return [2 /*return*/, res.status(200).json({
                                 success: true,
                                 msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_CREATED,
                                 cliente: cliente,
                             })];
-                    case 4:
+                    case 5:
                         error_1 = _b.sent();
                         logger_1.default.error(error_1);
                         return [2 /*return*/, res
                                 .status(500)
                                 .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH })];
-                    case 5: return [2 /*return*/];
+                    case 6: return [2 /*return*/];
                 }
             });
         });
@@ -249,7 +252,7 @@ var clienteController = {
                     case 3:
                         _a.sent();
                         logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_DELETED);
-                        return [2 /*return*/, res.status(200).json({
+                        return [2 /*return*/, res.status(204).json({
                                 success: true,
                                 msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_DELETED,
                             })];

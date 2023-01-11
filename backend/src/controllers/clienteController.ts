@@ -176,7 +176,7 @@ const clienteController = {
         await ClienteRepository.deletarCliente(id);
 
         Logger.info(MESSAGE.SUCCESS.CLIENTES.CLIENTE_DELETED);
-        return res.status(200).json({
+        return res.status(204).json({
           success: true,
           msg: MESSAGE.SUCCESS.CLIENTES.CLIENTE_DELETED,
         });
