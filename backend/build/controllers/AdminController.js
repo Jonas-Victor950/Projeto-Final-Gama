@@ -45,8 +45,8 @@ var logger_1 = __importDefault(require("../database/logger"));
 var Admin_1 = require("../models/Admin");
 var AdminRepository_1 = __importDefault(require("../repositories/AdminRepository"));
 var bcryptjs_1 = __importDefault(require("bcryptjs"));
-var sender_1 = __importDefault(require("./sender"));
-var sender = new sender_1.default();
+// import Sender from "./sender";
+// const sender = new Sender();
 var AdminController = {
     criarAdmin: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
