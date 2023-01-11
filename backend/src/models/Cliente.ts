@@ -5,8 +5,8 @@ interface ICliente {
   email: string;
   senha: string;
   telefone: string;
-  aniversario: string;
-  sexo: string;
+  aniversario?: string;
+  sexo?: string;
 }
 
 const clienteSchema = new Schema<ICliente>(
@@ -15,8 +15,8 @@ const clienteSchema = new Schema<ICliente>(
     email: { type: String, required: true },
     senha: { type: String, required: true },
     telefone: { type: String, required: true },
-    aniversario: { type: String, required: true },
-    sexo: { type: String, required: true },
+    aniversario: { type: String },
+    sexo: { type: String },
   },
   {
     timestamps: true,
