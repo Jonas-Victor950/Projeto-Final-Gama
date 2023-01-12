@@ -6,6 +6,7 @@ import secret from "../configs/secret";
 
 const AuthController = {
   async loginCliente(req: Request, res: Response) {
+  
     const { email, senha } = req.body;
 
     const cliente = await Cliente.findOne({
@@ -26,12 +27,10 @@ const AuthController = {
 
     const token = jwt.sign(
       {
-        id: cliente.id,
-        email: cliente.email,
-        
-      },
-      secret.key,
-      { expiresIn: "8h" }
+        id: cliente._id,
+       },
+      secret.key
+      
     );
 
     

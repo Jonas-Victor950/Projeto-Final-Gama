@@ -67,9 +67,8 @@ var AuthController = {
                                     .json("E-mail ou senha inválido, verifique e tente novamente!")];
                         }
                         token = jsonwebtoken_1.default.sign({
-                            id: cliente.id,
-                            email: cliente.email,
-                        }, secret_1.default.key, { expiresIn: "8h" });
+                            id: cliente._id,
+                        }, secret_1.default.key);
                         // const token = jwt.sign({
                         //   id: cliente.id,
                         // }, process.env.JWT_PASS ?? '', {expiresIn: "8h"} );
