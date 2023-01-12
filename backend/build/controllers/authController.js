@@ -61,7 +61,7 @@ var AuthController = {
                         if (!cliente) {
                             return [2 /*return*/, res.status(400).json("email não cadastrado!")];
                         }
-                        if (!bcryptjs_1.default.compareSync(senha, cliente.senha)) {
+                        if (!bcryptjs_1.default.compare(cliente.senha, senha)) {
                             return [2 /*return*/, res
                                     .status(401)
                                     .json("E-mail ou senha inválido, verifique e tente novamente!")];
