@@ -19,7 +19,7 @@ const AuthController = {
       return res.status(400).json("email não cadastrado!");
     }
 
-    if (!bcrypty.compareSync(senha, cliente.senha)) {
+    if (!bcrypty.compare(cliente.senha, senha )) {
       return res
         .status(401)
         .json("E-mail ou senha inválido, verifique e tente novamente!");
