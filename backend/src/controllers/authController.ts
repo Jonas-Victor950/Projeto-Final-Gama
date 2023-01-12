@@ -27,10 +27,12 @@ const AuthController = {
 
     const token = jwt.sign(
       {
-        id: cliente._id,
-       },
-      secret.key
-      
+        id: cliente.id,
+        email: cliente.email,
+        
+      },
+      secret.key,
+      { expiresIn: "8h" }
     );
 
     
