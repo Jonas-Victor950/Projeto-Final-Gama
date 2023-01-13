@@ -22,9 +22,8 @@ const AgendaController = {
     ).populate("telefone");
 
     const clienteNumero = clienteData?.telefone as string;
-    const clienteNome = clienteData?.nome;
-    const message: string =
-      `${clienteNome} seu horário no Agenda da Beleza está marcado para o dia ${data}` as string;
+    const clienteNome = clienteData?.nome as string;
+    const message: string = `${clienteNome} seu horário no Agenda da Beleza está marcado para o dia ${data}` as string;
     console.log(clienteNumero);
     try {
       const agendaCriada = await AgendaRepository.criarAgenda(agenda);
