@@ -7,9 +7,9 @@ import Logger from "../database/logger";
 
 const AuthController = {
   async loginCliente(req: Request, res: Response) {
+    
   try {
     const { email, senha } = req.body;
-    const { id } = req.params
 
     const cliente = await Cliente.findOne({
      email
