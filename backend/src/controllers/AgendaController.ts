@@ -24,10 +24,14 @@ const AgendaController = {
     const clienteNumero = clienteData?.telefone as string;
     const clienteNome = clienteData?.nome as string;
     const dataDia = data.substring(0, 10);
-    const dataHora = data.substring(11)
-    const message: string = `Caro ${clienteNome},
-    Obrigado pelo agendamento em no nosso salão de beleza.
-    Esperamos vê-lo em ${dataDia} às ${dataHora}. 
+
+    const dataDiaF = new Date(dataDia).toLocaleDateString();
+    const dataHoraF = new Date(data).toLocaleTimeString();
+    const diaHora = ` ${dataDiaF} às ${dataHoraF}hs `
+    
+    const message1: string = `Caro(a) ${clienteNome},
+    Obrigado pelo agendamento em nosso salão Beleza da Agenda.
+    Esperamos vê-lo em ${diaHora}. 
     Pedimos gentilmente que você chegue 10 a 15 minutos antes do horário marcado.
     Caso precise cancelar ou reagendar: 
     Avise-nos com pelo menos 24 horas de antecedência.
@@ -35,10 +39,11 @@ const AgendaController = {
     console.log(clienteNumero);
     try {
       const agendaCriada = await AgendaRepository.criarAgenda(agenda);
-      const zap = await sender.sendText(clienteNumero, message);
+      
+      const zap = await sender.sendText(clienteNumero, message1);
       return res
         .status(201)
-        .json({ agendaCriada, message: MESSAGE.SUCCESS.AGENDA.AGENDA_CREATED });
+        .json({ agendaCriada, message: MESSAGE.SUCCESS.AGENDA.AGENDA_CREATED, message1 });
     } catch (error) {
       Logger.error(error);
     }

@@ -50,7 +50,7 @@ var sender = new sender_1.default();
 var AgendaController = {
     cadastroAgenda: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, profissionalServico, cliente, data, agenda, clienteData, clienteNumero, clienteNome, dataDia, dataHora, message, agendaCriada, zap, error_1;
+            var _a, profissionalServico, cliente, data, agenda, clienteData, clienteNumero, clienteNome, dataDia, dataDiaF, dataHoraF, diaHora, message1, agendaCriada, zap, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -66,8 +66,10 @@ var AgendaController = {
                         clienteNumero = clienteData === null || clienteData === void 0 ? void 0 : clienteData.telefone;
                         clienteNome = clienteData === null || clienteData === void 0 ? void 0 : clienteData.nome;
                         dataDia = data.substring(0, 10);
-                        dataHora = data.substring(11);
-                        message = "Caro ".concat(clienteNome, ",\n    Obrigado pelo agendamento em no nosso sal\u00E3o de beleza.\n    Esperamos v\u00EA-lo em ").concat(dataDia, " \u00E0s ").concat(dataHora, ". \n    Pedimos gentilmente que voc\u00EA chegue 10 a 15 minutos antes do hor\u00E1rio marcado.\n    Caso precise cancelar ou reagendar: \n    Avise-nos com pelo menos 24 horas de anteced\u00EAncia.\n    Estamos ansiosos para v\u00EA-lo em breve!");
+                        dataDiaF = new Date(dataDia).toLocaleDateString();
+                        dataHoraF = new Date(data).toLocaleTimeString();
+                        diaHora = " ".concat(dataDiaF, " \u00E0s ").concat(dataHoraF, "hs ");
+                        message1 = "Caro(a) ".concat(clienteNome, ",\n    Obrigado pelo agendamento em nosso sal\u00E3o Beleza da Agenda.\n    Esperamos v\u00EA-lo em ").concat(diaHora, ". \n    Pedimos gentilmente que voc\u00EA chegue 10 a 15 minutos antes do hor\u00E1rio marcado.\n    Caso precise cancelar ou reagendar: \n    Avise-nos com pelo menos 24 horas de anteced\u00EAncia.\n    Estamos ansiosos para v\u00EA-lo em breve!");
                         console.log(clienteNumero);
                         _b.label = 2;
                     case 2:
@@ -75,12 +77,12 @@ var AgendaController = {
                         return [4 /*yield*/, AgendaRepository_1.default.criarAgenda(agenda)];
                     case 3:
                         agendaCriada = _b.sent();
-                        return [4 /*yield*/, sender.sendText(clienteNumero, message)];
+                        return [4 /*yield*/, sender.sendText(clienteNumero, message1)];
                     case 4:
                         zap = _b.sent();
                         return [2 /*return*/, res
                                 .status(201)
-                                .json({ agendaCriada: agendaCriada, message: messages_1.default.SUCCESS.AGENDA.AGENDA_CREATED })];
+                                .json({ agendaCriada: agendaCriada, message: messages_1.default.SUCCESS.AGENDA.AGENDA_CREATED, message1: message1 })];
                     case 5:
                         error_1 = _b.sent();
                         logger_1.default.error(error_1);
