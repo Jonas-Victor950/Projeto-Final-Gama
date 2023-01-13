@@ -47,27 +47,17 @@ var logger_1 = __importDefault(require("../database/logger"));
 var AuthController = {
     loginCliente: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-<<<<<<< HEAD
-            var _a, email, senha, id, cliente, token, error_1;
-=======
             var _a, email, senha, cliente, token, error_1;
->>>>>>> f7f4c32cac76c4b4311b6e19893706233039d852
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 2, , 3]);
                         _a = req.body, email = _a.email, senha = _a.senha;
-                        id = req.params.id;
                         return [4 /*yield*/, Cliente_1.Cliente.findOne({
-<<<<<<< HEAD
                                 email: email
-=======
-                                email: email,
->>>>>>> f7f4c32cac76c4b4311b6e19893706233039d852
                             })];
                     case 1:
                         cliente = _b.sent();
-                        console.log(cliente);
                         if (!cliente) {
                             return [2 /*return*/, res.status(400).json("email não cadastrado!")];
                         }
@@ -77,7 +67,6 @@ var AuthController = {
                                     .json("E-mail ou senha inválido, verifique e tente novamente!")];
                         }
                         token = jsonwebtoken_1.default.sign({
-<<<<<<< HEAD
                             id: cliente.id,
                             email: cliente.email,
                         }, secret_1.default.key, { expiresIn: "8h" });
@@ -85,20 +74,6 @@ var AuthController = {
                     case 2:
                         error_1 = _b.sent();
                         logger_1.default.error(error_1);
-=======
-                            id: cliente._id,
-                            email: cliente.email,
-                            senha: cliente.senha
-                        }, secret_1.default.key);
-                        return [2 /*return*/, res.json({
-                                error: false,
-                                message: "Cliente logado com sucesso!",
-                                token: token,
-                            })];
-                    case 2:
-                        error_1 = _b.sent();
-                        console.log(error_1);
->>>>>>> f7f4c32cac76c4b4311b6e19893706233039d852
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
