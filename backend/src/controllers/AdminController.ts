@@ -5,8 +5,8 @@ import Logger from "../database/logger";
 import { Admin, IAdmin } from "../models/Admin";
 import AdminRepository from "../repositories/AdminRepository";
 import bcrypty from "bcryptjs";
-// import Sender from "./sender";
-// const sender = new Sender();
+import Sender from "./sender";
+const sender = new Sender();
 
 const AdminController = {
   async criarAdmin(req: Request, res: Response) {

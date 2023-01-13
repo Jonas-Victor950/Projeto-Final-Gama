@@ -45,12 +45,12 @@ var logger_1 = __importDefault(require("../database/logger"));
 var Agenda_1 = require("../models/Agenda");
 var AgendaRepository_1 = __importDefault(require("../repositories/AgendaRepository"));
 var ClienteRepository_1 = __importDefault(require("../repositories/ClienteRepository"));
-// import Sender from "./sender";
-// const sender = new Sender();
+var sender_1 = __importDefault(require("./sender"));
+var sender = new sender_1.default();
 var AgendaController = {
     cadastroAgenda: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, profissionalServico, cliente, data, agenda, clienteData, agendaCriada, error_1;
+            var _a, profissionalServico, cliente, data, agenda, clienteData, clienteNumero, clienteNome, message, agendaCriada, zap, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -63,21 +63,27 @@ var AgendaController = {
                         return [4 /*yield*/, ClienteRepository_1.default.listarClienteId(cliente).populate("telefone")];
                     case 1:
                         clienteData = _b.sent();
+                        clienteNumero = clienteData === null || clienteData === void 0 ? void 0 : clienteData.telefone;
+                        clienteNome = clienteData === null || clienteData === void 0 ? void 0 : clienteData.nome;
+                        message = "".concat(clienteNome, " seu hor\u00E1rio no Agenda da Beleza est\u00E1 marcado para o dia ").concat(data);
+                        console.log(clienteNumero);
                         _b.label = 2;
                     case 2:
-                        _b.trys.push([2, 4, , 5]);
+                        _b.trys.push([2, 5, , 6]);
                         return [4 /*yield*/, AgendaRepository_1.default.criarAgenda(agenda)];
                     case 3:
                         agendaCriada = _b.sent();
-                        // const zap = await sender.sendText(clienteNumero, message);
+                        return [4 /*yield*/, sender.sendText(clienteNumero, message)];
+                    case 4:
+                        zap = _b.sent();
                         return [2 /*return*/, res
                                 .status(201)
                                 .json({ agendaCriada: agendaCriada, message: messages_1.default.SUCCESS.AGENDA.AGENDA_CREATED })];
-                    case 4:
+                    case 5:
                         error_1 = _b.sent();
                         logger_1.default.error(error_1);
-                        return [3 /*break*/, 5];
-                    case 5: return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
             });
         });

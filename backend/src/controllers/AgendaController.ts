@@ -6,8 +6,8 @@ import Logger from "../database/logger";
 import { Agenda, IAgenda } from "../models/Agenda";
 import AgendaRepository from "../repositories/AgendaRepository";
 import ClienteRepository from "../repositories/ClienteRepository";
-// import Sender from "./sender";
-// const sender = new Sender();
+import Sender from "./sender";
+const sender = new Sender();
 
 const AgendaController = {
   async cadastroAgenda(req: Request, res: Response) {
@@ -21,14 +21,14 @@ const AgendaController = {
       cliente
     ).populate("telefone");
 
-    // const clienteNumero = clienteData?.telefone as string;
-    // const clienteNome = clienteData?.nome;
-    // const message: string =
-    //   `${clienteNome} seu horário no Agenda da Beleza está marcado para o dia ${data}` as string;
-    // console.log(clienteNumero);
+    const clienteNumero = clienteData?.telefone as string;
+    const clienteNome = clienteData?.nome;
+    const message: string =
+      `${clienteNome} seu horário no Agenda da Beleza está marcado para o dia ${data}` as string;
+    console.log(clienteNumero);
     try {
       const agendaCriada = await AgendaRepository.criarAgenda(agenda);
-      // const zap = await sender.sendText(clienteNumero, message);
+      const zap = await sender.sendText(clienteNumero, message);
       return res
         .status(201)
         .json({ agendaCriada, message: MESSAGE.SUCCESS.AGENDA.AGENDA_CREATED });
