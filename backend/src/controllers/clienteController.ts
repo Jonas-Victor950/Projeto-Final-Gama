@@ -11,7 +11,7 @@ import bcrypty from 'bcryptjs';
 const clienteController = {
   async criarCliente(req: Request, res: Response) {
     const { nome, email, senha, telefone, aniversario, sexo } = req.body;
-    const newSenha = bcrypty.hashSync(senha.toString(), 10);
+    const newSenha = bcrypty.hashSync(senha, 10);
     const clienteObj: ICliente = {
       nome: nome,
       email: email,

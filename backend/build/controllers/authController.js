@@ -43,25 +43,26 @@ var Cliente_1 = require("../models/Cliente");
 var bcryptjs_1 = __importDefault(require("bcryptjs"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var secret_1 = __importDefault(require("../configs/secret"));
+var logger_1 = __importDefault(require("../database/logger"));
 var AuthController = {
     loginCliente: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, email, senha, cliente, token;
+            var _a, email, senha, id, cliente, token, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        _b.trys.push([0, 2, , 3]);
                         _a = req.body, email = _a.email, senha = _a.senha;
+                        id = req.params.id;
                         return [4 /*yield*/, Cliente_1.Cliente.findOne({
-                                where: {
-                                    email: email,
-                                },
+                                email: email
                             })];
                     case 1:
                         cliente = _b.sent();
                         if (!cliente) {
                             return [2 /*return*/, res.status(400).json("email não cadastrado!")];
                         }
-                        if (!bcryptjs_1.default.compare(cliente.senha, senha)) {
+                        if (!bcryptjs_1.default.compareSync(senha, cliente.senha)) {
                             return [2 /*return*/, res
                                     .status(401)
                                     .json("E-mail ou senha inválido, verifique e tente novamente!")];
@@ -70,11 +71,12 @@ var AuthController = {
                             id: cliente.id,
                             email: cliente.email,
                         }, secret_1.default.key, { expiresIn: "8h" });
-                        // const token = jwt.sign({
-                        //   id: cliente.id,
-                        // }, process.env.JWT_PASS ?? '', {expiresIn: "8h"} );
-                        // console.log(token);
-                        return [2 /*return*/, res.json({ error: false, message: 'Cliente logado com sucesso!', token: token })];
+                        return [2 /*return*/, res.json({ error: false, message: 'Cliente logado com sucesso!', token: token, cliente: cliente })];
+                    case 2:
+                        error_1 = _b.sent();
+                        logger_1.default.error(error_1);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
                 }
             });
         });

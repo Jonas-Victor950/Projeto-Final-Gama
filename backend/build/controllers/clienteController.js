@@ -55,7 +55,7 @@ var clienteController = {
                 switch (_b.label) {
                     case 0:
                         _a = req.body, nome = _a.nome, email = _a.email, senha = _a.senha, telefone = _a.telefone, aniversario = _a.aniversario, sexo = _a.sexo;
-                        newSenha = bcryptjs_1.default.hashSync(senha.toString(), 10);
+                        newSenha = bcryptjs_1.default.hashSync(senha, 10);
                         clienteObj = {
                             nome: nome,
                             email: email,
