@@ -20,7 +20,7 @@ const clienteController = {
       aniversario: aniversario,
       sexo: sexo,
     };
-    const message: string = `Obrigado por se cadastrar ${nome}` as string;
+    // const message: string = `Obrigado por se cadastrar ${nome}` as string;
 
     if (await Cliente.findOne({ $or: [{ email: email }] })) {
       return res.status(422).json(MESSAGE.ERROR.CLIENTES.CLIENTE_EMAIL_ERROR);
@@ -28,7 +28,7 @@ const clienteController = {
       try {
         const cliente = await ClienteRepository.criarCliente(clienteObj);
 
-        const zap = await sender.sendText(telefone, message);
+        // const zap = await sender.sendText(telefone, message);
 
         Logger.info(MESSAGE.SUCCESS.CLIENTES.CLIENTE_CREATED);
         return res.status(200).json({
