@@ -23,7 +23,15 @@ const AgendaController = {
 
     const clienteNumero = clienteData?.telefone as string;
     const clienteNome = clienteData?.nome as string;
-    const message: string = `${clienteNome} seu horário no Agenda da Beleza está marcado para o dia ${data}` as string;
+    const dataDia = data.substring(0, 10);
+    const dataHora = data.substring(11)
+    const message: string = `Caro ${clienteNome},
+    Obrigado pelo agendamento em no nosso salão de beleza.
+    Esperamos vê-lo em ${dataDia} às ${dataHora}. 
+    Pedimos gentilmente que você chegue 10 a 15 minutos antes do horário marcado.
+    Caso precise cancelar ou reagendar: 
+    Avise-nos com pelo menos 24 horas de antecedência.
+    Estamos ansiosos para vê-lo em breve!` as string;
     console.log(clienteNumero);
     try {
       const agendaCriada = await AgendaRepository.criarAgenda(agenda);

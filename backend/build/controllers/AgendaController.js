@@ -50,7 +50,7 @@ var sender = new sender_1.default();
 var AgendaController = {
     cadastroAgenda: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, profissionalServico, cliente, data, agenda, clienteData, clienteNumero, clienteNome, message, agendaCriada, zap, error_1;
+            var _a, profissionalServico, cliente, data, agenda, clienteData, clienteNumero, clienteNome, dataDia, dataHora, message, agendaCriada, zap, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -65,7 +65,9 @@ var AgendaController = {
                         clienteData = _b.sent();
                         clienteNumero = clienteData === null || clienteData === void 0 ? void 0 : clienteData.telefone;
                         clienteNome = clienteData === null || clienteData === void 0 ? void 0 : clienteData.nome;
-                        message = "".concat(clienteNome, " seu hor\u00E1rio no Agenda da Beleza est\u00E1 marcado para o dia ").concat(data);
+                        dataDia = data.substring(0, 10);
+                        dataHora = data.substring(11);
+                        message = "Caro ".concat(clienteNome, ",\n    Obrigado pelo agendamento em no nosso sal\u00E3o de beleza.\n    Esperamos v\u00EA-lo em ").concat(dataDia, " \u00E0s ").concat(dataHora, ". \n    Pedimos gentilmente que voc\u00EA chegue 10 a 15 minutos antes do hor\u00E1rio marcado.\n    Caso precise cancelar ou reagendar: \n    Avise-nos com pelo menos 24 horas de anteced\u00EAncia.\n    Estamos ansiosos para v\u00EA-lo em breve!");
                         console.log(clienteNumero);
                         _b.label = 2;
                     case 2:
