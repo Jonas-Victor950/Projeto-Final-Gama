@@ -30,85 +30,85 @@ var AgendaRepository = /** @class */ (function () {
             {
                 $project: {
                     _id: Number(0),
-                    A: '$$ROOT',
+                    A: "$$ROOT",
                 },
             },
             {
                 $lookup: {
-                    localField: 'A.profissionalServico',
-                    from: 'ProfissionalServico',
-                    foreignField: '_id',
-                    as: 'Ps',
+                    localField: "A.profissionalServico",
+                    from: "ProfissionalServico",
+                    foreignField: "_id",
+                    as: "Ps",
                 },
             },
             {
                 $unwind: {
-                    path: '$Ps',
+                    path: "$Ps",
                     preserveNullAndEmptyArrays: false,
                 },
             },
             {
                 $lookup: {
-                    localField: 'A.cliente',
-                    from: 'Cliente',
-                    foreignField: '_id',
-                    as: 'C',
+                    localField: "A.cliente",
+                    from: "Cliente",
+                    foreignField: "_id",
+                    as: "C",
                 },
             },
             {
                 $unwind: {
-                    path: '$C',
+                    path: "$C",
                     preserveNullAndEmptyArrays: false,
                 },
             },
             {
                 $lookup: {
-                    localField: 'Ps.servico',
-                    from: 'Servico',
-                    foreignField: '_id',
-                    as: 'S',
+                    localField: "Ps.servico",
+                    from: "Servico",
+                    foreignField: "_id",
+                    as: "S",
                 },
             },
             {
                 $unwind: {
-                    path: '$S',
+                    path: "$S",
                     preserveNullAndEmptyArrays: false,
                 },
             },
             {
                 $lookup: {
-                    localField: 'Ps.profissional',
-                    from: 'Profissional',
-                    foreignField: '_id',
-                    as: 'P',
+                    localField: "Ps.profissional",
+                    from: "Profissional",
+                    foreignField: "_id",
+                    as: "P",
                 },
             },
             {
                 $unwind: {
-                    path: '$P',
+                    path: "$P",
                     preserveNullAndEmptyArrays: false,
                 },
             },
             {
                 $project: {
-                    'A._id': '$A._id',
-                    'A.data': '$A.data',
-                    'A.profissional': '$A.profissional',
-                    'A.cliente': '$A.cliente',
-                    'Ps.profissional': '$Ps.profissional',
-                    'Ps.servico': '$Ps.servico',
-                    'C._id': '$C._id',
-                    'C.nome': '$C.nome',
-                    'C.email': '$C.email',
-                    'C.telefone': '$C.telefone',
-                    'C.aniversaro': '$C.aniversaro',
-                    'C.sexo': '$C.sexo',
-                    'S._id': '$S._id',
-                    'S.servico': '$S.servico',
-                    'P._id': '$P._id',
-                    'P.nome': '$P.nome',
-                    'P.email': '$P.email',
-                    'P.telefone': '$P.telefone',
+                    "A._id": "$A._id",
+                    "A.data": "$A.data",
+                    "A.profissional": "$A.profissional",
+                    "A.cliente": "$A.cliente",
+                    "Ps.profissional": "$Ps.profissional",
+                    "Ps.servico": "$Ps.servico",
+                    "C._id": "$C._id",
+                    "C.nome": "$C.nome",
+                    "C.email": "$C.email",
+                    "C.telefone": "$C.telefone",
+                    "C.aniversaro": "$C.aniversaro",
+                    "C.sexo": "$C.sexo",
+                    "S._id": "$S._id",
+                    "S.servico": "$S.servico",
+                    "P._id": "$P._id",
+                    "P.nome": "$P.nome",
+                    "P.email": "$P.email",
+                    "P.telefone": "$P.telefone",
                     _id: Number(0),
                 },
             },
@@ -122,62 +122,62 @@ var AgendaRepository = /** @class */ (function () {
             {
                 $project: {
                     _id: Number(0),
-                    A: '$$ROOT',
+                    A: "$$ROOT",
                 },
             },
             {
                 $lookup: {
-                    localField: 'A.profissionalServico',
-                    from: 'ProfissionalServico',
-                    foreignField: '_id',
-                    as: 'Ps',
+                    localField: "A.profissionalServico",
+                    from: "ProfissionalServico",
+                    foreignField: "_id",
+                    as: "Ps",
                 },
             },
             {
                 $unwind: {
-                    path: '$Ps',
+                    path: "$Ps",
                     preserveNullAndEmptyArrays: false,
                 },
             },
             {
                 $lookup: {
-                    localField: 'A.cliente',
-                    from: 'Cliente',
-                    foreignField: '_id',
-                    as: 'C',
+                    localField: "A.cliente",
+                    from: "Cliente",
+                    foreignField: "_id",
+                    as: "C",
                 },
             },
             {
                 $unwind: {
-                    path: '$C',
+                    path: "$C",
                     preserveNullAndEmptyArrays: false,
                 },
             },
             {
                 $lookup: {
-                    localField: 'Ps.servico',
-                    from: 'Servico',
-                    foreignField: '_id',
-                    as: 'S',
+                    localField: "Ps.servico",
+                    from: "Servico",
+                    foreignField: "_id",
+                    as: "S",
                 },
             },
             {
                 $unwind: {
-                    path: '$S',
+                    path: "$S",
                     preserveNullAndEmptyArrays: false,
                 },
             },
             {
                 $lookup: {
-                    localField: 'Ps.profissional',
-                    from: 'Profissional',
-                    foreignField: '_id',
-                    as: 'P',
+                    localField: "Ps.profissional",
+                    from: "Profissional",
+                    foreignField: "_id",
+                    as: "P",
                 },
             },
             {
                 $unwind: {
-                    path: '$P',
+                    path: "$P",
                     preserveNullAndEmptyArrays: false,
                 },
             },
@@ -185,12 +185,12 @@ var AgendaRepository = /** @class */ (function () {
                 $match: {
                     $and: [
                         {
-                            'A.data': {
+                            "A.data": {
                                 $gte: d1,
                             },
                         },
                         {
-                            'A.data': {
+                            "A.data": {
                                 $lte: d2,
                             },
                         },
@@ -199,24 +199,24 @@ var AgendaRepository = /** @class */ (function () {
             },
             {
                 $project: {
-                    'A._id': '$A._id',
-                    'A.data': '$A.data',
-                    'A.profissional': '$A.profissional',
-                    'A.cliente': '$A.cliente',
-                    'Ps.profissional': '$Ps.profissional',
-                    'Ps.servico': '$Ps.servico',
-                    'C._id': '$C._id',
-                    'C.nome': '$C.nome',
-                    'C.email': '$C.email',
-                    'C.telefone': '$C.telefone',
-                    'C.aniversaro': '$C.aniversaro',
-                    'C.sexo': '$C.sexo',
-                    'S._id': '$S._id',
-                    'S.servico': '$S.servico',
-                    'P._id': '$P._id',
-                    'P.nome': '$P.nome',
-                    'P.email': '$P.email',
-                    'P.telefone': '$P.telefone',
+                    "A._id": "$A._id",
+                    "A.data": "$A.data",
+                    "A.profissional": "$A.profissional",
+                    "A.cliente": "$A.cliente",
+                    "Ps.profissional": "$Ps.profissional",
+                    "Ps.servico": "$Ps.servico",
+                    "C._id": "$C._id",
+                    "C.nome": "$C.nome",
+                    "C.email": "$C.email",
+                    "C.telefone": "$C.telefone",
+                    "C.aniversaro": "$C.aniversaro",
+                    "C.sexo": "$C.sexo",
+                    "S._id": "$S._id",
+                    "S.servico": "$S.servico",
+                    "P._id": "$P._id",
+                    "P.nome": "$P.nome",
+                    "P.email": "$P.email",
+                    "P.telefone": "$P.telefone",
                     _id: Number(0),
                 },
             },
@@ -230,62 +230,62 @@ var AgendaRepository = /** @class */ (function () {
             {
                 $project: {
                     _id: Number(0),
-                    Ag: '$$ROOT',
+                    Ag: "$$ROOT",
                 },
             },
             {
                 $lookup: {
-                    localField: 'Ag.cliente',
-                    from: 'Cliente',
-                    foreignField: '_id',
-                    as: 'Cli',
+                    localField: "Ag.cliente",
+                    from: "Cliente",
+                    foreignField: "_id",
+                    as: "Cli",
                 },
             },
             {
                 $unwind: {
-                    path: '$Cli',
+                    path: "$Cli",
                     preserveNullAndEmptyArrays: false,
                 },
             },
             {
                 $lookup: {
-                    localField: 'Ag.profissionalServico',
-                    from: 'ProfissionalServico',
-                    foreignField: '_id',
-                    as: 'Ps',
+                    localField: "Ag.profissionalServico",
+                    from: "ProfissionalServico",
+                    foreignField: "_id",
+                    as: "Ps",
                 },
             },
             {
                 $unwind: {
-                    path: '$Ps',
+                    path: "$Ps",
                     preserveNullAndEmptyArrays: false,
                 },
             },
             {
                 $lookup: {
-                    localField: 'Ps.servico',
-                    from: 'Servico',
-                    foreignField: '_id',
-                    as: 'Se',
+                    localField: "Ps.servico",
+                    from: "Servico",
+                    foreignField: "_id",
+                    as: "Se",
                 },
             },
             {
                 $unwind: {
-                    path: '$Se',
+                    path: "$Se",
                     preserveNullAndEmptyArrays: false,
                 },
             },
             {
                 $lookup: {
-                    localField: 'Ps.profissional',
-                    from: 'Profissional',
-                    foreignField: '_id',
-                    as: 'Pr',
+                    localField: "Ps.profissional",
+                    from: "Profissional",
+                    foreignField: "_id",
+                    as: "Pr",
                 },
             },
             {
                 $unwind: {
-                    path: '$Pr',
+                    path: "$Pr",
                     preserveNullAndEmptyArrays: false,
                 },
             },
@@ -293,34 +293,34 @@ var AgendaRepository = /** @class */ (function () {
                 $match: {
                     $and: [
                         {
-                            'Ag.data': {
+                            "Ag.data": {
                                 $gte: d1,
                             },
                         },
                         {
-                            'Ag.data': {
+                            "Ag.data": {
                                 $lte: d2,
                             },
                         },
                         {
-                            'Ag.cliente': cliId,
+                            "Ag.cliente": cliId,
                         },
                     ],
                 },
             },
             {
                 $project: {
-                    'Ag.cliente': '$Ag.cliente',
-                    'Ag.profissionalServico': '$Ag.profissionalServico',
-                    'Ag.data': '$Ag.data',
-                    'Cli.nome': '$Cli.nome',
-                    'Cli.email': '$Cli.email',
-                    'Cli.telefone': '$Cli.telefone',
-                    'Cli.aniversario': '$Cli.aniversario',
-                    'Cli.sexo': '$Cli.sexo',
-                    'Se.servico': '$Se.servico',
-                    'Pr.nome': '$Pr.nome',
-                    'Pr.telefone': '$Pr.telefone',
+                    "Ag.cliente": "$Ag.cliente",
+                    "Ag.profissionalServico": "$Ag.profissionalServico",
+                    "Ag.data": "$Ag.data",
+                    "Cli.nome": "$Cli.nome",
+                    "Cli.email": "$Cli.email",
+                    "Cli.telefone": "$Cli.telefone",
+                    "Cli.aniversario": "$Cli.aniversario",
+                    "Cli.sexo": "$Cli.sexo",
+                    "Se.servico": "$Se.servico",
+                    "Pr.nome": "$Pr.nome",
+                    "Pr.telefone": "$Pr.telefone",
                     _id: Number(0),
                 },
             },

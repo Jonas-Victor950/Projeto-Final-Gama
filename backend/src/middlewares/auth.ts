@@ -1,4 +1,4 @@
-import { expressjwt  } from "express-jwt";
+import { expressjwt } from "express-jwt";
 import secret from "../configs/secret";
 
 export default expressjwt({

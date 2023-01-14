@@ -1,6 +1,6 @@
-import { ObjectId } from 'mongoose';
-import mongoose from 'mongoose';
-import { ICliente, Cliente } from '../models/Cliente';
+import { ObjectId } from "mongoose";
+import mongoose from "mongoose";
+import { ICliente, Cliente } from "../models/Cliente";
 
 class ClienteRepository {
   criarCliente(informacao: ICliente) {
@@ -20,7 +20,7 @@ class ClienteRepository {
 
   localizarClientesNome(cliente: any) {
     return Cliente.find({
-      nome: { $regex: `${cliente}`, $options: 'i' },
+      nome: { $regex: `${cliente}`, $options: "i" },
     });
   }
 

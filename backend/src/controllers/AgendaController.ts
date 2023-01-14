@@ -23,11 +23,11 @@ const AgendaController = {
 
     const clienteNumero = clienteData?.telefone as string;
     const clienteNome = clienteData?.nome as string;
-    
+
     const dataDiaF = new Date(data).toLocaleDateString();
     const dataHoraF = new Date(data).toLocaleTimeString();
-    const diaHora = ` ${dataDiaF} às ${dataHoraF}hs `
-    
+    const diaHora = ` ${dataDiaF} às ${dataHoraF}hs `;
+
     const message1: string = `Caro(a) ${clienteNome},
     Obrigado pelo agendamento em nosso salão Beleza da Agenda.
     Esperamos vê-lo em ${diaHora}. 
@@ -35,12 +35,12 @@ const AgendaController = {
     Caso precise cancelar ou reagendar: 
     Avise-nos com pelo menos 24 horas de antecedência.
     Estamos ansiosos para vê-lo em breve!` as string;
-   
+
     try {
       const agendaCriada = await AgendaRepository.criarAgenda(agenda);
-      
+
       const zap = await sender.sendText(clienteNumero, message1);
-      console.log(message1)
+      console.log(message1);
       return res
         .status(201)
         .json({ agendaCriada, message: MESSAGE.SUCCESS.AGENDA.AGENDA_CREATED });

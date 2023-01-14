@@ -54,7 +54,7 @@ var AuthController = {
                         _b.trys.push([0, 2, , 3]);
                         _a = req.body, email = _a.email, senha = _a.senha;
                         return [4 /*yield*/, Cliente_1.Cliente.findOne({
-                                email: email
+                                email: email,
                             })];
                     case 1:
                         cliente = _b.sent();
@@ -70,7 +70,12 @@ var AuthController = {
                             id: cliente.id,
                             email: cliente.email,
                         }, secret_1.default.key, { expiresIn: "8h" });
-                        return [2 /*return*/, res.json({ error: false, message: 'Cliente logado com sucesso!', token: token, cliente: cliente })];
+                        return [2 /*return*/, res.json({
+                                error: false,
+                                message: "Cliente logado com sucesso!",
+                                token: token,
+                                cliente: cliente,
+                            })];
                     case 2:
                         error_1 = _b.sent();
                         logger_1.default.error(error_1);
