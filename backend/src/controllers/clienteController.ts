@@ -123,7 +123,7 @@ const clienteController = {
         });
       }
 
-      const { nome, email, senha, telefone, aniversario, sexo } = req.body
+      const { nome, email, senha, telefone, aniversario, sexo } = req.body;
       const newSenha = bcrypty.hashSync(senha, 10);
       const clienteObj: ICliente = {
         nome,
@@ -144,8 +144,6 @@ const clienteController = {
         msg: MESSAGE.SUCCESS.CLIENTES.CLIENTE_UPDATED,
         data: clienteObj,
       });
-
-
     } catch (error) {
       Logger.error(error);
       return res
@@ -183,6 +181,36 @@ const clienteController = {
       }
     } catch (error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });
+    }
+  },
+
+  //Localizando o cliente pelo nome "Like"
+  //url = http://127.0.0.1:3000/clientes/ <- apos aqui passar o parametro a ser localizado
+  //Exe.: http://127.0.0.1:3000/clientes/Marcos <-- este parametro pode ser maiúsculo ou minúsculo
+  async localizarClienteNome(req: Request, res: Response) {
+    try {
+      const clientes: Array<ICliente> =
+        await ClienteRepository.localizarClientesNome(req.params.nome);
+
+      if (clientes.length <= 0) {
+        Logger.info(MESSAGE.ERROR.CLIENTES.NONE_CLIENTE_UNTIL_NOW);
+        return res.status(200).json({
+          success: false,
+          msg: MESSAGE.ERROR.CLIENTES.NONE_CLIENTE_UNTIL_NOW,
+        });
+      } else {
+        Logger.info(MESSAGE.SUCCESS.CLIENTES.CLIENTE_FOUND);
+        return res.status(200).json({
+          success: true,
+          msg: MESSAGE.SUCCESS.CLIENTES.CLIENTE_FOUND,
+          data: clientes,
+        });
+      }
+    } catch (error: any) {
+      Logger.error(`${error.message}`);
       return res
         .status(500)
         .json({ success: false, msg: MESSAGE.ERROR.ERROR_CATCH });

@@ -17,6 +17,11 @@ var ClienteRepository = /** @class */ (function () {
     ClienteRepository.prototype.listarClientes = function (Cliente) {
         return Cliente.find();
     };
+    ClienteRepository.prototype.localizarClientesNome = function (cliente) {
+        return Cliente_1.Cliente.find({
+            nome: { $regex: "".concat(cliente), $options: 'i' },
+        });
+    };
     ClienteRepository.prototype.listarClienteId = function (clienteId) {
         return Cliente_1.Cliente.findOne({ _id: clienteId });
     };

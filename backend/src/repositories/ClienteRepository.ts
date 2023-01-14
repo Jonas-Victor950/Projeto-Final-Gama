@@ -18,6 +18,12 @@ class ClienteRepository {
     return Cliente.find();
   }
 
+  localizarClientesNome(cliente: any) {
+    return Cliente.find({
+      nome: { $regex: `${cliente}`, $options: 'i' },
+    });
+  }
+
   listarClienteId(clienteId: mongoose.Types.ObjectId) {
     return Cliente.findOne({ _id: clienteId });
   }

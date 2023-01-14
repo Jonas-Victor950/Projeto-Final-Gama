@@ -265,6 +265,46 @@ var clienteController = {
             });
         });
     },
+    //Localizando o cliente pelo nome "Like"
+    //url = http://127.0.0.1:3000/clientes/ <- apos aqui passar o parametro a ser localizado
+    //Exe.: http://127.0.0.1:3000/clientes/Marcos <-- este parametro pode ser maiúsculo ou minúsculo
+    localizarClienteNome: function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var clientes, error_6;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, ClienteRepository_1.default.localizarClientesNome(req.params.nome)];
+                    case 1:
+                        clientes = _a.sent();
+                        if (clientes.length <= 0) {
+                            logger_1.default.info(messages_1.default.ERROR.CLIENTES.NONE_CLIENTE_UNTIL_NOW);
+                            return [2 /*return*/, res.status(200).json({
+                                    success: false,
+                                    msg: messages_1.default.ERROR.CLIENTES.NONE_CLIENTE_UNTIL_NOW,
+                                })];
+                        }
+                        else {
+                            logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_FOUND);
+                            return [2 /*return*/, res.status(200).json({
+                                    success: true,
+                                    msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_FOUND,
+                                    data: clientes,
+                                })];
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_6 = _a.sent();
+                        logger_1.default.error("".concat(error_6.message));
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH })];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    },
 };
 // const clienteController = {
 //   async criarCliente(req: Request, res: Response) {

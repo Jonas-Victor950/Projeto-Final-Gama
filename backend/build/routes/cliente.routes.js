@@ -12,4 +12,6 @@ routerCliente.get('/cliente', clienteController_1.default.listarClientes);
 routerCliente.get('/cliente/:id', clienteController_1.default.listarClienteId);
 routerCliente.put('/cliente/:id', clienteController_1.default.atualizarCliente);
 routerCliente.delete('/cliente/:id', clienteController_1.default.deletarCliente);
+//Localizando o cliente pelo nome parcial "Like"
+routerCliente.get('/clientes/:nome', clienteController_1.default.localizarClienteNome);
 exports.default = routerCliente;
