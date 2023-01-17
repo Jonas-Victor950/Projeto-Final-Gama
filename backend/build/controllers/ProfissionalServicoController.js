@@ -66,7 +66,9 @@ var ProfissionalServicoController = {
                     case 3:
                         error_1 = _b.sent();
                         logger_1.default.error(error_1);
-                        return [3 /*break*/, 4];
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ error: error_1, msg: messages_1.default.ERROR.ERROR_CATCH })];
                     case 4: return [2 /*return*/, res.status(201).json(novoProfissionalServico)];
                 }
             });
@@ -91,7 +93,9 @@ var ProfissionalServicoController = {
                     case 2:
                         error_2 = _a.sent();
                         logger_1.default.error(error_2);
-                        return [3 /*break*/, 3];
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ error: error_2, msg: messages_1.default.ERROR.ERROR_CATCH })];
                     case 3: return [2 /*return*/];
                 }
             });
@@ -111,7 +115,7 @@ var ProfissionalServicoController = {
                     case 1:
                         profissionalServicoId = _a.sent();
                         if (!profissionalServicoId) {
-                            return [2 /*return*/, res.json(messages_1.default.ERROR.NOT_VALID_ID)];
+                            return [2 /*return*/, res.status(404).json(messages_1.default.ERROR.NOT_VALID_ID)];
                         }
                         else {
                             return [2 /*return*/, res.status(200).json(profissionalServicoId)];
@@ -128,7 +132,7 @@ var ProfissionalServicoController = {
     },
     atualizarProfissionalServico: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, newProfissionalServico, profissionalServicos, newProfissionalServico2, error_4;
+            var id, newProfissionalServico, newProfissionalServico2, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -137,7 +141,7 @@ var ProfissionalServicoController = {
                         newProfissionalServico = req.body;
                         return [4 /*yield*/, ProfissionalServicoRepository_1.default.atualizarProfissionalServico(id, newProfissionalServico)];
                     case 1:
-                        profissionalServicos = _a.sent();
+                        _a.sent();
                         return [4 /*yield*/, ProfissionalServico_1.profissionalServico.findById(id)];
                     case 2:
                         newProfissionalServico2 = _a.sent();
@@ -155,7 +159,9 @@ var ProfissionalServicoController = {
                     case 3:
                         error_4 = _a.sent();
                         logger_1.default.error(error_4);
-                        return [3 /*break*/, 4];
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ error: error_4, msg: messages_1.default.ERROR.ERROR_CATCH })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -163,23 +169,33 @@ var ProfissionalServicoController = {
     },
     deletaProfissionalServico: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, profissionalServico_1, error_5;
+            var id, profissionalService, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
+                        _a.trys.push([0, 5, , 6]);
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
-                        return [4 /*yield*/, ProfissionalServicoRepository_1.default.deletarProfissionalServico(id)];
+                        return [4 /*yield*/, ProfissionalServico_1.profissionalServico.findById(id)];
                     case 1:
-                        profissionalServico_1 = _a.sent();
+                        profissionalService = _a.sent();
+                        if (!!profissionalService) return [3 /*break*/, 2];
+                        return [2 /*return*/, res.status(404).json(messages_1.default.ERROR.NOT_VALID_ID)];
+                    case 2: return [4 /*yield*/, ProfissionalServicoRepository_1.default.deletarProfissionalServico(id)];
+                    case 3:
+                        _a.sent();
                         return [2 /*return*/, res
                                 .json(messages_1.default.SUCCESS.PROFISSIONALSERVICO.PROFISSIONALSERVICO_DELETED)
                                 .sendStatus(204)];
-                    case 2:
+                    case 4:
+                        ;
+                        return [3 /*break*/, 6];
+                    case 5:
                         error_5 = _a.sent();
                         logger_1.default.error(error_5);
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ error: error_5, msg: messages_1.default.ERROR.ERROR_CATCH })];
+                    case 6: return [2 /*return*/];
                 }
             });
         });

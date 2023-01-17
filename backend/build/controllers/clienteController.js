@@ -75,7 +75,7 @@ var clienteController = {
                         cliente = _b.sent();
                         // const zap = await sender.sendText(telefone, message);
                         logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_CREATED);
-                        return [2 /*return*/, res.status(200).json({
+                        return [2 /*return*/, res.status(201).json({
                                 success: true,
                                 msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_CREATED,
                                 cliente: cliente,
@@ -103,7 +103,7 @@ var clienteController = {
                         clientes = _a.sent();
                         if (clientes.length <= 0) {
                             logger_1.default.info(messages_1.default.ERROR.CLIENTES.NONE_CLIENTE_UNTIL_NOW);
-                            return [2 /*return*/, res.status(200).json({
+                            return [2 /*return*/, res.status(404).json({
                                     success: false,
                                     msg: messages_1.default.ERROR.CLIENTES.NONE_CLIENTE_UNTIL_NOW,
                                 })];
@@ -119,7 +119,7 @@ var clienteController = {
                         return [3 /*break*/, 3];
                     case 2:
                         error_2 = _a.sent();
-                        logger_1.default.error("".concat(error_2.message));
+                        logger_1.default.error(error_2);
                         return [2 /*return*/, res
                                 .status(500)
                                 .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH })];
@@ -138,7 +138,7 @@ var clienteController = {
                         if (!req.params.id || isNaN(parseInt(req.params.id))) {
                             logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
                             return [2 /*return*/, res
-                                    .status(500)
+                                    .status(404)
                                     .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID })];
                         }
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
@@ -147,14 +147,14 @@ var clienteController = {
                         cliente = _a.sent();
                         if (!cliente) {
                             logger_1.default.error(messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND);
-                            return [2 /*return*/, res.status(500).json({
+                            return [2 /*return*/, res.status(404).json({
                                     success: false,
                                     msg: messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND,
                                 })];
                         }
                         else {
                             logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_SENDING);
-                            return [2 /*return*/, res.json({ success: true, data: cliente })];
+                            return [2 /*return*/, res.status(200).json({ success: true, data: cliente })];
                         }
                         return [3 /*break*/, 3];
                     case 2:
@@ -170,7 +170,7 @@ var clienteController = {
     },
     atualizarCliente: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, cliente, _a, nome, email, senha, telefone, aniversario, sexo, newSenha, clienteObj, updateCliente, error_4;
+            var id, cliente, _a, nome, email, senha, telefone, aniversario, sexo, newSenha, clienteObj, error_4;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -178,7 +178,7 @@ var clienteController = {
                         if (!req.params.id || isNaN(parseInt(req.params.id))) {
                             logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
                             return [2 /*return*/, res
-                                    .status(500)
+                                    .status(404)
                                     .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID })];
                         }
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
@@ -187,7 +187,7 @@ var clienteController = {
                         cliente = _b.sent();
                         if (!cliente) {
                             logger_1.default.error(messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND);
-                            return [2 /*return*/, res.status(500).json({
+                            return [2 /*return*/, res.status(404).json({
                                     success: false,
                                     msg: messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND,
                                 })];
@@ -204,7 +204,7 @@ var clienteController = {
                         };
                         return [4 /*yield*/, ClienteRepository_1.default.atualizarCliente(id, clienteObj)];
                     case 2:
-                        updateCliente = _b.sent();
+                        _b.sent();
                         logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_UPDATED);
                         return [2 /*return*/, res.status(200).json({
                                 success: true,
@@ -232,7 +232,7 @@ var clienteController = {
                         if (!req.params.id || isNaN(parseInt(req.params.id))) {
                             logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
                             return [2 /*return*/, res
-                                    .status(500)
+                                    .status(404)
                                     .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID })];
                         }
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
@@ -241,7 +241,7 @@ var clienteController = {
                         cliente = _a.sent();
                         if (!!cliente) return [3 /*break*/, 2];
                         logger_1.default.error(messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND);
-                        return [2 /*return*/, res.status(500).json({
+                        return [2 /*return*/, res.status(404).json({
                                 success: false,
                                 msg: messages_1.default.ERROR.CLIENTES.CLIENTE_NOT_FOUND,
                             })];
@@ -249,10 +249,7 @@ var clienteController = {
                     case 3:
                         _a.sent();
                         logger_1.default.info(messages_1.default.SUCCESS.CLIENTES.CLIENTE_DELETED);
-                        return [2 /*return*/, res.status(204).json({
-                                success: true,
-                                msg: messages_1.default.SUCCESS.CLIENTES.CLIENTE_DELETED,
-                            })];
+                        return [2 /*return*/, res.sendStatus(204)];
                     case 4: return [3 /*break*/, 6];
                     case 5:
                         error_5 = _a.sent();
@@ -280,7 +277,7 @@ var clienteController = {
                         clientes = _a.sent();
                         if (clientes.length <= 0) {
                             logger_1.default.info(messages_1.default.ERROR.CLIENTES.NONE_CLIENTE_UNTIL_NOW);
-                            return [2 /*return*/, res.status(200).json({
+                            return [2 /*return*/, res.status(404).json({
                                     success: false,
                                     msg: messages_1.default.ERROR.CLIENTES.NONE_CLIENTE_UNTIL_NOW,
                                 })];
@@ -296,7 +293,7 @@ var clienteController = {
                         return [3 /*break*/, 3];
                     case 2:
                         error_6 = _a.sent();
-                        logger_1.default.error("".concat(error_6.message));
+                        logger_1.default.error(error_6);
                         return [2 /*return*/, res
                                 .status(500)
                                 .json({ success: false, msg: messages_1.default.ERROR.ERROR_CATCH })];
@@ -306,69 +303,4 @@ var clienteController = {
         });
     },
 };
-// const clienteController = {
-//   async criarCliente(req: Request, res: Response) {
-//     const { nome, email, senha, telefone, aniversario, sexo } = req.body;
-//     const novoCliente: ICliente = {
-//       nome,
-//       email,
-//       senha,
-//       telefone,
-//       aniversario,
-//       sexo,
-//     };
-//     try {
-//       await ClienteRepository.criarCliente(novoCliente);
-//       return res.status(201).json(novoCliente);
-//     } catch (error) {
-//       Logger.error(error);
-//     }
-//   },
-//   async listarClientes(req: Request, res: Response) {
-//     try {
-//       const clientes = await ClienteRepository.listarClientes();
-//       if (!clientes) {
-//         Logger.error(MESSAGE.ERROR.CLIENTES.NONE_CLIENTE_UNTIL_NOW);
-//       }
-//       return res.status(200).json(clientes);
-//     } catch (error) {
-//       Logger.error(error);
-//     }
-//   },
-//   async listarClienteId(req: Request, res: Response) {
-//     try {
-//       const { id } = req.params;
-//       const clienteId = await ClienteRepository.listarClienteId(id);
-//       if (!clienteId) {
-//         return res.json(MESSAGE.ERROR.NOT_VALID_ID);
-//       } else {
-//         return res.status(200).json(clienteId);
-//       }
-//     } catch (error) {
-//       Logger.error(error);
-//     }
-//   },
-//   async atulizarCliente(req: Request, res: Response) {
-//     try {
-//       const id = new mongoose.Types.ObjectId(req.params.id);
-//       const newCliente: {
-//         nome: string;
-//         email: string;
-//         senha: string;
-//         telefone: string;
-//         aniversario: string;
-//         sexo: string;
-//       } = req.body;
-//       const cliente = await ClienteRepository.atualizarCliente(id, newCliente);
-//       const newClienteOk = await cliente.f findById(id);
-//       if (!newClienteOk) {
-//         res.status(404).json(MESSAGE.ERROR.CLIENTES.CLIENTE_NOT_FOUND);
-//       } else {
-//         res.status(200).json(MESSAGE.SUCCESS.CLIENTES.CLIENTES_SENDING);
-//       }
-//     } catch (error) {
-//       Logger.error(error);
-//     }
-//   },
-// };
 exports.default = clienteController;

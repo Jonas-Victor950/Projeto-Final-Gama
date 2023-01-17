@@ -15,6 +15,7 @@ var MESSAGE = {
             NONE_CLIENTE_UNTIL_NOW: "✖️ Nenhum cliente cadastrado até o momento",
             CLIENTE_NOT_FOUND: "✖️ Cliente não encontrado!",
             CLIENTE_EMAIL_ERROR: " ✖️ Email já cadastrado, Por favor escolha outro email!",
+            CLIENTE_SENHA_EMAIL: "✖️ Email ou senha inválido, verifique e tente novamente!"
         },
         PROFISSIONALSERVICOS: {
             NONE_PROFISSIONALSERVICO_UNTIL_NOW: "✖️ Nenhum ProfissionalServiço cadastrado até o momento",
@@ -47,6 +48,7 @@ var MESSAGE = {
             CLIENTE_CREATED: "✔️ Cliente criado com sucesso!",
             CLIENTE_UPDATED: "✔️ Cliente atualizado com sucesso!",
             CLIENTE_DELETED: "✔️ Cliente excluído com sucesso!",
+            CLIENTE_LOGIN: "✔️ Cliente logado com sucesso!"
         },
         PROFISSIONALSERVICO: {
             PROFISSIONALSERVICO_SENDING: "ProfissionalServiço atualizado com sucesso!",

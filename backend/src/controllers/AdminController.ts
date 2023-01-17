@@ -21,7 +21,7 @@ const AdminController = {
       const admin = await AdminRepository.criarAdmin(adminObj);
 
       Logger.info(MESSAGE.SUCCESS.ADMIN.ADMIN_CREATED);
-      return res.status(200).json({
+      return res.status(201).json({
         success: true,
         msg: MESSAGE.SUCCESS.ADMIN.ADMIN_CREATED,
         admin: admin,
@@ -40,7 +40,7 @@ const AdminController = {
 
       if (admin.length <= 0) {
         Logger.info(MESSAGE.ERROR.ADMIN.NONE_ADMIN_UNTIL_NOW);
-        return res.status(200).json({
+        return res.status(404).json({
           success: false,
           msg: MESSAGE.ERROR.ADMIN.NONE_ADMIN_UNTIL_NOW,
         });
@@ -65,7 +65,7 @@ const AdminController = {
       if (!req.params.id || isNaN(parseInt(req.params.id))) {
         Logger.error(MESSAGE.ERROR.NOT_VALID_ID);
         return res
-          .status(500)
+          .status(404)
           .json({ success: false, msg: MESSAGE.ERROR.NOT_VALID_ID });
       }
 
@@ -74,7 +74,7 @@ const AdminController = {
 
       if (!admin) {
         Logger.error(MESSAGE.ERROR.ADMIN.ADMIN_NOT_FOUND);
-        return res.status(500).json({
+        return res.status(404).json({
           success: false,
           msg: MESSAGE.ERROR.ADMIN.ADMIN_NOT_FOUND,
         });
@@ -128,7 +128,7 @@ const AdminController = {
       if (!req.params.id || isNaN(parseInt(req.params.id))) {
         Logger.error(MESSAGE.ERROR.NOT_VALID_ID);
         return res
-          .status(500)
+          .status(404)
           .json({ success: false, msg: MESSAGE.ERROR.NOT_VALID_ID });
       }
 
@@ -137,7 +137,7 @@ const AdminController = {
 
       if (!admin) {
         Logger.error(MESSAGE.ERROR.ADMIN.ADMIN_NOT_FOUND);
-        return res.status(500).json({
+        return res.status(404).json({
           success: false,
           msg: MESSAGE.ERROR.ADMIN.ADMIN_NOT_FOUND,
         });
@@ -145,10 +145,7 @@ const AdminController = {
         await AdminRepository.deletarAdmin(id);
 
         Logger.info(MESSAGE.SUCCESS.ADMIN.ADMIN_DELETED);
-        return res.status(200).json({
-          success: true,
-          msg: MESSAGE.SUCCESS.ADMIN.ADMIN_DELETED,
-        });
+        return res.sendStatus(204);
       }
     } catch (error) {
       Logger.error(error);

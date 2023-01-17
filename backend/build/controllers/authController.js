@@ -44,6 +44,7 @@ var bcryptjs_1 = __importDefault(require("bcryptjs"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var secret_1 = __importDefault(require("../configs/secret"));
 var logger_1 = __importDefault(require("../database/logger"));
+var messages_1 = __importDefault(require("../constants/messages"));
 var AuthController = {
     loginCliente: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
@@ -59,27 +60,29 @@ var AuthController = {
                     case 1:
                         cliente = _b.sent();
                         if (!cliente) {
-                            return [2 /*return*/, res.status(400).json("email não cadastrado!")];
+                            return [2 /*return*/, res.status(404).json(messages_1.default.ERROR.CLIENTES.CLIENTE_SENHA_EMAIL)];
                         }
                         if (!bcryptjs_1.default.compareSync(senha, cliente.senha)) {
                             return [2 /*return*/, res
                                     .status(401)
-                                    .json("E-mail ou senha inválido, verifique e tente novamente!")];
+                                    .json(messages_1.default.ERROR.CLIENTES.CLIENTE_SENHA_EMAIL)];
                         }
                         token = jsonwebtoken_1.default.sign({
                             id: cliente.id,
                             email: cliente.email,
                         }, secret_1.default.key, { expiresIn: "8h" });
-                        return [2 /*return*/, res.json({
+                        return [2 /*return*/, res.status(200).json({
                                 error: false,
-                                message: "Cliente logado com sucesso!",
+                                message: messages_1.default.SUCCESS.CLIENTES.CLIENTE_LOGIN,
                                 token: token,
                                 cliente: cliente,
                             })];
                     case 2:
                         error_1 = _b.sent();
                         logger_1.default.error(error_1);
-                        return [3 /*break*/, 3];
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ error: error_1, msg: messages_1.default.ERROR.ERROR_CATCH })];
                     case 3: return [2 /*return*/];
                 }
             });

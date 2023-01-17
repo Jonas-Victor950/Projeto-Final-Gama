@@ -60,7 +60,7 @@ var ProfissionalController = /** @class */ (function () {
                         profissionais = _a.sent();
                         if (profissionais.length <= 0) {
                             logger_1.default.info(messages_1.default.ERROR.PROFISSIONAIS.NONE_PROFSSIONAL_UNTIL_NOW);
-                            return [2 /*return*/, res.status(200).json({
+                            return [2 /*return*/, res.status(404).json({
                                     success: false,
                                     msg: messages_1.default.ERROR.PROFISSIONAIS.NONE_PROFSSIONAL_UNTIL_NOW,
                                 })];
@@ -104,7 +104,7 @@ var ProfissionalController = /** @class */ (function () {
                         profissional = _a.sent();
                         if (!profissional) {
                             logger_1.default.error(messages_1.default.ERROR.PROFISSIONAIS.PROFISSIONAL_NOT_FOUND);
-                            return [2 /*return*/, res.status(500).json({
+                            return [2 /*return*/, res.status(404).json({
                                     success: false,
                                     msg: messages_1.default.ERROR.PROFISSIONAIS.PROFISSIONAL_NOT_FOUND,
                                 })];
@@ -170,7 +170,7 @@ var ProfissionalController = /** @class */ (function () {
     };
     ProfissionalController.updateOneProfissional = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, profissional, _a, nome, email, senha, telefone, sexo, profissionalobb, updated1Profissional, newSenha, profissionalObj, updatedProfissional, error_4;
+            var id, profissional, _a, nome, email, senha, telefone, sexo, profissionalobb, newSenha, profissionalObj, error_4;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -178,7 +178,7 @@ var ProfissionalController = /** @class */ (function () {
                         if (!req.params.id || isNaN(parseInt(req.params.id))) {
                             logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
                             return [2 /*return*/, res
-                                    .status(500)
+                                    .status(404)
                                     .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID })];
                         }
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
@@ -187,7 +187,7 @@ var ProfissionalController = /** @class */ (function () {
                         profissional = _b.sent();
                         if (!!profissional) return [3 /*break*/, 2];
                         logger_1.default.error(messages_1.default.ERROR.PROFISSIONAIS.PROFISSIONAL_NOT_FOUND);
-                        return [2 /*return*/, res.status(500).json({
+                        return [2 /*return*/, res.status(404).json({
                                 success: false,
                                 msg: messages_1.default.ERROR.PROFISSIONAIS.PROFISSIONAL_NOT_FOUND,
                             })];
@@ -202,7 +202,7 @@ var ProfissionalController = /** @class */ (function () {
                         };
                         return [4 /*yield*/, ProfissionalRepository_1.default.updateProfissional(id, profissionalobb)];
                     case 3:
-                        updated1Profissional = _b.sent();
+                        _b.sent();
                         logger_1.default.info(messages_1.default.SUCCESS.PROFISSIONAIS.PROFISSIONAL_UPDATED);
                         return [2 /*return*/, res.status(200).json({
                                 success: true,
@@ -220,7 +220,7 @@ var ProfissionalController = /** @class */ (function () {
                         };
                         return [4 /*yield*/, ProfissionalRepository_1.default.updateProfissional(id, profissionalObj)];
                     case 5:
-                        updatedProfissional = _b.sent();
+                        _b.sent();
                         logger_1.default.info(messages_1.default.SUCCESS.PROFISSIONAIS.PROFISSIONAL_UPDATED);
                         return [2 /*return*/, res.status(200).json({
                                 success: true,
@@ -249,7 +249,7 @@ var ProfissionalController = /** @class */ (function () {
                         if (!req.params.id || isNaN(parseInt(req.params.id))) {
                             logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
                             return [2 /*return*/, res
-                                    .status(500)
+                                    .status(404)
                                     .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID })];
                         }
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
@@ -258,7 +258,7 @@ var ProfissionalController = /** @class */ (function () {
                         profissional = _a.sent();
                         if (!!profissional) return [3 /*break*/, 2];
                         logger_1.default.error(messages_1.default.ERROR.PROFISSIONAIS.PROFISSIONAL_NOT_FOUND);
-                        return [2 /*return*/, res.status(500).json({
+                        return [2 /*return*/, res.status(404).json({
                                 success: false,
                                 msg: messages_1.default.ERROR.PROFISSIONAIS.PROFISSIONAL_NOT_FOUND,
                             })];
@@ -266,10 +266,7 @@ var ProfissionalController = /** @class */ (function () {
                     case 3:
                         _a.sent();
                         logger_1.default.info(messages_1.default.SUCCESS.PROFISSIONAIS.PROFISSIONAL_DELETED);
-                        return [2 /*return*/, res.status(200).json({
-                                success: true,
-                                msg: messages_1.default.SUCCESS.PROFISSIONAIS.PROFISSIONAL_DELETED,
-                            })];
+                        return [2 /*return*/, res.sendStatus(204)];
                     case 4: return [3 /*break*/, 6];
                     case 5:
                         error_5 = _a.sent();

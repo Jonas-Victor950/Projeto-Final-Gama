@@ -68,13 +68,14 @@ var servicoController = {
                     case 3:
                         error_1 = _b.sent();
                         logger_1.default.error(error_1);
-                        return [3 /*break*/, 4];
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ error: error_1, msg: messages_1.default.ERROR.ERROR_CATCH })];
                     case 4: return [2 /*return*/];
                 }
             });
         });
     },
-    // to mexendo aqui
     listarServico: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             var servicos, error_2;
@@ -86,13 +87,15 @@ var servicoController = {
                     case 1:
                         servicos = _a.sent();
                         if (!servicos) {
-                            logger_1.default.error(messages_1.default.ERROR.SERVICOS.NONE_SERVICO_UNTIL_NOW);
+                            res.status(404).json(messages_1.default.ERROR.SERVICOS.NONE_SERVICO_UNTIL_NOW);
                         }
                         return [2 /*return*/, res.status(200).json(servicos)];
                     case 2:
                         error_2 = _a.sent();
                         logger_1.default.error(error_2);
-                        return [3 /*break*/, 3];
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ error: error_2, msg: messages_1.default.ERROR.ERROR_CATCH })];
                     case 3: return [2 /*return*/];
                 }
             });
@@ -110,7 +113,7 @@ var servicoController = {
                     case 1:
                         servicoId = _a.sent();
                         if (!servicoId) {
-                            return [2 /*return*/, res.json(messages_1.default.ERROR.NOT_VALID_ID)];
+                            return [2 /*return*/, res.status(404).json(messages_1.default.ERROR.NOT_VALID_ID)];
                         }
                         else {
                             return [2 /*return*/, res.status(200).json(servicoId)];
@@ -119,7 +122,9 @@ var servicoController = {
                     case 2:
                         error_3 = _a.sent();
                         logger_1.default.error(error_3);
-                        return [3 /*break*/, 3];
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ error: error_3, msg: messages_1.default.ERROR.ERROR_CATCH })];
                     case 3: return [2 /*return*/];
                 }
             });
@@ -127,7 +132,7 @@ var servicoController = {
     },
     atulizarServico: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, _a, servico, preco, duracao, descricao, servicoAtualizado, servicos, newServico2, error_4;
+            var id, _a, servico, preco, duracao, descricao, servicoAtualizado, newServico2, error_4;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -142,7 +147,7 @@ var servicoController = {
                         };
                         return [4 /*yield*/, ServicoRepository_1.default.atualizarServico(id, servicoAtualizado)];
                     case 1:
-                        servicos = _b.sent();
+                        _b.sent();
                         return [4 /*yield*/, Servico_1.Servico.findById(id)];
                     case 2:
                         newServico2 = _b.sent();
@@ -156,7 +161,9 @@ var servicoController = {
                     case 3:
                         error_4 = _b.sent();
                         logger_1.default.error(error_4);
-                        return [3 /*break*/, 4];
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ error: error_4, msg: messages_1.default.ERROR.ERROR_CATCH })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -164,21 +171,29 @@ var servicoController = {
     },
     deletaServico: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, error_5;
+            var id, service, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
+                        _a.trys.push([0, 5, , 6]);
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
-                        return [4 /*yield*/, ServicoRepository_1.default.deletarServico(id)];
+                        return [4 /*yield*/, Servico_1.Servico.findById(id)];
                     case 1:
+                        service = _a.sent();
+                        if (!!service) return [3 /*break*/, 2];
+                        return [2 /*return*/, res.status(404).json(messages_1.default.ERROR.SERVICOS.SERVICO_NOT_FOUND)];
+                    case 2: return [4 /*yield*/, ServicoRepository_1.default.deletarServico(id)];
+                    case 3:
                         _a.sent();
                         return [2 /*return*/, res.sendStatus(204)];
-                    case 2:
+                    case 4: return [3 /*break*/, 6];
+                    case 5:
                         error_5 = _a.sent();
                         logger_1.default.error(error_5);
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
+                        return [2 /*return*/, res
+                                .status(500)
+                                .json({ error: error_5, msg: messages_1.default.ERROR.ERROR_CATCH })];
+                    case 6: return [2 /*return*/];
                 }
             });
         });
@@ -193,7 +208,7 @@ var servicoController = {
                         return [4 /*yield*/, Servico_1.Servico.find(req.body.filters)];
                     case 1:
                         servico = _a.sent();
-                        return [2 /*return*/, res.json({ servico: servico })];
+                        return [2 /*return*/, res.status(200).json({ servico: servico })];
                     case 2:
                         error_6 = _a.sent();
                         logger_1.default.error(error_6);

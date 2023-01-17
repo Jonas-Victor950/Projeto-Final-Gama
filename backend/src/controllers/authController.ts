@@ -4,6 +4,7 @@ import bcrypty from "bcryptjs";
 import jwt from "jsonwebtoken";
 import secret from "../configs/secret";
 import Logger from "../database/logger";
+import MESSAGE from "../constants/messages";
 
 const AuthController = {
   async loginCliente(req: Request, res: Response) {
@@ -15,13 +16,13 @@ const AuthController = {
       });
 
       if (!cliente) {
-        return res.status(400).json("email não cadastrado!");
+        return res.status(404).json(MESSAGE.ERROR.CLIENTES.CLIENTE_SENHA_EMAIL);
       }
 
       if (!bcrypty.compareSync(senha, cliente.senha)) {
         return res
           .status(401)
-          .json("E-mail ou senha inválido, verifique e tente novamente!");
+          .json(MESSAGE.ERROR.CLIENTES.CLIENTE_SENHA_EMAIL);
       }
 
       const token = jwt.sign(
@@ -33,14 +34,20 @@ const AuthController = {
         { expiresIn: "8h" }
       );
 
-      return res.json({
+      return res.status(200).json({
         error: false,
-        message: "Cliente logado com sucesso!",
+        message: MESSAGE.SUCCESS.CLIENTES.CLIENTE_LOGIN,
         token,
         cliente,
       });
-    } catch (error) {
+    
+    
+    } catch(error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
+      
     }
   },
 };

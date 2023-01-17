@@ -17,21 +17,28 @@ const servicoController = {
     try {
       const servicos = await ServicoRepository.criarServico(novoServico);
       return res.status(201).json(servicos);
+    
     } catch (error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   },
-  // to mexendo aqui
+
   async listarServico(req: Request, res: Response) {
     try {
       const servicos = await ServicoRepository.listarServicos();
       if (!servicos) {
-        Logger.error(MESSAGE.ERROR.SERVICOS.NONE_SERVICO_UNTIL_NOW);
+        res.status(404).json(MESSAGE.ERROR.SERVICOS.NONE_SERVICO_UNTIL_NOW);
       }
 
       return res.status(200).json(servicos);
     } catch (error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   },
 
@@ -39,13 +46,18 @@ const servicoController = {
     try {
       const id = new mongoose.Types.ObjectId(req.params.id);
       const servicoId = await ServicoRepository.listarServicoId(id);
+      
       if (!servicoId) {
-        return res.json(MESSAGE.ERROR.NOT_VALID_ID);
+        return res.status(404).json(MESSAGE.ERROR.NOT_VALID_ID);
       } else {
         return res.status(200).json(servicoId);
       }
+    
     } catch (error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   },
 
@@ -61,7 +73,7 @@ const servicoController = {
         descricao,
       };
 
-      const servicos = await ServicoRepository.atualizarServico(
+      await ServicoRepository.atualizarServico(
         id,
         servicoAtualizado
       );
@@ -69,28 +81,46 @@ const servicoController = {
       const newServico2 = await Servico.findById(id);
       if (!newServico2) {
         res.status(404).json(MESSAGE.ERROR.SERVICOS.SERVICO_NOT_FOUND);
+      
       } else {
         res.status(200).json(MESSAGE.SUCCESS.SERVICO.SERVICO_SENDING);
       }
+    
     } catch (error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   },
 
   async deletaServico(req: Request, res: Response) {
     try {
       const id = new mongoose.Types.ObjectId(req.params.id);
-      await ServicoRepository.deletarServico(id);
-      return res.sendStatus(204);
+      const service = await Servico.findById(id)
+
+      if(!service) {
+        return res.status(404).json(MESSAGE.ERROR.SERVICOS.SERVICO_NOT_FOUND)
+      
+      } else {
+        await ServicoRepository.deletarServico(id);
+        return res.sendStatus(204);
+
+      }
+
     } catch (error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   },
 
   async servicoFilter(req: Request, res: Response) {
     try {
       const servico = await Servico.find(req.body.filters);
-      return res.json({ servico });
+      return res.status(200).json({ servico });
+    
     } catch (error) {
       Logger.error(error);
       res.json({ error: true, message: error });

@@ -68,7 +68,7 @@ var AdminController = {
                     case 2:
                         admin = _b.sent();
                         logger_1.default.info(messages_1.default.SUCCESS.ADMIN.ADMIN_CREATED);
-                        return [2 /*return*/, res.status(200).json({
+                        return [2 /*return*/, res.status(201).json({
                                 success: true,
                                 msg: messages_1.default.SUCCESS.ADMIN.ADMIN_CREATED,
                                 admin: admin,
@@ -96,7 +96,7 @@ var AdminController = {
                         admin = _a.sent();
                         if (admin.length <= 0) {
                             logger_1.default.info(messages_1.default.ERROR.ADMIN.NONE_ADMIN_UNTIL_NOW);
-                            return [2 /*return*/, res.status(200).json({
+                            return [2 /*return*/, res.status(404).json({
                                     success: false,
                                     msg: messages_1.default.ERROR.ADMIN.NONE_ADMIN_UNTIL_NOW,
                                 })];
@@ -131,7 +131,7 @@ var AdminController = {
                         if (!req.params.id || isNaN(parseInt(req.params.id))) {
                             logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
                             return [2 /*return*/, res
-                                    .status(500)
+                                    .status(404)
                                     .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID })];
                         }
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
@@ -140,7 +140,7 @@ var AdminController = {
                         admin = _b.sent();
                         if (!!admin) return [3 /*break*/, 2];
                         logger_1.default.error(messages_1.default.ERROR.ADMIN.ADMIN_NOT_FOUND);
-                        return [2 /*return*/, res.status(500).json({
+                        return [2 /*return*/, res.status(404).json({
                                 success: false,
                                 msg: messages_1.default.ERROR.ADMIN.ADMIN_NOT_FOUND,
                             })];
@@ -198,7 +198,7 @@ var AdminController = {
                         if (!req.params.id || isNaN(parseInt(req.params.id))) {
                             logger_1.default.error(messages_1.default.ERROR.NOT_VALID_ID);
                             return [2 /*return*/, res
-                                    .status(500)
+                                    .status(404)
                                     .json({ success: false, msg: messages_1.default.ERROR.NOT_VALID_ID })];
                         }
                         id = new mongoose_1.default.Types.ObjectId(req.params.id);
@@ -207,7 +207,7 @@ var AdminController = {
                         admin = _a.sent();
                         if (!!admin) return [3 /*break*/, 2];
                         logger_1.default.error(messages_1.default.ERROR.ADMIN.ADMIN_NOT_FOUND);
-                        return [2 /*return*/, res.status(500).json({
+                        return [2 /*return*/, res.status(404).json({
                                 success: false,
                                 msg: messages_1.default.ERROR.ADMIN.ADMIN_NOT_FOUND,
                             })];
@@ -215,10 +215,7 @@ var AdminController = {
                     case 3:
                         _a.sent();
                         logger_1.default.info(messages_1.default.SUCCESS.ADMIN.ADMIN_DELETED);
-                        return [2 /*return*/, res.status(200).json({
-                                success: true,
-                                msg: messages_1.default.SUCCESS.ADMIN.ADMIN_DELETED,
-                            })];
+                        return [2 /*return*/, res.sendStatus(204)];
                     case 4: return [3 /*break*/, 6];
                     case 5:
                         error_4 = _a.sent();

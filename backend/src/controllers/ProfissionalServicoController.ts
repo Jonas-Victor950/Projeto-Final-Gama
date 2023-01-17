@@ -6,7 +6,7 @@ import {
   profissionalServico,
 } from "../models/ProfissionalServico";
 import ProfissionalServicoRepository from "../repositories/ProfissionalServicoRepository";
-import mongoose, { Model } from "mongoose";
+import mongoose from "mongoose";
 import MESSAGE from "../constants/messages";
 
 const ProfissionalServicoController = {
@@ -22,8 +22,12 @@ const ProfissionalServicoController = {
         novoProfissionalServico
       );
       return res.status(201).json(novoProfissionalServico);
+
     } catch (error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
     return res.status(201).json(novoProfissionalServico);
   },
@@ -34,6 +38,7 @@ const ProfissionalServicoController = {
         await ProfissionalServicoRepository.listarProfissionalServico()
           .populate("profissional")
           .populate("servico");
+
       if (!profissionalServicos) {
         Logger.error(
           MESSAGE.ERROR.PROFISSIONALSERVICOS.NONE_PROFISSIONALSERVICO_UNTIL_NOW
@@ -41,8 +46,12 @@ const ProfissionalServicoController = {
       }
 
       return res.status(200).json(profissionalServicos);
+
     } catch (error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   },
 
@@ -54,8 +63,10 @@ const ProfissionalServicoController = {
         await ProfissionalServicoRepository.listarProfissionalServicoId(id)
           .populate("profissional")
           .populate("servico");
+
       if (!profissionalServicoId) {
-        return res.json(MESSAGE.ERROR.NOT_VALID_ID);
+        return res.status(404).json(MESSAGE.ERROR.NOT_VALID_ID);
+
       } else {
         return res.status(200).json(profissionalServicoId);
       }
@@ -72,11 +83,11 @@ const ProfissionalServicoController = {
         servico: Types.ObjectId;
       } = req.body;
 
-      const profissionalServicos =
-        await ProfissionalServicoRepository.atualizarProfissionalServico(
-          id,
-          newProfissionalServico
-        );
+
+      await ProfissionalServicoRepository.atualizarProfissionalServico(
+        id,
+        newProfissionalServico
+      );
 
       const newProfissionalServico2 = await profissionalServico.findById(id);
       if (!newProfissionalServico2) {
@@ -85,6 +96,7 @@ const ProfissionalServicoController = {
           .json(
             MESSAGE.ERROR.PROFISSIONALSERVICOS.PROFISSIONALSERVICO_NOT_FOUND
           );
+
       } else {
         res
           .status(200)
@@ -92,20 +104,37 @@ const ProfissionalServicoController = {
             MESSAGE.SUCCESS.PROFISSIONALSERVICO.PROFISSIONALSERVICO_SENDING
           );
       }
+
     } catch (error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   },
   async deletaProfissionalServico(req: Request, res: Response) {
     try {
       const id = new mongoose.Types.ObjectId(req.params.id);
-      const profissionalServico =
+
+      const profissionalService = await profissionalServico.findById(id)
+
+      if (!profissionalService) {
+        return res.status(404).json(MESSAGE.ERROR.NOT_VALID_ID);
+
+      } else {
         await ProfissionalServicoRepository.deletarProfissionalServico(id);
-      return res
-        .json(MESSAGE.SUCCESS.PROFISSIONALSERVICO.PROFISSIONALSERVICO_DELETED)
-        .sendStatus(204);
+
+        return res
+          .json(MESSAGE.SUCCESS.PROFISSIONALSERVICO.PROFISSIONALSERVICO_DELETED)
+          .sendStatus(204);
+
+      };
+
     } catch (error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   },
 };

@@ -6,8 +6,8 @@ import Logger from "../database/logger";
 import { Agenda, IAgenda } from "../models/Agenda";
 import AgendaRepository from "../repositories/AgendaRepository";
 import ClienteRepository from "../repositories/ClienteRepository";
-import Sender from "./sender";
-const sender = new Sender();
+//import Sender from "./sender";
+//const sender = new Sender();
 
 const AgendaController = {
   async cadastroAgenda(req: Request, res: Response) {
@@ -39,13 +39,16 @@ const AgendaController = {
     try {
       const agendaCriada = await AgendaRepository.criarAgenda(agenda);
 
-      const zap = await sender.sendText(clienteNumero, message1);
-      console.log(message1);
+      //const zap = await sender.sendText(clienteNumero, message1);
       return res
         .status(201)
         .json({ agendaCriada, message: MESSAGE.SUCCESS.AGENDA.AGENDA_CREATED });
-    } catch (error) {
+    }
+    catch (error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   },
 
@@ -55,8 +58,12 @@ const AgendaController = {
         .populate("profissionalServico")
         .populate("cliente");
       return res.status(200).json({ Agenda: agenda });
-    } catch (error) {
+    
+    } catch(error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   },
 
@@ -66,12 +73,17 @@ const AgendaController = {
       const agenda = await AgendaRepository.listarAgendaId(id)
         .populate("profissionalServico")
         .populate("cliente");
-      if (!agenda) {
+      
+      if(!agenda) {
         return res.status(404).json(MESSAGE.ERROR.NOT_VALID_ID);
       }
       return res.status(200).json(agenda);
-    } catch (error) {
+    
+    } catch(error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   },
 
@@ -90,15 +102,19 @@ const AgendaController = {
         .populate("profissionalServico")
         .populate("cliente");
 
-      if (!agendaAtualizada) {
+      if(!agendaAtualizada) {
         return res.status(404).json(MESSAGE.ERROR.NOT_VALID_ID);
       }
       return res.status(200).json({
         agendaAtualizada,
         message: MESSAGE.SUCCESS.AGENDA.AGENDA_UPDATED,
       });
-    } catch (error) {
+    
+    } catch(error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   },
 
@@ -106,43 +122,51 @@ const AgendaController = {
     try {
       const id = new mongoose.Types.ObjectId(req.params.id);
       const agenda = await AgendaRepository.deletarAgendar(id);
-      if (!agenda) {
-        res.json(MESSAGE.ERROR.NOT_VALID_ID);
-        return;
+      
+      if(!agenda) {
+       return res.json(MESSAGE.ERROR.NOT_VALID_ID);
       }
-
+      
       return res.sendStatus(204);
-    } catch (error) {
+    
+    } catch(error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   },
 
   async agendaProfissionais(req: Request, res: Response) {
     try {
-      //const id = new mongoose.Types.ObjectId(req.params.id);
       const agenda = await AgendaRepository.agendaProfissionais();
+      
       return res.status(200).json({ Agenda: agenda });
-    } catch (error) {
+    
+    } catch(error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   },
 
   async agendaProfissionaisData(req: Request, res: Response) {
     try {
-      //const id = new mongoose.Types.ObjectId(req.params.id);
       const d1 = new Date(req.params.d1);
       const d2 = new Date(req.params.d2);
       const agenda = await AgendaRepository.agendaProfissionaisData(d1, d2);
+      
       return res.status(200).json({ Agenda: agenda });
+    
     } catch (error) {
       Logger.error(error);
     }
-  }, //Fim da agendaProffisionaisData
+  }, //Fim da agendaProfissionaisData
 
   //Rotas de acesso a agenda pelo cliente
   async agendaClientesData(req: Request, res: Response) {
     try {
-      //const id = new mongoose.Types.ObjectId(req.params.id);
       const d1 = new Date(req.params.d1);
       const d2 = new Date(req.params.d2);
       const cliId = new mongoose.Types.ObjectId(req.params.cliId);
@@ -150,8 +174,12 @@ const AgendaController = {
       const agenda = await AgendaRepository.agendaClienteData(d1, d2, cliId);
 
       return res.status(200).json({ Agenda: agenda });
+    
     } catch (error) {
       Logger.error(error);
+      return res
+        .status(500)
+        .json({ error, msg: MESSAGE.ERROR.ERROR_CATCH });
     }
   },
 };
