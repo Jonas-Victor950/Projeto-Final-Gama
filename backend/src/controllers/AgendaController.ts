@@ -6,8 +6,8 @@ import Logger from "../database/logger";
 import { Agenda, IAgenda } from "../models/Agenda";
 import AgendaRepository from "../repositories/AgendaRepository";
 import ClienteRepository from "../repositories/ClienteRepository";
-//import Sender from "./sender";
-//const sender = new Sender();
+import Sender from "./sender";
+const sender = new Sender();
 
 const AgendaController = {
   async cadastroAgenda(req: Request, res: Response) {
@@ -39,7 +39,7 @@ const AgendaController = {
     try {
       const agendaCriada = await AgendaRepository.criarAgenda(agenda);
 
-      //const zap = await sender.sendText(clienteNumero, message1);
+      const zap = await sender.sendText(clienteNumero, message1);
       return res
         .status(201)
         .json({ agendaCriada, message: MESSAGE.SUCCESS.AGENDA.AGENDA_CREATED });
