@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { string } from "joi";
+import moment from "moment";
 import mongoose, { ObjectId } from "mongoose";
 import MESSAGE from "../constants/messages";
 import Logger from "../database/logger";
@@ -24,13 +25,12 @@ const AgendaController = {
     const clienteNumero = clienteData?.telefone as string;
     const clienteNome = clienteData?.nome as string;
 
-    const dataDiaF = new Date(data).toLocaleDateString();
-    const dataHoraF = new Date(data).toLocaleTimeString();
-    const diaHora = ` ${dataDiaF} às ${dataHoraF}hs `;
+    const dataDia = moment(data).locale('pt-br').format('LLLL')
+
 
     const message1: string = `Caro(a) ${clienteNome},
     Obrigado pelo agendamento em nosso salão Beleza da Agenda.
-    Esperamos vê-lo em ${diaHora}. 
+    Esperamos vê-lo em ${dataDia}hs. 
     Pedimos gentilmente que você chegue 10 a 15 minutos antes do horário marcado.
     Caso precise cancelar ou reagendar: 
     Avise-nos com pelo menos 24 horas de antecedência.

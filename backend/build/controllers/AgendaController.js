@@ -39,6 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var moment_1 = __importDefault(require("moment"));
 var mongoose_1 = __importDefault(require("mongoose"));
 var messages_1 = __importDefault(require("../constants/messages"));
 var logger_1 = __importDefault(require("../database/logger"));
@@ -50,7 +51,7 @@ var sender = new sender_1.default();
 var AgendaController = {
     cadastroAgenda: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, profissionalServico, cliente, data, agenda, clienteData, clienteNumero, clienteNome, dataDiaF, dataHoraF, diaHora, message1, agendaCriada, zap, error_1;
+            var _a, profissionalServico, cliente, data, agenda, clienteData, clienteNumero, clienteNome, dataDia, message1, agendaCriada, zap, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -65,10 +66,8 @@ var AgendaController = {
                         clienteData = _b.sent();
                         clienteNumero = clienteData === null || clienteData === void 0 ? void 0 : clienteData.telefone;
                         clienteNome = clienteData === null || clienteData === void 0 ? void 0 : clienteData.nome;
-                        dataDiaF = new Date(data).toLocaleDateString();
-                        dataHoraF = new Date(data).toLocaleTimeString();
-                        diaHora = " ".concat(dataDiaF, " \u00E0s ").concat(dataHoraF, "hs ");
-                        message1 = "Caro(a) ".concat(clienteNome, ",\n    Obrigado pelo agendamento em nosso sal\u00E3o Beleza da Agenda.\n    Esperamos v\u00EA-lo em ").concat(diaHora, ". \n    Pedimos gentilmente que voc\u00EA chegue 10 a 15 minutos antes do hor\u00E1rio marcado.\n    Caso precise cancelar ou reagendar: \n    Avise-nos com pelo menos 24 horas de anteced\u00EAncia.\n    Estamos ansiosos para v\u00EA-lo em breve!");
+                        dataDia = (0, moment_1.default)(data).locale('pt-br').format('LLLL');
+                        message1 = "Caro(a) ".concat(clienteNome, ",\n    Obrigado pelo agendamento em nosso sal\u00E3o Beleza da Agenda.\n    Esperamos v\u00EA-lo em ").concat(dataDia, "hs. \n    Pedimos gentilmente que voc\u00EA chegue 10 a 15 minutos antes do hor\u00E1rio marcado.\n    Caso precise cancelar ou reagendar: \n    Avise-nos com pelo menos 24 horas de anteced\u00EAncia.\n    Estamos ansiosos para v\u00EA-lo em breve!");
                         _b.label = 2;
                     case 2:
                         _b.trys.push([2, 5, , 6]);
